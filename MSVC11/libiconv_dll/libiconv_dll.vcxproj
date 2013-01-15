@@ -99,6 +99,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv_debug.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <OutputFile>Debug\libiconv_debug.dll</OutputFile>
@@ -107,6 +108,8 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
+      <ProgramDatabaseFile>$(OutDir)libiconv_debug.pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(OutDir)libiconv_debug.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -149,6 +152,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <OutputFile>Release\libiconv.dll</OutputFile>
@@ -159,6 +163,8 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
+      <ProgramDatabaseFile>$(OutDir)libiconv.pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(OutDir)libiconv.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
