@@ -129,6 +129,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv_debug.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <OutputFile>x64\Debug\libiconv_debug.dll</OutputFile>
@@ -137,6 +138,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX64</TargetMachine>
+      <ImportLibrary>$(OutDir)libiconv_debug.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -183,6 +185,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <OutputFile>x64\Release\libiconv.dll</OutputFile>
@@ -193,6 +196,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX64</TargetMachine>
+      <ImportLibrary>$(OutDir)libiconv.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
