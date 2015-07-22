@@ -108,7 +108,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
-      <ProgramDatabaseFile>$(OutDir)libiconv_debug.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)libiconv_debug.pdb</ProgramDatabaseFile>
       <ImportLibrary>$(OutDir)libiconv_debug.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -139,6 +139,7 @@
       <DataExecutionPrevention />
       <TargetMachine>MachineX64</TargetMachine>
       <ImportLibrary>$(OutDir)libiconv_debug.lib</ImportLibrary>
+      <ProgramDatabaseFile>$(IntDir)libiconv_debug.pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -165,7 +166,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
-      <ProgramDatabaseFile>$(OutDir)libiconv.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)libiconv.pdb</ProgramDatabaseFile>
       <ImportLibrary>$(OutDir)libiconv.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -197,6 +198,7 @@
       <DataExecutionPrevention />
       <TargetMachine>MachineX64</TargetMachine>
       <ImportLibrary>$(OutDir)libiconv.lib</ImportLibrary>
+      <ProgramDatabaseFile>$(IntDir)libiconv.pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

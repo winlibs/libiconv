@@ -95,6 +95,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv_a_debug.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Lib>
       <OutputFile>Debug\libiconv_a_debug.lib</OutputFile>
@@ -117,6 +118,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv_a_debug.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Lib>
       <OutputFile>x64\Debug\libiconv_a_debug.lib</OutputFile>
@@ -135,6 +137,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv_a.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Lib>
       <OutputFile>Release\libiconv_a.lib</OutputFile>
@@ -156,6 +159,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(IntDir)libiconv_a.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Lib>
       <OutputFile>x64\Release\libiconv_a.lib</OutputFile>
