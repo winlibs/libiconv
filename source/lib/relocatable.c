@@ -310,7 +310,7 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
       /* The DLL is being loaded into an application's address range.  */
       static char location[MAX_PATH];
 
-      if (!GetModuleFileName (module_handle, location, sizeof (location)))
+      if (!GetModuleFileNameA (module_handle, location, sizeof (location)))
         /* Shouldn't happen.  */
         return FALSE;
 
@@ -318,7 +318,7 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
         /* Shouldn't happen.  */
         return FALSE;
 
-      shared_library_fullname = strdup (location);
+      shared_library_fullname = _strdup (location);
     }
 
   return TRUE;
