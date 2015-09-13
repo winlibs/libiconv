@@ -15,32 +15,32 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\source\lib\iconv.c">
+    <ClCompile Include="..\source\lib\iconv.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\libcharset\lib\localcharset.c">
+    <ClCompile Include="..\source\libcharset\lib\localcharset.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\lib\relocatable.c">
+    <ClCompile Include="..\source\lib\relocatable.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\source\config.h">
+    <ClInclude Include="..\source\config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\include\iconv.h">
+    <ClInclude Include="..\source\include\iconv.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\lib\localcharset.h">
+    <ClInclude Include="..\source\lib\localcharset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\libiconv-64.rc">
+    <ResourceCompile Include="libiconv-64.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="..\libiconv.rc">
+    <ResourceCompile Include="libiconv.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

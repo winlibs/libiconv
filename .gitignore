@@ -48,6 +48,7 @@ local.properties
 x64/
 build/
 [Bb]in/
+Win32/
 [Oo]bj/
 
 # MSTest test Results
