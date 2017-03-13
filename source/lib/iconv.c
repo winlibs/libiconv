@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1999-2008, 2011 Free Software Foundation, Inc.
+ * Copyright (C) 1999-2008, 2011, 2016 Free Software Foundation, Inc.
  * This file is part of the GNU LIBICONV Library.
  *
  * The GNU LIBICONV Library is free software; you can redistribute it
@@ -14,15 +14,12 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with the GNU LIBICONV Library; see the file COPYING.LIB.
- * If not, write to the Free Software Foundation, Inc., 51 Franklin Street,
- * Fifth Floor, Boston, MA 02110-1301, USA.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <iconv.h>
-#ifndef ICONV_CONST
-# define ICONV_CONST
-#endif
 
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 #include "config.h"
@@ -181,8 +178,12 @@ static const struct alias sysdep_aliases[] = {
 };
 #ifdef __GNUC__
 __inline
+#else
+#ifdef __cplusplus
+inline
 #endif
-const struct alias *
+#endif
+static const struct alias *
 aliases2_lookup (register const char *str)
 {
   const struct alias * ptr;
@@ -427,7 +428,7 @@ void iconvlist (int (*do_one) (unsigned int namescount,
         namesbuf[i++] = aliasbuf[j++].name;
       while (j < num_aliases && aliasbuf[j].encoding_index == ei);
       if (i > 1)
-        qsort((char *)namesbuf, i, sizeof(const char *), compare_by_name);
+        qsort(namesbuf, i, sizeof(const char *), compare_by_name);
       /* Call the callback. */
       if (do_one(i,namesbuf,data))
         break;
