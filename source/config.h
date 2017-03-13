@@ -160,16 +160,16 @@
 /* #undef HAVE_MALLOC_POSIX */
 
 /* Define to 1 if you have the `mbrtowc' function. */
-/* #undef HAVE_MBRTOWC */
+#define HAVE_MBRTOWC 1
 
 /* Define to 1 if you have the `mbsinit' function. */
-/* #undef HAVE_MBSINIT */
+#define HAVE_MBSINIT 1
 
 /* Define to 1 if <wchar.h> declares mbstate_t. */
-/* #undef HAVE_MBSTATE_T */
+#define HAVE_MBSTATE_T 1
 
 /* Define to 1 if you have the `memmove' function. */
-/* #undef HAVE_MEMMOVE */
+#define HAVE_MEMMOVE 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 /* #undef HAVE_MEMORY_H */
