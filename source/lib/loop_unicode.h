@@ -43,7 +43,7 @@ static int unicode_transliterate (conv_t cd, ucs4_t wc,
         sub_outcount = cd->ofuncs.xxx_wctomb(cd,outptr,buf[i],outleft);
         if (sub_outcount <= RET_ILUNI)
           goto johab_hangul_failed;
-        if (!(sub_outcount <= outleft)) abort();
+        if (!((unsigned int) sub_outcount <= outleft)) abort();
         outptr += sub_outcount; outleft -= sub_outcount;
       }
       return outptr-backup_outptr;
@@ -87,7 +87,7 @@ static int unicode_transliterate (conv_t cd, ucs4_t wc,
             sub_outcount = cd->ofuncs.xxx_wctomb(cd,outptr,buf[i],outleft);
             if (sub_outcount <= RET_ILUNI)
               goto variant_failed;
-            if (!(sub_outcount <= outleft)) abort();
+            if (!((unsigned int) sub_outcount <= outleft)) abort();
             outptr += sub_outcount; outleft -= sub_outcount;
           }
           return outptr-backup_outptr;
@@ -138,7 +138,7 @@ static int unicode_transliterate (conv_t cd, ucs4_t wc,
           sub_outcount = unicode_transliterate(cd,cp[i],outptr,outleft);
         if (sub_outcount <= RET_ILUNI)
           goto translit_failed;
-        if (!(sub_outcount <= outleft)) abort();
+        if (!((unsigned int) sub_outcount <= outleft)) abort();
         outptr += sub_outcount; outleft -= sub_outcount;
       }
       return outptr-backup_outptr;
@@ -254,7 +254,7 @@ static void mb_to_uc_write_replacement (const unsigned int *buf, size_t buflen,
       if (cd->hooks.uc_hook)
         (*cd->hooks.uc_hook)(wc, cd->hooks.data);
       #endif
-      if (!(outcount <= outleft)) abort();
+      if (!((unsigned int)outcount <= outleft)) abort();
       outptr += outcount; outleft -= outcount;
     outcount_zero: ;
     }
@@ -414,11 +414,11 @@ static size_t unicode_loop_convert (iconv_t icd,
       if (cd->hooks.uc_hook)
         (*cd->hooks.uc_hook)(wc, cd->hooks.data);
       #endif
-      if (!(outcount <= outleft)) abort();
+      if (!((unsigned int)outcount <= outleft)) abort();
       outptr += outcount; outleft -= outcount;
     }
   outcount_zero:
-    if (!(incount <= inleft)) abort();
+    if (!((unsigned int)incount <= inleft)) abort();
     inptr += incount; inleft -= incount;
   }
   *inbuf = (const char*) inptr;
@@ -499,7 +499,7 @@ static size_t unicode_loop_reset (iconv_t icd,
         if (cd->hooks.uc_hook)
           (*cd->hooks.uc_hook)(wc, cd->hooks.data);
         #endif
-        if (!(outcount <= outleft)) abort();
+        if (!((unsigned int)outcount <= outleft)) abort();
         outptr += outcount;
         outleft -= outcount;
       outcount_zero:
@@ -515,7 +515,7 @@ static size_t unicode_loop_reset (iconv_t icd,
         errno = E2BIG;
         return -1;
       }
-      if (!(outcount <= outleft)) abort();
+      if (!((unsigned int)outcount <= outleft)) abort();
       *outbuf = (char*) (outptr + outcount);
       *outbytesleft = outleft - outcount;
     }

@@ -329,7 +329,7 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
       /* The DLL is being loaded into an application's address range.  */
       static char location[MAX_PATH];
 
-      if (!GetModuleFileName (module_handle, location, sizeof (location)))
+      if (!GetModuleFileNameA (module_handle, location, sizeof (location)))
         /* Shouldn't happen.  */
         return FALSE;
 
