@@ -100,6 +100,39 @@ extern LIBICONV_DLL_EXPORTED int iconv_close (iconv_t cd);
 
 /* Nonstandard extensions. */
 
+#if USE_MBSTATE_T
+#if BROKEN_WCHAR_H
+/* Tru64 with Desktop Toolkit C has a bug: <stdio.h> must be included before
+   <wchar.h>.
+   BSD/OS 4.0.1 has a bug: <stddef.h>, <stdio.h> and <time.h> must be
+   included before <wchar.h>.  */
+#include <stddef.h>
+#include <stdio.h>
+#include <time.h>
+#endif
+#include <wchar.h>
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* A type that holds all memory needed by a conversion descriptor.
+   A pointer to such an object can be used as an iconv_t. */
+typedef struct {
+  void* dummy1[28];
+#if USE_MBSTATE_T
+  mbstate_t dummy2;
+#endif
+} iconv_allocation_t;
+
+/* Allocates descriptor for code conversion from encoding ‘fromcode’ to
+   encoding ‘tocode’ into preallocated memory. Returns an error indicator
+   (0 or -1 with errno set). */
+#define iconv_open_into libiconv_open_into
+extern int iconv_open_into (const char* tocode, const char* fromcode,
+                            iconv_allocation_t* resultp);
+
 /* Control of attributes. */
 #define iconvctl libiconvctl
 extern LIBICONV_DLL_EXPORTED int iconvctl (iconv_t cd, int request, void* argument);

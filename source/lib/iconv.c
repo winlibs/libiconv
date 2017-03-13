@@ -175,7 +175,7 @@ static const struct stringpool2_t stringpool2_contents = {
 };
 #define stringpool2 ((const char *) &stringpool2_contents)
 static const struct alias sysdep_aliases[] = {
-#define S(tag,name,encoding_index) { (int)(long)&((struct stringpool2_t *)0)->stringpool_##tag, encoding_index },
+#define S(tag,name,encoding_index) { (int)(INT_PTR)&((struct stringpool2_t *)0)->stringpool_##tag, encoding_index },
 #include "aliases2.h"
 #undef S
 };
@@ -431,7 +431,7 @@ void iconvlist (int (*do_one) (unsigned int namescount,
         namesbuf[i++] = aliasbuf[j++].name;
       while (j < num_aliases && aliasbuf[j].encoding_index == ei);
       if (i > 1)
-        qsort((char *)namesbuf, i, sizeof(const char *), compare_by_name);
+        qsort(namesbuf, i, sizeof(const char *), compare_by_name);
       /* Call the callback. */
       if (do_one(i,namesbuf,data))
         break;

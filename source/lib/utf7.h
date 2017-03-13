@@ -158,7 +158,7 @@ active:
         else
           break;
       }
-      if ((unsigned int) n < count+base64count+1)
+      if (n < count+base64count+1)
         goto none;
     }
     /* Here k = kmax > 0, hence base64count > 0. */
@@ -327,7 +327,7 @@ utf7_reset (conv_t conv, unsigned char *r, size_t n)
   if (state & 3) {
     /* deactivate base64 encoding */
     unsigned int count = ((state & 3) >= 2 ? 1 : 0) + 1;
-    if ((unsigned int) n < count)
+    if (n < count)
       return RET_TOOSMALL;
     if ((state & 3) >= 2) {
       unsigned int i = state & -4;

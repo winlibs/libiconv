@@ -36,7 +36,7 @@ hz_mbtowc (conv_t conv, ucs4_t *pwc, const unsigned char *s, size_t n)
   for (;;) {
     c = *s;
     if (c == '~') {
-      if ((unsigned int)n < count+2)
+      if (n < count+2)
         goto none;
       c = s[1];
       if (state == 0) {
@@ -48,13 +48,13 @@ hz_mbtowc (conv_t conv, ucs4_t *pwc, const unsigned char *s, size_t n)
         if (c == '{') {
           state = 1;
           s += 2; count += 2;
-          if ((unsigned int)n < count+1)
+          if (n < count+1)
             goto none;
           continue;
         }
         if (c == '\n') {
           s += 2; count += 2;
-          if ((unsigned int)n < count+1)
+          if (n < count+1)
             goto none;
           continue;
         }
@@ -62,7 +62,7 @@ hz_mbtowc (conv_t conv, ucs4_t *pwc, const unsigned char *s, size_t n)
         if (c == '}') {
           state = 0;
           s += 2; count += 2;
-          if ((unsigned int)n < count+1)
+          if (n < count+1)
             goto none;
           continue;
         }
@@ -77,7 +77,7 @@ hz_mbtowc (conv_t conv, ucs4_t *pwc, const unsigned char *s, size_t n)
     return count+1;
   } else {
     int ret;
-    if ((unsigned int)n < count+2)
+    if (n < count+2)
       goto none;
     ret = gb2312_mbtowc(conv,pwc,s,2);
     if (ret == RET_ILSEQ)
