@@ -372,7 +372,7 @@
 
 
 /* Define to a type if <wchar.h> does not define. */
-#if _MSC_VER < 1910
+#if !defined(HAVE_MBSTATE_T) || _MSC_VER < 1900
 #define mbstate_t int
 #endif
 
