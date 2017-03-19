@@ -95,6 +95,9 @@ extern LIBICONV_DLL_EXPORTED size_t iconv (iconv_t cd,  char* * inbuf, size_t *i
 #endif
 extern LIBICONV_DLL_EXPORTED int iconv_close (iconv_t cd);
 
+#ifdef __cplusplus
+}
+#endif
 
 #ifndef LIBICONV_PLUG
 
@@ -234,11 +237,11 @@ extern LIBICONV_DLL_EXPORTED const char * iconv_canonicalize (const char * name)
 extern LIBICONV_DLL_EXPORTED void libiconv_set_relocation_prefix (const char *orig_prefix,
 					    const char *curr_prefix);
 
-#endif
-
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif
 
 
