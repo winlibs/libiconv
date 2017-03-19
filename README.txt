@@ -1,4 +1,4 @@
-Source Version: 1.12 2007.11.08 release
+Source Version: 1.15 2017.02.03 release
 
 Source From: http://ftp.gnu.org/pub/gnu/libiconv/
 
