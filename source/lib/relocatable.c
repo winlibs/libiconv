@@ -337,7 +337,7 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
         /* Shouldn't happen.  */
         return FALSE;
 
-      shared_library_fullname = strdup (location);
+      shared_library_fullname = _strdup (location);
     }
 
   return TRUE;
