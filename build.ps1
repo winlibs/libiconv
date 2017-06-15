@@ -44,7 +44,7 @@ if($vsver -eq 90) {
 }
 $iconvLib = Join-Path (pwd) "libiconv_${suffix}${x64Dir}\$Configuration"
 $iconvInc = Join-Path (pwd) ..\source\include
-Set-Location ..\..
+Set-Location ..
 
 # Pushed by Import-VisualStudioVars
 Pop-EnvironmentBlock

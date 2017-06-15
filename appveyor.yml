@@ -1,11 +1,15 @@
-configuration:
-  - Debug
-  - Release
+# configuration:
+#  - Debug
+#  - Release
 
 environment:
   matrix:
   - arch: x64
+    vsver: 120
+  - arch: x64
     vsver: 140
+  - arch: x64
+    vsver: 90
 
 install:
 - ps: install-module pscx -scope CurrentUser
