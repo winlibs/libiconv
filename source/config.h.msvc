@@ -160,16 +160,16 @@
 /* #undef HAVE_MALLOC_POSIX */
 
 /* Define to 1 if you have the `mbrtowc' function. */
-#define HAVE_MBRTOWC 1
+/* #undef HAVE_MBRTOWC */
 
 /* Define to 1 if you have the `mbsinit' function. */
-#define HAVE_MBSINIT 1
+/* #undef HAVE_MBSINIT */
 
 /* Define to 1 if <wchar.h> declares mbstate_t. */
-#define HAVE_MBSTATE_T 1
+/* #undef HAVE_MBSTATE_T */
 
 /* Define to 1 if you have the `memmove' function. */
-#define HAVE_MEMMOVE 1
+/* #undef HAVE_MEMMOVE */
 
 /* Define to 1 if you have the <memory.h> header file. */
 /* #undef HAVE_MEMORY_H */
@@ -372,8 +372,8 @@
 
 
 /* Define to a type if <wchar.h> does not define. */
-#if !defined(HAVE_MBSTATE_T) || _MSC_VER < 1900
-#define mbstate_t int
+#if _MSC_VER < 1900
+# define mbstate_t int
 #endif
 
 /* Define to a replacement function name for realpath(). */
