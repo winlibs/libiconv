@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with the GNU LIBICONV Library; see the file COPYING.LIB.
- * If not, see <http://www.gnu.org/licenses/>.
+ * If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* This file defines three conversion loops:
@@ -35,10 +35,8 @@
 # include <time.h>
 # include <wchar.h>
 # define BUF_SIZE 64  /* assume MB_LEN_MAX <= 64 */
-#ifndef _WIN32
   /* Some systems, like BeOS, have multibyte encodings but lack mbstate_t.  */
   extern size_t mbrtowc ();
-#endif
 # ifdef mbstate_t
 #  define mbrtowc(pwc, s, n, ps) (mbrtowc)(pwc, s, n, 0)
 #  define mbsinit(ps) 1
