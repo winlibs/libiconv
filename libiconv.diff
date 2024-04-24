@@ -676,7 +676,7 @@ index 0000000..8818404
 +
 +#endif /* _LIBICONV_H */
 diff --git a/source/lib/aliases.h b/source/lib/aliases.h
-index ee7adf6..a59476b 100644
+index 6d3039c..fbeab50 100644
 --- a/source/lib/aliases.h
 +++ b/source/lib/aliases.h
 @@ -2,6 +2,14 @@
@@ -694,7 +694,7 @@ index ee7adf6..a59476b 100644
  #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
        && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
        && (')' == 41) && ('*' == 42) && ('+' == 43) && (',' == 44) \
-@@ -815,890 +823,890 @@ static const struct alias aliases[] =
+@@ -860,890 +868,890 @@ static const struct alias aliases[] =
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
  #line 134 "lib/aliases.gperf"
@@ -1933,7 +1933,7 @@ index ee7adf6..a59476b 100644
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
-@@ -1706,7 +1714,7 @@ static const struct alias aliases[] =
+@@ -1751,7 +1759,7 @@ static const struct alias aliases[] =
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
  #line 270 "lib/aliases.gperf"
@@ -1941,7 +1941,8 @@ index ee7adf6..a59476b 100644
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str921, ei_jisx0201}
    };
  
- const struct alias *
+ static const struct alias *
+
 diff --git a/source/lib/aliases.h.orig b/source/lib/aliases.h.orig
 new file mode 100644
 index 0000000..ee7adf6
