@@ -3,7 +3,7 @@
 libiconv is a character set conversion library from
 [http://ftp.gnu.org/pub/gnu/libiconv/](http://ftp.gnu.org/pub/gnu/libiconv/)
 
-PHP currently uses 1.14 released 2011.08.07
+PHP currently uses 1.17 released 2022.05.15
 
 libiconv development has been moved to [https://savannah.gnu.org/projects/libi
 conv/](https://savannah.gnu.org/projects/libiconv/)
