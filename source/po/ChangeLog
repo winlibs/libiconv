@@ -1,3 +1,30 @@
+2022-05-15  Bruno Haible  <bruno@clisp.org>
+
+	Use the newest gettext release.
+	* Makefile.in.in: Upgrade to gettext-0.21, keeping the change
+		2019-01-27  Bruno Haible  <bruno@clisp.org>
+		Accommodate a shell that is not in /bin/sh.
+		* Makefile.in.in (SHELL): Use the value found by configure.
+
+2022-05-15  Bruno Haible  <bruno@clisp.org>
+
+	Update translations.
+	* *.po: Update from TP, with 'msgmerge --previous'.
+	* LINGUAS: Add ko.
+
+2019-07-02  Bruno Haible  <bruno@clisp.org>
+
+	Use the newest gettext release.
+	* Makefile.in.in: Upgrade to gettext-0.20.1, keeping the change
+		2019-01-27  Bruno Haible  <bruno@clisp.org>
+		Accommodate a shell that is not in /bin/sh.
+		* Makefile.in.in (SHELL): Use the value found by configure.
+	* Rules-quot: Upgrade to gettext-0.20.1.
+	* en@boldquot.header: Upgrade to gettext-0.20.1.
+	* en@quot.header: Upgrade to gettext-0.20.1.
+	* insert-header.sin: Upgrade to gettext-0.20.1.
+	* remove-potcdate.sin: Upgrade to gettext-0.20.1.
+
 2019-04-26  Bruno Haible  <bruno@clisp.org>
 
 	* cs.po: Update from Petr Pisar <petr.pisar@atlas.cz>.

@@ -1,5 +1,5 @@
-# relocatable.m4 serial 23
-dnl Copyright (C) 2003, 2005-2007, 2009-2019 Free Software Foundation, Inc.
+# relocatable.m4 serial 24
+dnl Copyright (C) 2003, 2005-2007, 2009-2022 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -57,7 +57,7 @@ AC_DEFUN([gl_RELOCATABLE_BODY],
       # glibc systems, Linux with musl libc: yes. Android: no.
       linux*-android*) ;;
       linux* | kfreebsd*) use_elf_origin_trick=yes ;;
-      # Hurd: <http://lists.gnu.org/archive/html/bug-hurd/2019-02/msg00049.html>
+      # Hurd: <https://lists.gnu.org/r/bug-hurd/2019-02/msg00049.html>
       # only after the glibc commit from 2018-01-08
       # <https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=311ba8dc4416467947eff2ab327854f124226309>
       gnu*)
@@ -68,10 +68,11 @@ AC_DEFUN([gl_RELOCATABLE_BODY],
         fi
         ;;
 changequote(,)dnl
-      # FreeBSD >= 7.3, DragonFly >= 3.0: yes.
+      # FreeBSD >= 7.3, DragonFly >= 3.0, MidnightBSD >= 1.1: yes.
       freebsd | freebsd[1-7] | freebsd[1-6].* | freebsd7.[0-2]) ;;
       dragonfly | dragonfly[1-2] | dragonfly[1-2].*) ;;
-      freebsd* | dragonfly*) use_elf_origin_trick=yes ;;
+      midnightbsd | midnightbsd0* | midnightbsd1.0*) ;;
+      freebsd* | dragonfly* | midnightbsd*) use_elf_origin_trick=yes ;;
       # NetBSD >= 8.0: yes.
       netbsd | netbsd[1-7] | netbsd[1-7].*) ;;
       netbsdelf | netbsdelf[1-7] | netbsdelf[1-7].*) ;;

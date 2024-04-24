@@ -3,13 +3,13 @@
 
 SHELL = /bin/sh
 MAKE = make
-AUTOCONF = autoconf-2.69
-AUTOHEADER = autoheader-2.69
+AUTOCONF = autoconf
+AUTOHEADER = autoheader
 ACLOCAL = aclocal-1.16
 CP = cp
 RM = rm -f
 
-all : configures include/localcharset.h.build.in
+all : configures include/libcharset.h.build.in include/localcharset.h.build.in
 
 autoconf/aclocal.m4 : $(wildcard m4/*.m4)
 	test -d autoconf || mkdir autoconf
@@ -24,12 +24,17 @@ config.h.in : configure.ac autoconf/aclocal.m4
 	$(AUTOHEADER) --include autoconf && rm -rf autom4te.cache
 	touch config.h.in
 
+include/libcharset.h.build.in : include/libcharset.h.in include/export.h
+	sed -e 's/extern \([^"]\)/extern LIBCHARSET_DLL_EXPORTED \1/' \
+	    -e '/#define _LIBCHARSET_H/r include/export.h' \
+	  < $< > $@
+
 include/localcharset.h.build.in : include/localcharset.h.in include/export.h
 	sed -e 's/extern \([^"]\)/extern LIBCHARSET_DLL_EXPORTED \1/' \
 	    -e '/#define _LOCALCHARSET_H/r include/export.h' \
 	  < $< > $@
 
 totally-clean : force
-	rm -f autoconf/aclocal.m4 configure config.h.in include/localcharset.h.build.in
+	rm -f autoconf/aclocal.m4 configure config.h.in include/libcharset.h.build.in include/localcharset.h.build.in
 
 force :

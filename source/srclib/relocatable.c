@@ -1,18 +1,18 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003-2006, 2008-2019 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006, 2008-2022 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 3 of the License, or
-   (at your option) any later version.
+   This file is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as
+   published by the Free Software Foundation; either version 2.1 of the
+   License, or (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful,
+   This file is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+   GNU Lesser General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
+   You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 
@@ -65,6 +65,12 @@
 # include <libintl.h>
 #endif
 
+#if defined _WIN32 && !defined __CYGWIN__
+/* Don't assume that UNICODE is not defined.  */
+# undef GetModuleFileName
+# define GetModuleFileName GetModuleFileNameA
+#endif
+
 /* Faked cheap 'bool'.  */
 #undef bool
 #undef false
@@ -74,8 +80,8 @@
 #define true 1
 
 /* Pathname support.
-   ISSLASH(C)           tests whether C is a directory separator character.
-   IS_PATH_WITH_DIR(P)  tests whether P contains a directory specification.
+   ISSLASH(C)                tests whether C is a directory separator character.
+   IS_FILE_NAME_WITH_DIR(P)  tests whether P contains a directory specification.
  */
 #if (defined _WIN32 && !defined __CYGWIN__) || defined __EMX__ || defined __DJGPP__
   /* Native Windows, OS/2, DOS */
@@ -83,13 +89,13 @@
 # define HAS_DEVICE(P) \
     ((((P)[0] >= 'A' && (P)[0] <= 'Z') || ((P)[0] >= 'a' && (P)[0] <= 'z')) \
      && (P)[1] == ':')
-# define IS_PATH_WITH_DIR(P) \
+# define IS_FILE_NAME_WITH_DIR(P) \
     (strchr (P, '/') != NULL || strchr (P, '\\') != NULL || HAS_DEVICE (P))
 # define FILE_SYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
 #else
   /* Unix */
 # define ISSLASH(C) ((C) == '/')
-# define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
+# define IS_FILE_NAME_WITH_DIR(P) (strchr (P, '/') != NULL)
 # define FILE_SYSTEM_PREFIX_LEN(P) 0
 #endif
 
@@ -317,7 +323,10 @@ static char *shared_library_fullname;
    supports longer file names
    (see <https://cygwin.com/ml/cygwin/2011-01/msg00410.html>).  */
 
-/* Determine the full pathname of the shared library when it is loaded.  */
+/* Determine the full pathname of the shared library when it is loaded.
+
+   Documentation:
+   <https://docs.microsoft.com/en-us/windows/win32/dlls/dllmain>  */
 
 BOOL WINAPI
 DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
@@ -333,11 +342,17 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
         /* Shouldn't happen.  */
         return FALSE;
 
-      if (!IS_PATH_WITH_DIR (location))
+      if (!IS_FILE_NAME_WITH_DIR (location))
         /* Shouldn't happen.  */
         return FALSE;
 
-      shared_library_fullname = strdup (location);
+      /* Avoid a memory leak when the same DLL get attached, detached,
+         attached, detached, and so on.  This happens e.g. when a spell
+         checker DLL is used repeatedly by a mail program.  */
+      if (!(shared_library_fullname != NULL
+            && strcmp (shared_library_fullname, location) == 0))
+        /* Remember the full pathname of the shared library.  */
+        shared_library_fullname = strdup (location);
     }
 
   return TRUE;

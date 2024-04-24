@@ -11,11 +11,11 @@ You will need reasonably recent versions of the build tools:
     + Homepage:
       https://gcc.gnu.org/
 
-  * GNU automake
+  * GNU automake 1.16.x
     + Homepage:
       https://www.gnu.org/software/automake/
 
-  * GNU autoconf
+  * GNU autoconf 2.69 or newer
     + Homepage:
       https://www.gnu.org/software/autoconf/
 

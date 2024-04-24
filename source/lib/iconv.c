@@ -1,26 +1,23 @@
 /*
- * Copyright (C) 1999-2008, 2011, 2016, 2018 Free Software Foundation, Inc.
+ * Copyright (C) 1999-2008, 2011, 2016, 2018, 2020, 2022 Free Software Foundation, Inc.
  * This file is part of the GNU LIBICONV Library.
  *
  * The GNU LIBICONV Library is free software; you can redistribute it
- * and/or modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either version 2
+ * and/or modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either version 2.1
  * of the License, or (at your option) any later version.
  *
  * The GNU LIBICONV Library is distributed in the hope that it will be
  * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Library General Public
+ * You should have received a copy of the GNU Lesser General Public
  * License along with the GNU LIBICONV Library; see the file COPYING.LIB.
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <iconv.h>
-#ifndef ICONV_CONST
-# define ICONV_CONST
-#endif
 
 #include <limits.h>
 #include <stdlib.h>
@@ -40,6 +37,7 @@
 #define USE_AIX
 #define USE_OSF1
 #define USE_DOS
+#define USE_ZOS
 #define USE_EXTRA
 #else
 /*
@@ -54,6 +52,11 @@
 #endif
 #if defined(__DJGPP__) || (defined(_WIN32) && (defined(_MSC_VER) || defined(__MINGW32__)))
 #define USE_DOS
+#endif
+/* Enable the EBCDIC encodings not only on z/OS but also on Linux/s390, for
+   easier interoperability between z/OS and Linux/s390.  */
+#if defined(__MVS__) || (defined(__linux__) && (defined(__s390__) || defined(__s390x__)))
+#define USE_ZOS
 #endif
 #endif
 
@@ -101,6 +104,9 @@ enum {
 #ifdef USE_DOS
 # include "encodings_dos.def"
 #endif
+#ifdef USE_ZOS
+# include "encodings_zos.def"
+#endif
 #ifdef USE_EXTRA
 # include "encodings_extra.def"
 #endif
@@ -121,6 +127,9 @@ static struct encoding const all_encodings[] = {
 #endif
 #ifdef USE_DOS
 # include "encodings_dos.def"
+#endif
+#ifdef USE_ZOS
+# include "encodings_zos.def"
 #endif
 #ifdef USE_EXTRA
 # include "encodings_extra.def"
@@ -162,7 +171,7 @@ static struct encoding const all_encodings[] = {
  * Defines
  *   const struct alias * aliases2_lookup (const char *str);
  */
-#if defined(USE_AIX) || defined(USE_OSF1) || defined(USE_DOS) || defined(USE_EXTRA) /* || ... */
+#if defined(USE_AIX) || defined(USE_OSF1) || defined(USE_DOS) || defined(USE_ZOS) || defined(USE_EXTRA) /* || ... */
 struct stringpool2_t {
 #define S(tag,name,encoding_index) char stringpool_##tag[sizeof(name)];
 #include "aliases2.h"
@@ -175,7 +184,7 @@ static const struct stringpool2_t stringpool2_contents = {
 };
 #define stringpool2 ((const char *) &stringpool2_contents)
 static const struct alias sysdep_aliases[] = {
-#define S(tag,name,encoding_index) { (int)(INT_PTR)&((struct stringpool2_t *)0)->stringpool_##tag, encoding_index },
+#define S(tag,name,encoding_index) { (int)(long)&((struct stringpool2_t *)0)->stringpool_##tag, encoding_index },
 #include "aliases2.h"
 #undef S
 };
@@ -367,8 +376,8 @@ static int compare_by_index (const void * arg1, const void * arg2)
 
 static int compare_by_name (const void * arg1, const void * arg2)
 {
-  const char * name1 = *(const char **)arg1;
-  const char * name2 = *(const char **)arg2;
+  const char * name1 = *(const char * const *)arg1;
+  const char * name2 = *(const char * const *)arg2;
   /* Compare alphabetically, but put "CS" names at the end. */
   int sign = strcmp(name1,name2);
   if (sign != 0) {
@@ -475,6 +484,9 @@ static const unsigned short all_canonical[] = {
 #ifdef USE_DOS
 # include "canonical_dos.h"
 #endif
+#ifdef USE_ZOS
+# include "canonical_zos.h"
+#endif
 #ifdef USE_EXTRA
 # include "canonical_extra.h"
 #endif
@@ -510,7 +522,7 @@ const char * iconv_canonicalize (const char * name)
   for (code = name;;) {
     /* Search code in the table. */
     for (cp = code, bp = buf, count = MAX_WORD_LENGTH+10+1; ; cp++, bp++) {
-      unsigned char c = * (unsigned char *) cp;
+      unsigned char c = (unsigned char) *cp;
       if (c >= 0x80)
         goto invalid;
       if (c >= 'a' && c <= 'z')

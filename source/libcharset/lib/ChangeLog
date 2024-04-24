@@ -1,3 +1,43 @@
+2019-12-24  Bruno Haible  <bruno@clisp.org>
+
+	Update from gnulib.
+	2019-12-24  Bruno Haible  <bruno@clisp.org>
+		localcharset: Avoid referencing rpl_setlocale on native Windows.
+		* localcharset.c (setlocale): Undefine.
+
+2019-12-22  Bruno Haible  <bruno@clisp.org>
+
+	Update from gnulib.
+	2019-12-22  Bruno Haible  <bruno@clisp.org>
+		localcharset: Update support for OpenBSD.
+		* localcharset.c (alias_table): Map "US-ASCII" to "ASCII".
+	2019-12-17  Bruno Haible  <bruno@clisp.org>
+		localcharset: Fix multithread-safety bug on Windows and OS/2.
+		* localcharset.c (locale_charset): Use a stack-allocated buffer
+		to assemble the result.
+	2019-12-17  Bruno Haible  <bruno@clisp.org>
+		localcharset: Optimize code for native Windows.
+		* localcharset.c (locale_charset): Don't bother calling
+		setlocale (LC_ALL, NULL) since we're not interested in its
+		result.
+	2019-09-23  Paul Eggert  <eggert@cs.ucla.edu>
+		Update URLs and associated text
+
+2019-08-11  Bruno Haible  <bruno@clisp.org>
+
+	Update from gnulib.
+	2019-08-11  Bruno Haible  <bruno@clisp.org>
+		Based on patch by KO Myung-Hun <komh78@gmail.com> in
+		<https://lists.gnu.org/archive/html/bug-gnu-libiconv/2019-08/msg00004.html>.
+		* localcharset.c (alias_table) [OS2]: Add more aliases.
+
+2019-07-02  Bruno Haible  <bruno@clisp.org>
+
+	Update from gnulib.
+	2019-07-02  Bruno Haible  <bruno@clisp.org>
+		* localcharset.c (locale_charset): Return "UTF-8" instead of
+		"CPutf8".
+
 2019-01-27  Bruno Haible  <bruno@clisp.org>
 
 	Accommodate a shell that is not in /bin/sh.

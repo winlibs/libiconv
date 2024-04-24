@@ -328,7 +328,9 @@ A: No, they are not in use any more. Supporting ISO-646 variants is pointless
    since ISO-8859-* have been adopted.
 
 Q: Support EBCDIC ?
-A: No!
+A: Available through --enable-extra-encodings.
+   Why? Because several people (Ulrich Schwab, Calvin Buckley) have shown
+   interest in these encodings, by preparing forks of GNU libiconv.
 
 Q: How do I add a new character set?
 A: 1. Explain the "why" in this file, above.

@@ -20,11 +20,16 @@ LDFLAGS_yes = -Wl,--export-all-symbols
 LDFLAGS_no =
 INCLUDES = -I. -I$(srcdir) -I../include -I$(srcdir)/../include -I.. -I$(srcdir)/..
 # -DBUILDING_LIBICONV: Change expansion of LIBICONV_DLL_EXPORTED macro.
+# -DBUILDING_LIBCHARSET: Change expansion of LIBCHARSET_DLL_EXPORTED macro in
+# localcharset.h.
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
-DEFS = -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBICONV -DBUILDING_DLL \
--DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(libdir)\" -DNO_XMALLOC \
--Dset_relocation_prefix=libiconv_set_relocation_prefix \
--Drelocate=libiconv_relocate -Drelocate2=libiconv_relocate2 @DEFS@
+DEFS = \
+  -DLIBDIR=\"$(libdir)\" \
+  -DBUILDING_LIBICONV -DBUILDING_LIBCHARSET -DBUILDING_DLL \
+  -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(libdir)\" -DNO_XMALLOC \
+  -Dset_relocation_prefix=libiconv_set_relocation_prefix \
+  -Drelocate=libiconv_relocate \
+  -Drelocate2=libiconv_relocate2 @DEFS@
 LIBTOOL = @LIBTOOL@
 LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
 LIBTOOL_LINK = $(LIBTOOL) --mode=link
@@ -142,6 +147,7 @@ SOURCE_FILES = \
   encodings_aix.def \
   encodings_osf1.def \
   encodings_dos.def \
+  encodings_zos.def \
   encodings_extra.def \
   encodings_local.def \
   translit.def \
@@ -323,6 +329,59 @@ SOURCE_FILES = \
       cp865.h \
       cp869.h \
       cp1125.h \
+      ebcdic037.h \
+      ebcdic273.h \
+      ebcdic277.h \
+      ebcdic278.h \
+      ebcdic280.h \
+      ebcdic282.h \
+      ebcdic284.h \
+      ebcdic285.h \
+      ebcdic297.h \
+      ebcdic423.h \
+      ebcdic424.h \
+      ebcdic425.h \
+      ebcdic500.h \
+      ebcdic838.h \
+      ebcdic870.h \
+      ebcdic871.h \
+      ebcdic875.h \
+      ebcdic880.h \
+      ebcdic905.h \
+      ebcdic924.h \
+      ebcdic1025.h \
+      ebcdic1026.h \
+      ebcdic1047.h \
+      ebcdic1097.h \
+      ebcdic1112.h \
+      ebcdic1122.h \
+      ebcdic1123.h \
+      ebcdic1130.h \
+      ebcdic1132.h \
+      ebcdic1137.h \
+      ebcdic1140.h \
+      ebcdic1141.h \
+      ebcdic1142.h \
+      ebcdic1143.h \
+      ebcdic1144.h \
+      ebcdic1145.h \
+      ebcdic1146.h \
+      ebcdic1147.h \
+      ebcdic1148.h \
+      ebcdic1149.h \
+      ebcdic1153.h \
+      ebcdic1154.h \
+      ebcdic1155.h \
+      ebcdic1156.h \
+      ebcdic1157.h \
+      ebcdic1158.h \
+      ebcdic1160.h \
+      ebcdic1164.h \
+      ebcdic1165.h \
+      ebcdic1166.h \
+      ebcdic4971.h \
+      ebcdic12712.h \
+      ebcdic16804.h \
       euc_jisx0213.h \
         jisx0213.h \
       shift_jisx0213.h \
@@ -349,11 +408,13 @@ GENERATED_FILES = \
   aliases_aix.h aliases_aix_sysaix.h \
   aliases_osf1.h aliases_osf1_sysosf1.h \
   aliases_dos.h \
+  aliases_zos.h \
   aliases_extra.h \
   canonical.h canonical_sysaix.h canonical_syshpux.h canonical_sysosf1.h canonical_syssolaris.h \
   canonical_aix.h canonical_aix_sysaix.h \
   canonical_osf1.h canonical_osf1_sysosf1.h \
   canonical_dos.h \
+  canonical_zos.h \
   canonical_extra.h \
   canonical_local.h canonical_local_sysaix.h canonical_local_syshpux.h canonical_local_sysosf1.h canonical_local_syssolaris.h \
   flags.h \

@@ -4,8 +4,8 @@
 
 SHELL = /bin/sh
 MAKE = make
-AUTOCONF = autoconf-2.69
-AUTOHEADER = autoheader-2.69
+AUTOCONF = autoconf
+AUTOHEADER = autoheader
 AUTOMAKE = automake-1.16
 ACLOCAL = aclocal-1.16
 GPERF = gperf
@@ -23,6 +23,7 @@ all : srclib/Makefile.gnulib srclib/Makefile.in \
       lib/aliases_aix.h lib/aliases_aix_sysaix.h \
       lib/aliases_osf1.h lib/aliases_osf1_sysosf1.h \
       lib/aliases_dos.h \
+      lib/aliases_zos.h \
       lib/aliases_extra.h \
       lib/flags.h lib/translit.h \
       man/iconv.1.html man/iconv.3.html man/iconv_close.3.html man/iconv_open.3.html man/iconvctl.3.html man/iconv_open_into.3.html \
@@ -50,11 +51,13 @@ GNULIB_MODULES = \
   error \
   gettext \
   gettext-h \
+  lib-symbol-visibility \
   mbstate \
   progname \
   relocatable-prog \
   safe-read \
   sigpipe \
+  stdbool \
   stdio \
   stdlib \
   strerror \
@@ -66,17 +69,10 @@ GNULIB_MODULES = \
 
 srclib/Makefile.gnulib :
 	if test -n "$$GNULIB_TOOL"; then \
+	  $$GNULIB_TOOL --copy-file m4/codeset.m4 srcm4/codeset.m4 || exit $$?; \
 	  $$GNULIB_TOOL --lib=libicrt --source-base=srclib --m4-base=srcm4 --makefile-name=Makefile.gnulib --no-libtool --local-dir=gnulib-local --no-vc-files \
 	    --import $(GNULIB_MODULES); \
 	fi
-
-srclib/Makefile.in : srclib/Makefile.am srclib/Makefile.gnulib aclocal.m4
-	if test -n "$$GNULIB_TOOL"; then \
-	  $$GNULIB_TOOL --copy-file build-aux/compile; \
-	fi
-# Make sure we get new versions of files brought in by automake.
-	(cd build-aux && rm -f compile depcomp install-sh mdate-sh missing test-driver)
-	$(AUTOMAKE) --gnits --add-missing --copy srclib/Makefile && rm -rf autom4te.cache
 
 gnulib-imported-files : force
 	if test -n "$$GNULIB_TOOL"; then \
@@ -84,7 +80,13 @@ gnulib-imported-files : force
 	    $$GNULIB_TOOL --copy-file build-aux/$$file || exit $$?; \
 	    chmod a+x build-aux/$$file || exit $$?; \
 	  done; \
+	  $$GNULIB_TOOL --copy-file tests/qemu.h || exit $$?; \
 	fi
+
+srclib/Makefile.in : srclib/Makefile.am srclib/Makefile.gnulib aclocal.m4
+# Make sure we get new versions of files brought in by automake.
+	(cd build-aux && rm -f depcomp install-sh mdate-sh missing test-driver)
+	$(AUTOMAKE) --gnits --add-missing --copy srclib/Makefile && rm -rf autom4te.cache
 
 
 CONFIGURES = configure
@@ -119,7 +121,7 @@ lib/aliases.h lib/canonical.h lib/canonical_local.h : lib/encodings.def lib/enco
 	./genaliases lib/aliases.gperf canonical.sh canonical_local.sh
 	$(RM) genaliases
 	$(GPERF) -m 10 lib/aliases.gperf > tmp.h
-	$(CP) tmp.h lib/aliases.h
+	sed -e 's/^\(const struct alias \)/static \1/' < tmp.h > lib/aliases.h
 	sh canonical.sh > lib/canonical.h
 	sh canonical_local.sh > lib/canonical_local.h
 	$(RM) tmp.h canonical.sh canonical_local.sh
@@ -129,7 +131,7 @@ lib/aliases_sysaix.h lib/canonical_sysaix.h lib/canonical_local_sysaix.h : lib/e
 	./genaliases lib/aliases_sysaix.gperf canonical.sh canonical_local.sh
 	$(RM) genaliases
 	$(GPERF) -m 10 lib/aliases_sysaix.gperf > tmp.h
-	$(CP) tmp.h lib/aliases_sysaix.h
+	sed -e 's/^\(const struct alias \)/static \1/' < tmp.h > lib/aliases_sysaix.h
 	sh canonical.sh > lib/canonical_sysaix.h
 	sh canonical_local.sh > lib/canonical_local_sysaix.h
 	$(RM) tmp.h canonical.sh canonical_local.sh
@@ -139,7 +141,7 @@ lib/aliases_syshpux.h lib/canonical_syshpux.h lib/canonical_local_syshpux.h : li
 	./genaliases lib/aliases_syshpux.gperf canonical.sh canonical_local.sh
 	$(RM) genaliases
 	$(GPERF) -m 10 lib/aliases_syshpux.gperf > tmp.h
-	$(CP) tmp.h lib/aliases_syshpux.h
+	sed -e 's/^\(const struct alias \)/static \1/' < tmp.h > lib/aliases_syshpux.h
 	sh canonical.sh > lib/canonical_syshpux.h
 	sh canonical_local.sh > lib/canonical_local_syshpux.h
 	$(RM) tmp.h canonical.sh canonical_local.sh
@@ -149,7 +151,7 @@ lib/aliases_sysosf1.h lib/canonical_sysosf1.h lib/canonical_local_sysosf1.h : li
 	./genaliases lib/aliases_sysosf1.gperf canonical.sh canonical_local.sh
 	$(RM) genaliases
 	$(GPERF) -m 10 lib/aliases_sysosf1.gperf > tmp.h
-	$(CP) tmp.h lib/aliases_sysosf1.h
+	sed -e 's/^\(const struct alias \)/static \1/' < tmp.h > lib/aliases_sysosf1.h
 	sh canonical.sh > lib/canonical_sysosf1.h
 	sh canonical_local.sh > lib/canonical_local_sysosf1.h
 	$(RM) tmp.h canonical.sh canonical_local.sh
@@ -159,7 +161,7 @@ lib/aliases_syssolaris.h lib/canonical_syssolaris.h lib/canonical_local_syssolar
 	./genaliases lib/aliases_syssolaris.gperf canonical.sh canonical_local.sh
 	$(RM) genaliases
 	$(GPERF) -m 10 lib/aliases_syssolaris.gperf > tmp.h
-	$(CP) tmp.h lib/aliases_syssolaris.h
+	sed -e 's/^\(const struct alias \)/static \1/' < tmp.h > lib/aliases_syssolaris.h
 	sh canonical.sh > lib/canonical_syssolaris.h
 	sh canonical_local.sh > lib/canonical_local_syssolaris.h
 	$(RM) tmp.h canonical.sh canonical_local.sh
@@ -189,13 +191,18 @@ lib/aliases_dos.h lib/canonical_dos.h : lib/encodings_dos.def lib/genaliases2.c
 	./genaliases dos lib/aliases_dos.h lib/canonical_dos.h
 	$(RM) genaliases
 
+lib/aliases_zos.h lib/canonical_zos.h : lib/encodings_zos.def lib/genaliases2.c
+	$(CC) $(CFLAGS) -DUSE_ZOS lib/genaliases2.c -o genaliases
+	./genaliases zos lib/aliases_zos.h lib/canonical_zos.h
+	$(RM) genaliases
+
 lib/aliases_extra.h lib/canonical_extra.h : lib/encodings_extra.def lib/genaliases2.c
 	$(CC) $(CFLAGS) -DUSE_EXTRA lib/genaliases2.c -o genaliases
 	./genaliases extra lib/aliases_extra.h lib/canonical_extra.h
 	$(RM) genaliases
 
 
-lib/flags.h : lib/encodings.def lib/encodings_aix.def lib/encodings_osf1.def lib/encodings_dos.def lib/encodings_extra.def lib/converters.h lib/genflags.c
+lib/flags.h : lib/encodings.def lib/encodings_aix.def lib/encodings_osf1.def lib/encodings_dos.def lib/encodings_zos.def lib/encodings_extra.def lib/converters.h lib/genflags.c
 	$(CC) $(CFLAGS) lib/genflags.c -o genflags
 	./genflags > lib/flags.h
 	$(RM) genflags
@@ -230,11 +237,13 @@ totally-clean : force
 	rm -f lib/aliases_aix.h lib/aliases_aix_sysaix.h
 	rm -f lib/aliases_osf1.h lib/aliases_osf1_sysosf1.h
 	rm -f lib/aliases_dos.h
+	rm -f lib/aliases_zos.h
 	rm -f lib/aliases_extra.h
 	rm -f lib/canonical.h lib/canonical_sysaix.h lib/canonical_syshpux.h lib/canonical_sysosf1.h lib/canonical_syssolaris.h
 	rm -f lib/canonical_aix.h lib/canonical_aix_sysaix.h
 	rm -f lib/canonical_osf1.h lib/canonical_osf1_sysosf1.h
 	rm -f lib/canonical_dos.h
+	rm -f lib/canonical_zos.h
 	rm -f lib/canonical_extra.h
 	rm -f lib/canonical_local.h lib/canonical_local_sysaix.h lib/canonical_local_syshpux.h lib/canonical_local_sysosf1.h lib/canonical_local_syssolaris.h
 	rm -f lib/flags.h

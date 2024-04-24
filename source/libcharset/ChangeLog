@@ -1,3 +1,102 @@
+2022-05-15  Bruno Haible  <bruno@clisp.org>
+
+	Switch to libtool 2.4.7.
+	* m4/libtool.m4: Update from libtool-2.4.7, with modifications:
+	2008-04-06  Bruno Haible  <bruno@clisp.org>
+		* m4/libtool.m4 (LT_INIT): When setting LIBTOOL, use
+		CONFIG_SHELL; don't assume that the Makefile.in will set SHELL
+		to ${CONFIG_SHELL}.
+	* m4/ltoptions.m4: Likewise.
+	* m4/ltsugar.m4: Likewise.
+	* m4/ltversion.m4: Likewise.
+	* m4/lt~obsolete.m4: Likewise.
+	* build-aux/ltmain.sh: Update from libtool-2.4.7, with modifications:
+	2017-07-15  Bruno Haible  <bruno@clisp.org>
+		Allow building statically linked binaries, through
+		LDFLAGS="-static". Apply patch from
+		<https://lists.gnu.org/archive/html/bug-libtool/2017-07/msg00000.html>.
+		* build-aux/ltmain.sh (func_mode_help, func_mode_link): In the
+		link mode, accept option '-static-uninstalled-libs' in place of
+		'-static', and make '-static' an equivalent of '-all-static'.
+
+2022-02-12  Bruno Haible  <bruno@clisp.org>
+
+	build: Remove leftover file (regression 2019-06-30).
+	* Makefile.in (distclean, maintainer-clean): Remove
+	include/libcharset.h.inst.
+
+2021-02-07  Bruno Haible  <bruno@clisp.org>
+
+	Support creating shared libraries on MidnightBSD.
+	Patch from <https://savannah.gnu.org/patch/?10007>.
+	* m4/libtool.m4: Treat MidnightBSD like FreeBSD.
+	* build-aux/ltmain.sh: Likewise.
+
+2021-01-31  Bruno Haible  <bruno@clisp.org>
+
+	Switch to autoconf 2.71.
+	* autogen.sh: Update comment.
+
+2020-12-08  Bruno Haible  <bruno@clisp.org>
+
+	Switch to autoconf 2.70.
+	* Makefile.devel (AUTOCONF, AUTOHEADER): Remove '-2.69' suffix.
+	* autogen.sh: Update comment.
+
+2020-08-29  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* configure.ac (AC_PREREQ): Bump minimum Autoconf version to 2.64.
+
+2019-12-23  Bruno Haible  <bruno@clisp.org>
+
+	Allow libiconv to export the symbol 'locale_charset'.
+	* Makefile.in (install-lib): Install localcharset.h, not
+	localcharset.h.inst.
+
+2019-12-22  Bruno Haible  <bruno@clisp.org>
+
+	Mark a new version.
+	* configure.ac: Bump version to 1.5.
+	* NEWS: Mention fixes.
+
+2019-12-22  Bruno Haible  <bruno@clisp.org>
+
+	Update from gnulib.
+	* include/localcharset.h.in: Update from gnulib.
+	2019-12-20  Bruno Haible  <bruno@clisp.org>
+		* localcharset.h: Mention which encodings are used as locale
+		encodings on z/OS.
+	2019-12-17  Bruno Haible  <bruno@clisp.org>
+		* localcharset.h (locale_charset): Clarify when the result
+		becomes invalid.
+
+2019-12-02  Bruno Haible  <bruno@clisp.org>
+
+	build: Fix build error with --enable-relocatable on macOS
+	(regression from 2019-03-04).
+	Reported by Roy Belio <rbelio@infinidat.com>.
+	* Makefile.in (PARENT_IMPORTED_FILES): Add libtool-reloc.
+
+2019-07-02  Bruno Haible  <bruno@clisp.org>
+
+	Drop unused macro gl_GLIBC21.
+	* configure.ac: Don't invoke gl_GLIBC21.
+	* Makefile.in (PARENT_IMPORTED_FILES): Remove m4/glibc21.m4.
+	* INTEGRATE: Update.
+
+2019-06-30  Bruno Haible  <bruno@clisp.org>
+
+	Fix build error with MSVC.
+	* libcharset/Makefile.devel (include/libcharset.h.build.in): New target.
+	(all): Depend on it.
+	(totally-clean): Remove include/libcharset.h.build.in.
+	* libcharset/configure.ac: Generate include/libcharset.h and
+	include/libcharset.h.inst.
+	* libcharset/Makefile.in (include/libcharset.h): Remove rule.
+	(install-lib, install): Install libcharset.h.inst, not libcharset.h.
+	(GENERATED_FILES): Add include/libcharset.h.build.in.
+
 2019-03-04  Bruno Haible  <bruno@clisp.org>
 
 	Add support for --enable-relocatable.

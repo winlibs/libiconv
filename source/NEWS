@@ -1,3 +1,14 @@
+New in 1.17:
+* The libiconv library is now licensed under the LGPL version 2.1, instead of
+  the LGPL version 2.0. The iconv program continues to be licensed under GPL
+  version 3.
+* Added converters for many single-byte EBCDIC encodings:
+  IBM-{037,273,277,278,280,282,284,285,297,423,424,425,500,838,870,871,875},
+  IBM-{880,905,924,1025,1026,1047,1097,1112,1122,1123,1130,1132,1137,1140},
+  IBM-{1141,1142,1143,1144,1145,1146,1147,1148,1149,1153,1154,1155,1156,1157},
+  IBM-{1158,1160,1164,1165,1166,4971,12712,16804}.
+  They are available through the configure option '--enable-extra-encodings'.
+
 New in 1.16:
 * The preloadable library has been removed.
 

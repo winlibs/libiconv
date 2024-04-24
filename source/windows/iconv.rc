@@ -24,7 +24,7 @@ BEGIN
             VALUE "FileDescription", "GPLed iconv for Windows\0"
             VALUE "FileVersion", PACKAGE_VERSION_STRING "\0"
             VALUE "InternalName", "iconv.exe\0"
-            VALUE "LegalCopyright", "Copyright (C) 1999-2019\0"
+            VALUE "LegalCopyright", "Copyright (C) 1999-2022\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "iconv.exe\0"
             VALUE "ProductName", "iconv: character set conversion program\0"

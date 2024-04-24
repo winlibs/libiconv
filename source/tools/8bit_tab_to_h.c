@@ -1,4 +1,4 @@
-/* Copyright (C) 1999-2002, 2011-2012, 2016, 2018 Free Software Foundation, Inc.
+/* Copyright (C) 1999-2002, 2011-2012, 2016, 2018, 2022 Free Software Foundation, Inc.
    This file is part of the GNU LIBICONV Tools.
 
    This program is free software: you can redistribute it and/or modify
@@ -146,20 +146,20 @@ int main (int argc, char *argv[])
     }
 
     fprintf(f, "/*\n");
-    fprintf(f, " * Copyright (C) 1999-2002 Free Software Foundation, Inc.\n");
+    fprintf(f, " * Copyright (C) 1999-2022 Free Software Foundation, Inc.\n");
     fprintf(f, " * This file is part of the GNU LIBICONV Library.\n");
     fprintf(f, " *\n");
     fprintf(f, " * The GNU LIBICONV Library is free software; you can redistribute it\n");
-    fprintf(f, " * and/or modify it under the terms of the GNU Library General Public\n");
+    fprintf(f, " * and/or modify it under the terms of the GNU Lesser General Public\n");
     fprintf(f, " * License as published by the Free Software Foundation; either version 2\n");
     fprintf(f, " * of the License, or (at your option) any later version.\n");
     fprintf(f, " *\n");
     fprintf(f, " * The GNU LIBICONV Library is distributed in the hope that it will be\n");
     fprintf(f, " * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
     fprintf(f, " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n");
-    fprintf(f, " * Library General Public License for more details.\n");
+    fprintf(f, " * Lesser General Public License for more details.\n");
     fprintf(f, " *\n");
-    fprintf(f, " * You should have received a copy of the GNU Library General Public\n");
+    fprintf(f, " * You should have received a copy of the GNU Lesser General Public\n");
     fprintf(f, " * License along with the GNU LIBICONV Library; see the file COPYING.LIB.\n");
     fprintf(f, " * If not, see <https://www.gnu.org/licenses/>.\n");
     fprintf(f, " */\n");

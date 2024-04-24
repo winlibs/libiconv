@@ -3,28 +3,27 @@
 # Copyright © 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libiconv package.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2016.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2016, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libiconv 1.15-pre1\n"
+"Project-Id-Version: libiconv 1.17-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-libiconv@gnu.org\n"
-"POT-Creation-Date: 2019-04-26 21:02+0200\n"
-"PO-Revision-Date: 2016-12-13 07:27+0700\n"
+"POT-Creation-Date: 2022-02-12 13:29+0100\n"
+"PO-Revision-Date: 2022-03-01 14:31+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
 msgid "Usage: iconv [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-msgstr "Cách dùng: iconv [-c] [-s] [-f từ_mã] [-t đến_mã] [tập_tin …]"
+msgstr "Cách dùng: iconv [-c] [-s] [-f từ_mã] [-t sang_mã] [tập_tin …]"
 
 #. TRANSLATORS: The second line of the short usage message.
 #. Align it correctly against the first line.
@@ -144,36 +143,41 @@ msgstr "  --help                      hiển thị trợ giúp này rồi thoát
 msgid "  --version                   output version information and exit\n"
 msgstr "  --version                   hiển thị thông tin về phiên bản rồi thoát\n"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
+#. TRANSLATORS: The first placeholder is the web address of the Savannah
+#. project of this package.  The second placeholder is the bug-reporting
+#. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/iconv.c:185
-msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
-msgstr ""
-"Thông báo lỗi cho <bug-gnu-libiconv@gnu.org>.\n"
-"Thông báo lỗi dịch cho: <http://translationproject.org/team/vi.html>.\n"
-
-#: src/iconv.c:196
-#, fuzzy, no-wrap
+#: src/iconv.c:186
+#, c-format
 msgid ""
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+"Report bugs in the bug tracker at <%s>\n"
+"or by email to <%s>.\n"
+msgstr ""
+"Báo cáo lỗi vào bộ theo dõi lỗi ở <%s>\n"
+"hoặc gửi thư điện tử đến <%s>.\n"
+
+#. TRANSLATORS: The %s placeholder is the web address of the GPL license.
+#: src/iconv.c:202
+#, c-format, no-wrap
+msgid ""
+"License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Giấy phép GPL pb3+ : Giấy phép Công cộng GNU phiên bản 3 hay sau <http://gnu.org/licenses/gpl.html>\n"
+"Giấy phép GPL pb3+ : Giấy phép Công cộng GNU phiên bản 3 hay sau <%s>\n"
 "Đây là phần mềm tự do: bạn có quyền sửa đổi và phát hành lại nó.\n"
 "KHÔNG CÓ BẢO HÀNH GÌ CẢ, với điều khiển được pháp luật cho phép.\n"
 
 #. TRANSLATORS: The %s placeholder expands to an author's name.
-#: src/iconv.c:202
+#: src/iconv.c:208
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Viết bởi %s.\n"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:296
+#: src/iconv.c:302
 #, c-format
 msgid ""
 "%s argument: A format directive with a variable width is not allowed here."
@@ -181,7 +185,7 @@ msgstr "Đối số %s: ở đây không cho phép chỉ thị định dạng c�
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:311
+#: src/iconv.c:317
 #, c-format
 msgid ""
 "%s argument: A format directive with a variable precision is not allowed "
@@ -191,14 +195,14 @@ msgstr ""
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:327
+#: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
 msgstr "Đối số %s: ở đây không cho phép chỉ thị định dạng có kích cỡ."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:369
+#: src/iconv.c:375
 #, c-format
 msgid "%s argument: The string ends in the middle of a directive."
 msgstr "Đối số %s: chuỗi kết thúc ở giữa chỉ thị."
@@ -206,14 +210,14 @@ msgstr "Đối số %s: chuỗi kết thúc ở giữa chỉ thị."
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %c placeholder expands to an unknown format directive.
-#: src/iconv.c:376
+#: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
 msgstr "Đối số %s: ký tự “%c” không phải là bộ xác định chuyển đổi hợp lệ."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:382
+#: src/iconv.c:388
 #, c-format
 msgid ""
 "%s argument: The character that terminates the format directive is not a "
@@ -225,7 +229,7 @@ msgstr ""
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
-#: src/iconv.c:398
+#: src/iconv.c:404
 #, c-format
 msgid ""
 "%s argument: The format string consumes more than one argument: %u argument."
@@ -235,42 +239,42 @@ msgstr[0] "%s đối số : chuỗi định dạng ăn nhiều đối số : %u 
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
-#: src/iconv.c:456
+#: src/iconv.c:462
 #, c-format
 msgid "cannot convert byte substitution to Unicode: %s"
 msgstr "không thể chuyển đổi sự thay thế byte sang Unicode: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --unicode-subst.
-#: src/iconv.c:496
+#: src/iconv.c:502
 #, c-format
 msgid "cannot convert unicode substitution to target encoding: %s"
 msgstr "không thể chuyển đổi sự thay thế Unicode sang bảng mã đích: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
-#: src/iconv.c:537
+#: src/iconv.c:543
 #, c-format
 msgid "cannot convert byte substitution to wide string: %s"
 msgstr "không thể chuyển đổi sự thay thế byte sang chuỗi rộng: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --widechar-subst.
-#: src/iconv.c:578
+#: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
 msgstr "không thể chuyển đổi sự thay thế ký tự rộng sang bảng mã đích: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
-#: src/iconv.c:619
+#: src/iconv.c:625
 #, c-format
 msgid "cannot convert byte substitution to target encoding: %s"
 msgstr "không thể chuyển đổi sự thay thế byte sang bảng mã đích: %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the input file name, a line number, and a column number.
-#: src/iconv.c:638
+#: src/iconv.c:644
 #, c-format
 msgid "%s:%u:%u: cannot convert"
 msgstr "%s:%u:%u: không thể chuyển đổi"
@@ -279,7 +283,7 @@ msgstr "%s:%u:%u: không thể chuyển đổi"
 #. The placeholders expand to the input file name, a line number, and a column number.
 #. A "shift sequence" is a sequence of bytes that changes the state of the converter;
 #. this concept exists only for "stateful" encodings like ISO-2022-JP.
-#: src/iconv.c:652
+#: src/iconv.c:658
 #, c-format
 msgid "%s:%u:%u: incomplete character or shift sequence"
 msgstr "%s:%u:%u: dây kiểu ký tự hay dịch chưa hoàn thành"
@@ -288,48 +292,48 @@ msgstr "%s:%u:%u: dây kiểu ký tự hay dịch chưa hoàn thành"
 #. TRANSLATORS: The first part of an error message.
 #. It is followed by a colon and a detail message.
 #. The placeholders expand to the input file name, a line number, and a column number.
-#: src/iconv.c:665
+#: src/iconv.c:671
 #, c-format
 msgid "%s:%u:%u"
 msgstr "%s:%u:%u"
 
 #. TRANSLATORS: An error message.
 #. The placeholder expands to the input file name.
-#: src/iconv.c:826
+#: src/iconv.c:832
 #, c-format
 msgid "%s: I/O error"
 msgstr "%s: lỗi V/R"
 
 #. TRANSLATORS: An error message.
 #. The placeholder expands to the encoding name, specified through --from-code.
-#: src/iconv.c:1024
+#: src/iconv.c:1030
 #, c-format
 msgid "conversion from %s unsupported"
 msgstr "không hỗ trợ khả năng chuyển đổi từ %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholder expands to the encoding name, specified through --to-code.
-#: src/iconv.c:1030
+#: src/iconv.c:1036
 #, c-format
 msgid "conversion to %s unsupported"
 msgstr "không hỗ trợ khả năng chuyển đổi sang %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the encoding names, specified through --from-code and --to-code, respectively.
-#: src/iconv.c:1036
+#: src/iconv.c:1042
 #, c-format
 msgid "conversion from %s to %s unsupported"
 msgstr "không hỗ trợ khả năng chuyển đổi từ %s sang %s"
 
 #. TRANSLATORS: Additional advice after an error message.
 #. The %s placeholder expands to the program name.
-#: src/iconv.c:1041
+#: src/iconv.c:1047
 #, c-format
 msgid "try '%s -l' to get the list of supported encodings"
 msgstr "hãy thử lệnh “%s -l” để xem danh sách các bảng mã được hỗ trợ"
 
 #. TRANSLATORS: A filename substitute denoting standard input.
-#: src/iconv.c:1098
+#: src/iconv.c:1104
 msgid "(stdin)"
 msgstr "(đầu vào tiêu chuẩn)"
 
@@ -337,16 +341,21 @@ msgstr "(đầu vào tiêu chuẩn)"
 #. TRANSLATORS: The first part of an error message.
 #. It is followed by a colon and a detail message.
 #. The %s placeholder expands to the input file name.
-#: src/iconv.c:1110
+#: src/iconv.c:1116
 #, c-format
 msgid "%s"
 msgstr "%s"
 
 #. TRANSLATORS: An error message.
-#: src/iconv.c:1124
+#: src/iconv.c:1130
 #, c-format
 msgid "I/O error"
 msgstr "Lỗi V/R"
+
+#~ msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
+#~ msgstr ""
+#~ "Thông báo lỗi cho <bug-gnu-libiconv@gnu.org>.\n"
+#~ "Thông báo lỗi dịch cho: <http://translationproject.org/team/vi.html>.\n"
 
 #~ msgid ""
 #~ "This is free software; see the source for copying conditions.  There is "

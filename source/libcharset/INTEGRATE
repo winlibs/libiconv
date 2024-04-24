@@ -8,15 +8,14 @@ many small changes to your package:
 * Copy the lib/ source file (localcharset.c) and the include file
   (include/localcharset.h) into your package.
 
-* Add the m4/ files (codeset.m4, fcntl_h.m4, glibc21.m4) to your aclocal.m4
-  file or, if you are using automake, to your m4/ directory.
+* Add the m4/ files (codeset.m4, fcntl_h.m4) to your aclocal.m4 file
+  or, if you are using automake, to your m4/ directory.
 
 * Add the following lines to your configure.ac file:
 
     AC_CANONICAL_HOST
     AM_LANGINFO_CODESET
     gl_FCNTL_O_FLAGS
-    jm_GLIBC21
     AC_CHECK_HEADERS([stddef.h stdlib.h string.h])
 
   and make sure that it sets and AC_SUBSTs the PACKAGE variable.

@@ -1,5 +1,5 @@
 ## Makefile for the srclib subdirectory of GNU libiconv
-## Copyright (C) 2003-2006, 2009, 2016 Free Software Foundation, Inc.
+## Copyright (C) 2003-2006, 2009, 2016, 2019 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -25,5 +25,6 @@ MOSTLYCLEANDIRS =
 noinst_LIBRARIES =
 
 AM_CPPFLAGS =
+AM_CFLAGS =
 
 include Makefile.gnulib

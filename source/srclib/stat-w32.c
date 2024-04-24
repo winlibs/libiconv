@@ -1,17 +1,17 @@
 /* Core of implementation of fstat and stat for native Windows.
-   Copyright (C) 2017-2019 Free Software Foundation, Inc.
+   Copyright (C) 2017-2022 Free Software Foundation, Inc.
 
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 3 of the License, or
-   (at your option) any later version.
+   This file is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as
+   published by the Free Software Foundation; either version 2.1 of the
+   License, or (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful,
+   This file is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+   GNU Lesser General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
+   You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* Written by Bruno Haible.  */
@@ -20,9 +20,23 @@
 
 #if defined _WIN32 && ! defined __CYGWIN__
 
-/* Ensure that <windows.h> defines FILE_ID_INFO.  */
-#undef _WIN32_WINNT
-#define _WIN32_WINNT _WIN32_WINNT_WIN8
+/* Attempt to make <windows.h> define FILE_ID_INFO.
+   But ensure that the redefinition of _WIN32_WINNT does not make us assume
+   Windows Vista or newer when building for an older version of Windows.  */
+#if HAVE_SDKDDKVER_H
+# include <sdkddkver.h>
+# if _WIN32_WINNT >= _WIN32_WINNT_VISTA
+#  define WIN32_ASSUME_VISTA 1
+# else
+#  define WIN32_ASSUME_VISTA 0
+# endif
+# if !defined _WIN32_WINNT || (_WIN32_WINNT < _WIN32_WINNT_WIN8)
+#  undef _WIN32_WINNT
+#  define _WIN32_WINNT _WIN32_WINNT_WIN8
+# endif
+#else
+# define WIN32_ASSUME_VISTA (_WIN32_WINNT >= _WIN32_WINNT_VISTA)
+#endif
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -38,21 +52,34 @@
 #include "pathmax.h"
 #include "verify.h"
 
-/* Avoid warnings from gcc -Wcast-function-type.  */
-#define GetProcAddress \
-  (void *) GetProcAddress
+/* Don't assume that UNICODE is not defined.  */
+#undef LoadLibrary
+#define LoadLibrary LoadLibraryA
+#undef GetFinalPathNameByHandle
+#define GetFinalPathNameByHandle GetFinalPathNameByHandleA
 
-#if _GL_WINDOWS_STAT_INODES == 2
+/* Older mingw headers do not define VOLUME_NAME_NONE.  */
+#ifndef VOLUME_NAME_NONE
+# define VOLUME_NAME_NONE 4
+#endif
+
+#if !WIN32_ASSUME_VISTA
+
+/* Avoid warnings from gcc -Wcast-function-type.  */
+# define GetProcAddress \
+   (void *) GetProcAddress
+
+# if _GL_WINDOWS_STAT_INODES == 2
 /* GetFileInformationByHandleEx was introduced only in Windows Vista.  */
 typedef DWORD (WINAPI * GetFileInformationByHandleExFuncType) (HANDLE hFile,
                                                                FILE_INFO_BY_HANDLE_CLASS fiClass,
                                                                LPVOID lpBuffer,
                                                                DWORD dwBufferSize);
 static GetFileInformationByHandleExFuncType GetFileInformationByHandleExFunc = NULL;
-#endif
+# endif
 /* GetFinalPathNameByHandle was introduced only in Windows Vista.  */
 typedef DWORD (WINAPI * GetFinalPathNameByHandleFuncType) (HANDLE hFile,
-                                                           LPTSTR lpFilePath,
+                                                           LPSTR lpFilePath,
                                                            DWORD lenFilePath,
                                                            DWORD dwFlags);
 static GetFinalPathNameByHandleFuncType GetFinalPathNameByHandleFunc = NULL;
@@ -64,15 +91,22 @@ initialize (void)
   HMODULE kernel32 = LoadLibrary ("kernel32.dll");
   if (kernel32 != NULL)
     {
-#if _GL_WINDOWS_STAT_INODES == 2
+# if _GL_WINDOWS_STAT_INODES == 2
       GetFileInformationByHandleExFunc =
         (GetFileInformationByHandleExFuncType) GetProcAddress (kernel32, "GetFileInformationByHandleEx");
-#endif
+# endif
       GetFinalPathNameByHandleFunc =
         (GetFinalPathNameByHandleFuncType) GetProcAddress (kernel32, "GetFinalPathNameByHandleA");
     }
   initialized = TRUE;
 }
+
+#else
+
+# define GetFileInformationByHandleExFunc GetFileInformationByHandleEx
+# define GetFinalPathNameByHandleFunc GetFinalPathNameByHandle
+
+#endif
 
 /* Converts a FILETIME to GMT time since 1970-01-01 00:00:00.  */
 #if _GL_WINDOWS_STAT_TIMESPEC
@@ -132,8 +166,10 @@ _gl_fstat_by_handle (HANDLE h, const char *path, struct stat *buf)
   DWORD type = GetFileType (h);
   if (type == FILE_TYPE_DISK)
     {
+#if !WIN32_ASSUME_VISTA
       if (!initialized)
         initialize ();
+#endif
 
       /* st_mode can be determined through
          GetFileAttributesEx

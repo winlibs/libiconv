@@ -6,19 +6,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libiconv 1.15-pre1\n"
+"Project-Id-Version: libiconv 1.17-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-libiconv@gnu.org\n"
-"POT-Creation-Date: 2019-04-26 21:02+0200\n"
-"PO-Revision-Date: 2018-06-16 17:18+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"POT-Creation-Date: 2022-02-12 13:29+0100\n"
+"PO-Revision-Date: 2022-02-16 00:25+0800\n"
+"Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@lists.linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
@@ -143,36 +143,41 @@ msgstr "  --help                      顯示這份說明然後離開\n"
 msgid "  --version                   output version information and exit\n"
 msgstr "  --version                   輸出版本資訊然後離開\n"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
+#. TRANSLATORS: The first placeholder is the web address of the Savannah
+#. project of this package.  The second placeholder is the bug-reporting
+#. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/iconv.c:185
-msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
-msgstr ""
-"將錯誤通報給 <bug-gnu-libiconv@gnu.org>，\n"
-"翻譯錯誤通報給 <zh-l10n@linux.org.tw>，\n"
-
-#: src/iconv.c:196
-#, fuzzy, no-wrap
+#: src/iconv.c:186
+#, c-format
 msgid ""
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+"Report bugs in the bug tracker at <%s>\n"
+"or by email to <%s>.\n"
+msgstr ""
+"在臭蟲追蹤器 <%s> 回報臭蟲\n"
+"或者是寄電子信件到 <%s>。\n"
+
+#. TRANSLATORS: The %s placeholder is the web address of the GPL license.
+#: src/iconv.c:202
+#, c-format, no-wrap
+msgid ""
+"License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"授權 GPLv3+: GNU GPL 第三版或後續版本 <http://gnu.org/licenses/gpl.html>\n"
+"授權 GPLv3+: GNU GPL 第三版或後續版本 <%s>\n"
 "這是自由軟體：您可以自由變更和再次散布它。\n"
 "在法律所允許的範圍內不做任何擔保。\n"
 
 #. TRANSLATORS: The %s placeholder expands to an author's name.
-#: src/iconv.c:202
+#: src/iconv.c:208
 #, c-format
 msgid "Written by %s.\n"
 msgstr "作者 %s。\n"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:296
+#: src/iconv.c:302
 #, c-format
 msgid ""
 "%s argument: A format directive with a variable width is not allowed here."
@@ -180,7 +185,7 @@ msgstr "%s 引數：這裡不允許具備可變寬度的格式指令。"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:311
+#: src/iconv.c:317
 #, c-format
 msgid ""
 "%s argument: A format directive with a variable precision is not allowed "
@@ -189,14 +194,14 @@ msgstr "%s 引數：這裡不允許具備可變精確度的格式指令。"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:327
+#: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
 msgstr "%s 引數：這裡不允許具備大小的格式指令。"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:369
+#: src/iconv.c:375
 #, c-format
 msgid "%s argument: The string ends in the middle of a directive."
 msgstr "%s 引數：字串結束於指令中間。"
@@ -204,14 +209,14 @@ msgstr "%s 引數：字串結束於指令中間。"
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %c placeholder expands to an unknown format directive.
-#: src/iconv.c:376
+#: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
 msgstr "%s 引數：字元 %c 並非有效的轉換符號。"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
-#: src/iconv.c:382
+#: src/iconv.c:388
 #, c-format
 msgid ""
 "%s argument: The character that terminates the format directive is not a "
@@ -221,7 +226,7 @@ msgstr "%s 引數：終止格式指令的字元並非有效的轉換符號。"
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
-#: src/iconv.c:398
+#: src/iconv.c:404
 #, c-format
 msgid ""
 "%s argument: The format string consumes more than one argument: %u argument."
@@ -231,42 +236,42 @@ msgstr[0] "%s 引數：格式字串耗用超過一個引數：%u 個引數。"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
-#: src/iconv.c:456
+#: src/iconv.c:462
 #, c-format
 msgid "cannot convert byte substitution to Unicode: %s"
 msgstr "無法轉換替代位元組到萬國碼：%s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --unicode-subst.
-#: src/iconv.c:496
+#: src/iconv.c:502
 #, c-format
 msgid "cannot convert unicode substitution to target encoding: %s"
 msgstr "無法轉換替代萬國碼到目標編碼：%s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
-#: src/iconv.c:537
+#: src/iconv.c:543
 #, c-format
 msgid "cannot convert byte substitution to wide string: %s"
 msgstr "無法轉換替代位元組到寬字串：%s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --widechar-subst.
-#: src/iconv.c:578
+#: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
 msgstr "無法轉換替代寬字元到目標編碼：%s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
-#: src/iconv.c:619
+#: src/iconv.c:625
 #, c-format
 msgid "cannot convert byte substitution to target encoding: %s"
 msgstr "無法轉換替代位元組到目標編碼：%s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the input file name, a line number, and a column number.
-#: src/iconv.c:638
+#: src/iconv.c:644
 #, c-format
 msgid "%s:%u:%u: cannot convert"
 msgstr "%s:%u:%u：無法轉換"
@@ -275,7 +280,7 @@ msgstr "%s:%u:%u：無法轉換"
 #. The placeholders expand to the input file name, a line number, and a column number.
 #. A "shift sequence" is a sequence of bytes that changes the state of the converter;
 #. this concept exists only for "stateful" encodings like ISO-2022-JP.
-#: src/iconv.c:652
+#: src/iconv.c:658
 #, c-format
 msgid "%s:%u:%u: incomplete character or shift sequence"
 msgstr "%s:%u:%u：不完整的字元或是換碼序列"
@@ -283,61 +288,66 @@ msgstr "%s:%u:%u：不完整的字元或是換碼序列"
 #. TRANSLATORS: The first part of an error message.
 #. It is followed by a colon and a detail message.
 #. The placeholders expand to the input file name, a line number, and a column number.
-#: src/iconv.c:665
+#: src/iconv.c:671
 #, c-format
 msgid "%s:%u:%u"
 msgstr "%s:%u:%u"
 
 #. TRANSLATORS: An error message.
 #. The placeholder expands to the input file name.
-#: src/iconv.c:826
+#: src/iconv.c:832
 #, c-format
 msgid "%s: I/O error"
 msgstr "%s：輸入輸出錯誤"
 
 #. TRANSLATORS: An error message.
 #. The placeholder expands to the encoding name, specified through --from-code.
-#: src/iconv.c:1024
+#: src/iconv.c:1030
 #, c-format
 msgid "conversion from %s unsupported"
 msgstr "不支援從 %s 進行轉換"
 
 #. TRANSLATORS: An error message.
 #. The placeholder expands to the encoding name, specified through --to-code.
-#: src/iconv.c:1030
+#: src/iconv.c:1036
 #, c-format
 msgid "conversion to %s unsupported"
 msgstr "不支援轉換到 %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the encoding names, specified through --from-code and --to-code, respectively.
-#: src/iconv.c:1036
+#: src/iconv.c:1042
 #, c-format
 msgid "conversion from %s to %s unsupported"
 msgstr "不支援從 %s 轉換到 %s"
 
 #. TRANSLATORS: Additional advice after an error message.
 #. The %s placeholder expands to the program name.
-#: src/iconv.c:1041
+#: src/iconv.c:1047
 #, c-format
 msgid "try '%s -l' to get the list of supported encodings"
 msgstr "嘗試 %s -l 以獲得支援的編碼清單"
 
 #. TRANSLATORS: A filename substitute denoting standard input.
-#: src/iconv.c:1098
+#: src/iconv.c:1104
 msgid "(stdin)"
 msgstr "(標準輸入)"
 
 #. TRANSLATORS: The first part of an error message.
 #. It is followed by a colon and a detail message.
 #. The %s placeholder expands to the input file name.
-#: src/iconv.c:1110
+#: src/iconv.c:1116
 #, c-format
 msgid "%s"
 msgstr "%s"
 
 #. TRANSLATORS: An error message.
-#: src/iconv.c:1124
+#: src/iconv.c:1130
 #, c-format
 msgid "I/O error"
 msgstr "輸入輸出錯誤"
+
+#~ msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
+#~ msgstr ""
+#~ "將錯誤通報給 <bug-gnu-libiconv@gnu.org>，\n"
+#~ "翻譯錯誤通報給 <zh-l10n@linux.org.tw>，\n"
