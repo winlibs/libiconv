@@ -101,6 +101,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <IntDir>obj\$(Configuration)\$(Platform)\</IntDir>
+    <OutDir>..\$(Platform)\lib\</OutDir>
+    <TargetName>libiconv_a</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\$(Platform)\</OutDir>
@@ -175,10 +177,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ProgramDataBaseFileName>$(OutDir)lib\libiconv_a_debug.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(OutDir)libiconv_a_debug.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)lib\libiconv_a_debug.lib</OutputFile>
+      <OutputFile>$(OutDir)libiconv_a_debug.lib</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
