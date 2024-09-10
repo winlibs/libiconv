@@ -104,6 +104,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <IntDir>obj\$(Configuration)\$(Platform)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\$(Platform)\bin\</OutDir>
+    <TargetName>libiconv</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\$(Platform)\</OutDir>
@@ -196,7 +198,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ProgramDataBaseFileName>$(IntDir)libiconv_debug.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(OutDir)libiconv_debug.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)bin\libiconv_debug.dll</OutputFile>
@@ -206,7 +208,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImportLibrary>$(OutDir)lib\libiconv_debug.lib</ImportLibrary>
-      <ProgramDatabaseFile>$(OutDir)bin\libiconv_debug.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)libiconv_debug.pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
