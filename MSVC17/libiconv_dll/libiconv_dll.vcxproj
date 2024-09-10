@@ -297,8 +297,8 @@
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>$(OutDir)lib\libiconv.lib</ImportLibrary>
-      <ProgramDatabaseFile>$(OutDir)bin\libiconv.pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(OutDir)..\lib\libiconv.lib</ImportLibrary>
+      <ProgramDatabaseFile>$(OutDir)libiconv.pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
