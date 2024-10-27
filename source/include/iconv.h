@@ -1,4 +1,4 @@
-/* Copyright (C) 1999-2003, 2005-2006, 2008-2011 Free Software Foundation, Inc.
+/* Copyright (C) 1999-2022 Free Software Foundation, Inc.
    This file is part of the GNU LIBICONV Library.
 
    The GNU LIBICONV Library is free software; you can redistribute it
@@ -20,7 +20,7 @@
 #ifndef _LIBICONV_H
 #define _LIBICONV_H
 
-#define _LIBICONV_VERSION 0x010F    /* version number: (major<<8) + minor */
+#define _LIBICONV_VERSION 0x0111    /* version number: (major<<8) + minor */
 
 #ifdef BUILDING_LIBICONV
 #define LIBICONV_DLL_EXPORTED __declspec(dllexport)
