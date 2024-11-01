@@ -9,7 +9,7 @@
 
 escape=
 if test "$1" = "--escape"; then
-  escape=yes
+  escape=
   shift
 fi
 version="$1" # something like 2.0 or 2.17 or 2.17.3 or 2.17.3-pre3

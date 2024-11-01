@@ -1,0 +1,33 @@
+#! /bin/sh
+
+OTHER_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -i)
+      INPUT="`cygpath -w $2`"
+      shift
+      shift
+      ;;
+    --output-format=*)
+      if test "${1#*=}" != coff; then
+        echo "Unsupported output format ${1#*=}"
+        exit 1
+      fi
+      shift
+      ;;
+    -o)
+      OUTPUT="`cygpath -w $2`"
+      shift
+      shift
+      ;;
+    *)
+      OTHER_ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+rc.exe ${OTHER_ARGS[@]} -fo ${OUTPUT}.res ${INPUT}
+cvtres.exe -machine:${Platform} -out:${OUTPUT} ${OUTPUT}.res
+rm ${OUTPUT}.res
