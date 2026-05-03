@@ -1,5 +1,5 @@
 /* Provide relocatable programs.
-   Copyright (C) 2003-2022 Free Software Foundation, Inc.
+   Copyright (C) 2003-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,6 @@
 #include "progname.h"
 
 #include <errno.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -134,7 +133,7 @@ static size_t
 full_read (int fd, void *buf, size_t count)
 {
   size_t total = 0;
-  const char *ptr = (const char *) buf;
+  char *ptr = (char *) buf;
 
   while (count > 0)
     {
@@ -181,13 +180,15 @@ maybe_executable (const char *filename)
       /* If we already have an executable_fd, check that filename points to
          the same inode.  */
       struct stat statexe;
-      struct stat statfile;
 
       if (fstat (executable_fd, &statexe) >= 0)
-        return (stat (filename, &statfile) >= 0
-                && statfile.st_dev
-                && statfile.st_dev == statexe.st_dev
-                && statfile.st_ino == statexe.st_ino);
+        {
+          struct stat statfile;
+          return (stat (filename, &statfile) >= 0
+                  && statfile.st_dev
+                  && statfile.st_dev == statexe.st_dev
+                  && statfile.st_ino == statexe.st_ino);
+        }
     }
 # endif
 
@@ -224,16 +225,15 @@ find_executable (const char *argv0)
     return NULL;
   return xstrdup (location);
 #elif defined __EMX__
-  PPIB ppib;
-  char location[CCHMAXPATH];
-
   /* See http://cyberkinetica.homeunix.net/os2tk45/cp1/619_L2H_DosGetInfoBlocksSynt.html
      for specification of DosGetInfoBlocks().  */
+  PPIB ppib;
   if (DosGetInfoBlocks (NULL, &ppib))
     return NULL;
 
   /* See http://cyberkinetica.homeunix.net/os2tk45/cp1/1247_L2H_DosQueryModuleNameSy.html
      for specification of DosQueryModuleName().  */
+  char location[CCHMAXPATH];
   if (DosQueryModuleName (ppib->pib_hmte, sizeof (location), location))
     return NULL;
 
@@ -247,32 +247,27 @@ find_executable (const char *argv0)
      to the true pathname; older Linux versions give only device and ino,
      enclosed in brackets, which we cannot use here.  */
   {
-    char *link;
-
-    link = xreadlink ("/proc/self/exe");
+    char *link = xreadlink ("/proc/self/exe");
     if (link != NULL && link[0] != '[')
       return link;
     if (executable_fd < 0)
       executable_fd = open ("/proc/self/exe", O_EXEC | O_CLOEXEC, 0);
-
-    {
-      char buf[6+10+5];
-      sprintf (buf, "/proc/%d/exe", getpid ());
-      link = xreadlink (buf);
-      if (link != NULL && link[0] != '[')
-        return link;
-      if (executable_fd < 0)
-        executable_fd = open (buf, O_EXEC | O_CLOEXEC, 0);
-    }
+  }
+  {
+    char buf[6+10+5];
+    sprintf (buf, "/proc/%d/exe", getpid ());
+    char *link = xreadlink (buf);
+    if (link != NULL && link[0] != '[')
+      return link;
+    if (executable_fd < 0)
+      executable_fd = open (buf, O_EXEC | O_CLOEXEC, 0);
   }
 # endif
 # if defined __ANDROID__ || defined __FreeBSD_kernel__
   /* On Android and GNU/kFreeBSD, the executable is accessible as
      /proc/<pid>/exe and /proc/self/exe.  */
   {
-    char *link;
-
-    link = xreadlink ("/proc/self/exe");
+    char *link = xreadlink ("/proc/self/exe");
     if (link != NULL)
       return link;
   }
@@ -281,12 +276,10 @@ find_executable (const char *argv0)
   /* In FreeBSD >= 5.0, the executable is accessible as /proc/<pid>/file and
      /proc/curproc/file.  */
   {
-    char *link;
-
-    link = xreadlink ("/proc/curproc/file");
+    char *link = xreadlink ("/proc/curproc/file");
     if (link != NULL)
       {
-        if (strcmp (link, "unknown") != 0)
+        if (!streq (link, "unknown"))
           return link;
         free (link);
       }
@@ -296,9 +289,7 @@ find_executable (const char *argv0)
   /* In NetBSD >= 4.0, the executable is accessible as /proc/<pid>/exe and
      /proc/curproc/exe.  */
   {
-    char *link;
-
-    link = xreadlink ("/proc/curproc/exe");
+    char *link = xreadlink ("/proc/curproc/exe");
     if (link != NULL)
       return link;
   }
@@ -326,9 +317,7 @@ find_executable (const char *argv0)
   /* The executable is accessible as /proc/<pid>/exe, at least in
      Cygwin >= 1.5.  */
   {
-    char *link;
-
-    link = xreadlink ("/proc/self/exe");
+    char *link = xreadlink ("/proc/self/exe");
     if (link != NULL)
       return link;
     if (executable_fd < 0)
@@ -350,15 +339,12 @@ find_executable (const char *argv0)
      login(1) convention to add a '-' prefix to argv[0] is not supported.  */
   {
     bool has_slash = false;
-    {
-      const char *p;
-      for (p = argv0; *p; p++)
-        if (*p == '/')
-          {
-            has_slash = true;
-            break;
-          }
-    }
+    for (const char *p = argv0; *p; p++)
+      if (*p == '/')
+        {
+          has_slash = true;
+          break;
+        }
     if (!has_slash)
       {
         /* exec searches paths without slashes in the directory list given
@@ -367,24 +353,25 @@ find_executable (const char *argv0)
 
         if (path != NULL)
           {
-            const char *p;
             const char *p_next;
 
-            for (p = path; *p; p = p_next)
+            for (const char *p = path; *p; p = p_next)
               {
-                const char *q;
                 size_t p_len;
-                char *concat_name;
 
-                for (q = p; *q; q++)
-                  if (*q == ':')
-                    break;
-                p_len = q - p;
-                p_next = (*q == '\0' ? q : q + 1);
+                {
+                  const char *q;
+                  for (q = p; *q; q++)
+                    if (*q == ':')
+                      break;
+                  p_len = q - p;
+                  p_next = (*q == '\0' ? q : q + 1);
+                }
 
                 /* We have a path item at p, of length p_len.
                    Now concatenate the path item and argv0.  */
-                concat_name = (char *) xmalloc (p_len + strlen (argv0) + 2);
+                char *concat_name =
+                  (char *) xmalloc (p_len + strlen (argv0) + 2);
 # ifdef NO_XMALLOC
                 if (concat_name == NULL)
                   return NULL;
@@ -422,14 +409,12 @@ static void
 prepare_relocate (const char *orig_installprefix, const char *orig_installdir,
                   const char *argv0)
 {
-  char *curr_prefix;
-
   /* Determine the full pathname of the current executable.  */
   executable_fullname = find_executable (argv0);
 
   /* Determine the current installation prefix from it.  */
-  curr_prefix = compute_curr_prefix (orig_installprefix, orig_installdir,
-                                     executable_fullname);
+  char *curr_prefix = compute_curr_prefix (orig_installprefix, orig_installdir,
+                                           executable_fullname);
   if (curr_prefix != NULL)
     {
       /* Now pass this prefix to all copies of the relocate.c source file.  */
@@ -455,7 +440,7 @@ set_program_name_and_installdir (const char *argv0,
     size_t argv0_len = strlen (argv0);
     const size_t exeext_len = sizeof (EXEEXT) - sizeof ("");
     if (argv0_len > 4 + exeext_len)
-      if (memcmp (argv0 + argv0_len - exeext_len - 4, ".bin", 4) == 0)
+      if (memeq (argv0 + argv0_len - exeext_len - 4, ".bin", 4))
         {
           if (sizeof (EXEEXT) > sizeof (""))
             {

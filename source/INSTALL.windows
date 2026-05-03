@@ -8,7 +8,7 @@ There are three ways to create binaries of this package for Microsoft Windows:
 ===============================================================================
 1) Native binaries, built using the mingw tool chain.
 
-   I recommend to use the Cygwin environment as the development environment
+   I recommend to use the Cygwin environment as the development environment (*)
    and mingw only as the target (runtime, deployment) environment.
    For this, you need to install
      * Cygwin (from https://cygwin.com/),
@@ -53,6 +53,13 @@ There are three ways to create binaries of this package for Microsoft Windows:
 
       make install
 
+   (*) Note: The MSYS2 environment as a development environment is *not*
+       supported.  This environment contains an ignoble and ignominious hack:
+       In a program invocation, the program *by default* receives different
+       arguments than the ones that the caller has passed.  See
+       <https://www.msys2.org/wiki/Porting/#filesystem-namespaces>.
+       All program invocations in this environment are therefore unreliable.
+
 ===============================================================================
 2) Native binaries, built using the MS Visual C/C++ tool chain.
 
@@ -80,6 +87,14 @@ There are three ways to create binaries of this package for Microsoft Windows:
      * Cygwin (from https://cygwin.com/),
      * some packages available from the Cygwin package installer:
          make
+     * the mingw cross-compilation tool named 'windres', available from the
+       Cygwin package installer (setup-x86_64.exe):
+       - for creating 32-bit binaries: packages
+           mingw64-i686-binutils,
+           mingw64-i686-gcc-core
+       - for creating 64-bit binaries: packages
+           mingw64-x86_64-binutils,
+           mingw64-x86_64-gcc-core
 
    You also need the scripts 'ar-lib' and 'compile' from
      https://git.savannah.gnu.org/gitweb/?p=automake.git;a=blob_plain;f=lib/ar-lib;hb=HEAD

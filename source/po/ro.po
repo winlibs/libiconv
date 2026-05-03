@@ -26,17 +26,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 3.0.1\n"
 
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
 msgid "Usage: iconv [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-msgstr ""
-"Utilizare: iconv [-c] [-s] [-f codificarea_originală] [-t "
-"codificarea_dorită] [fișier ...]"
+msgstr "Utilizare: iconv [-c] [-s] [-f codificarea_originală] [-t codificarea_dorită] [fișier ...]"
 
 #. TRANSLATORS: The second line of the short usage message.
 #. Align it correctly against the first line.
@@ -169,8 +166,7 @@ msgid ""
 msgstr ""
 "Raportați erorile în sistemul de urmărire a defecțiunilor la <%s>\n"
 "sau prin e-mail la <%s>.\n"
-"Raportați erorile de traducere la <translation-team-ro@lists.sourceforge."
-"net>\n"
+"Raportați erorile de traducere la <translation-team-ro@lists.sourceforge.net>\n"
 
 #. TRANSLATORS: The %s placeholder is the web address of the GPL license.
 #: src/iconv.c:202
@@ -194,30 +190,22 @@ msgstr "Scris de %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"Argumentul %s: o directivă de format cu o lățime variabilă nu este permisă "
-"aici."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "Argumentul %s: o directivă de format cu o lățime variabilă nu este permisă aici."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"Argumentul %s: o directivă de format cu o precizie variabilă nu este permisă "
-"aici."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "Argumentul %s: o directivă de format cu o precizie variabilă nu este permisă aici."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"Argumentul %s: o directivă de format cu o dimensiune nu este permisă aici."
+msgstr "Argumentul %s: o directivă de format cu o dimensiune nu este permisă aici."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -232,38 +220,25 @@ msgstr "Argumentul %s: șirul se termină în mijlocul unei directive."
 #: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
-msgstr ""
-"Argumentul %s: caracterul „%c” nu este un specificator de conversie valid."
+msgstr "Argumentul %s: caracterul „%c” nu este un specificator de conversie valid."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"Argumentul %s: caracterul care termină directiva de format nu este un "
-"specificator de conversie valid."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "Argumentul %s: caracterul care termină directiva de format nu este un specificator de conversie valid."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"Argumentul %s: șirul substitutiv consumă mai mult de un argument: %u "
-"argument."
-msgstr[1] ""
-"Argumentul %s: șirul substitutiv consumă mai mult de un argument: %u "
-"argumente."
-msgstr[2] ""
-"Argumentul %s: șirul substitutiv consumă mai mult de un argument: %u de "
-"argumente."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "Argumentul %s: șirul substitutiv consumă mai mult de un argument: %u argument."
+msgstr[1] "Argumentul %s: șirul substitutiv consumă mai mult de un argument: %u argumente."
+msgstr[2] "Argumentul %s: șirul substitutiv consumă mai mult de un argument: %u de argumente."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -277,8 +252,7 @@ msgstr "nu se poate converti șirul substitutiv de octeți în Unicode: %s"
 #: src/iconv.c:502
 #, c-format
 msgid "cannot convert unicode substitution to target encoding: %s"
-msgstr ""
-"nu se poate converti șirul substitutiv Unicode în codificarea dorită: %s"
+msgstr "nu se poate converti șirul substitutiv Unicode în codificarea dorită: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -292,17 +266,14 @@ msgstr "nu se poate converti șirul substitutiv de octeți într-un șir larg: %
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr ""
-"nu se poate converti șirul substitutiv de caracter larg(widechar) la "
-"codificarea dorită: %s"
+msgstr "nu se poate converti șirul substitutiv de caracter larg(widechar) la codificarea dorită: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
 #: src/iconv.c:625
 #, c-format
 msgid "cannot convert byte substitution to target encoding: %s"
-msgstr ""
-"nu se poate converti șirul substitutiv de octeți la codificarea dorită: %s"
+msgstr "nu se poate converti șirul substitutiv de octeți la codificarea dorită: %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the input file name, a line number, and a column number.

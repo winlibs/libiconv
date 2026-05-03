@@ -1,19 +1,19 @@
 # Estonian translations for libiconv.
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libiconv package.
-# Toomas Soome <tsoome@me.com>, 2016.
+# Toomas Soome <tsoome@me.com>, 2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libiconv 1.15-pre1\n"
+"Project-Id-Version: libiconv 1.17-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-libiconv@gnu.org\n"
 "POT-Creation-Date: 2022-02-12 13:29+0100\n"
-"PO-Revision-Date: 2016-12-12 13:23+0200\n"
+"PO-Revision-Date: 2025-04-14 11:41+0300\n"
 "Last-Translator: Toomas Soome <tsoome@me.com>\n"
 "Language-Team: Estonian <linux-ee@lists.eenet.ee>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -27,7 +27,7 @@ msgstr "Kasutamine: iconv [-c] [-s] [-f koodist] [-t koodi] [fail ...]"
 #. Align it correctly against the first line.
 #: src/iconv.c:108
 msgid "or:    iconv -l"
-msgstr "vıi:    iconv -l"
+msgstr "v√µi:    iconv -l"
 
 #: src/iconv.c:110
 #, c-format
@@ -39,7 +39,7 @@ msgstr "Lisainfo saamiseks kasutage '%s --help'.\n"
 #: src/iconv.c:115
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION...] [-f ENCODING] [-t ENCODING] [INPUTFILE...]\n"
-msgstr "Kasutamine: %s [V’TI...] [-f KODEERING] [-t KODEERING] [SISENDFAIL...]\n"
+msgstr "Kasutamine: %s [V√ïTI...] [-f KODEERING] [-t KODEERING] [SISENDFAIL...]\n"
 
 #. TRANSLATORS: The second line of the long usage message.
 #. Align it correctly against the first line.
@@ -47,18 +47,18 @@ msgstr "Kasutamine: %s [V’TI...] [-f KODEERING] [-t KODEERING] [SISENDFAIL...]\n
 #: src/iconv.c:122
 #, c-format, no-wrap
 msgid "or:    %s -l\n"
-msgstr "vıi:    %s -l\n"
+msgstr "v√µi:    %s -l\n"
 
 #. TRANSLATORS: Description of the iconv program.
 #: src/iconv.c:128
 #, c-format, no-wrap
 msgid "Converts text from one encoding to another encoding.\n"
-msgstr "Teisendab teksti ¸hest kooditabelist teise.\n"
+msgstr "Teisendab teksti √ºhest kooditabelist teise.\n"
 
 #: src/iconv.c:132
 #, c-format, no-wrap
 msgid "Options controlling the input and output format:\n"
-msgstr "Sisendi ja v‰ljundi vormingut kontrollivad vıtmed:\n"
+msgstr "Sisendi ja v√§ljundi vormingut kontrollivad v√µtmed:\n"
 
 #: src/iconv.c:135
 #, c-format, no-wrap
@@ -76,17 +76,17 @@ msgid ""
 "                              the encoding of the output\n"
 msgstr ""
 "  -t KODEERING, --to-code=KODEERING\n"
-"                              v‰ljundi kooditabel\n"
+"                              v√§ljundi kooditabel\n"
 
 #: src/iconv.c:144
 #, c-format, no-wrap
 msgid "Options controlling conversion problems:\n"
-msgstr "Teisendamisel tekkivate probleemide kontrolli vıtmed:\n"
+msgstr "Teisendamisel tekkivate probleemide kontrolli v√µtmed:\n"
 
 #: src/iconv.c:147
 #, c-format, no-wrap
 msgid "  -c                          discard unconvertible characters\n"
-msgstr "  -c                          eemalda mitteteisendatavad s¸mbolid\n"
+msgstr "  -c                          eemalda mitteteisendatavad s√ºmbolid\n"
 
 #: src/iconv.c:150
 #, c-format, no-wrap
@@ -95,7 +95,7 @@ msgid ""
 "                              substitution for unconvertible Unicode characters\n"
 msgstr ""
 "  --unicode-subst=VORMING\n"
-"                              mitteteisendavate Unikoodi s¸mbolite asendus\n"
+"                              mitteteisendavate Unikoodi s√ºmbolite asendus\n"
 
 #: src/iconv.c:154
 #, c-format, no-wrap
@@ -109,12 +109,12 @@ msgid ""
 "                              substitution for unconvertible wide characters\n"
 msgstr ""
 "  --widechar-subst=VORMING\n"
-"                              mitteteisendatavate mitmebaidi s¸mbolite asendus\n"
+"                              mitteteisendatavate mitmebaidi s√ºmbolite asendus\n"
 
 #: src/iconv.c:162
 #, c-format, no-wrap
 msgid "Options controlling error output:\n"
-msgstr "Vigade v‰ljundi kontrollimise vıtmed:\n"
+msgstr "Vigade v√§ljundi kontrollimise v√µtmed:\n"
 
 #: src/iconv.c:165
 #, c-format, no-wrap
@@ -124,22 +124,22 @@ msgstr "  -s, --silent                keela probleemidest teatamine\n"
 #: src/iconv.c:169
 #, c-format, no-wrap
 msgid "Informative output:\n"
-msgstr "Infov‰ljund:\n"
+msgstr "Infov√§ljund:\n"
 
 #: src/iconv.c:172
 #, c-format, no-wrap
 msgid "  -l, --list                  list the supported encodings\n"
-msgstr "  -l, --list                  v‰ljasta toetatud kooditabelite nimekiri\n"
+msgstr "  -l, --list                  v√§ljasta toetatud kooditabelite nimekiri\n"
 
 #: src/iconv.c:175
 #, c-format, no-wrap
 msgid "  --help                      display this help and exit\n"
-msgstr "  --help                      v‰ljasta see abiinfo ja lıpeta tˆˆ\n"
+msgstr "  --help                      v√§ljasta see abiinfo ja l√µpeta t√∂√∂\n"
 
 #: src/iconv.c:178
 #, c-format, no-wrap
 msgid "  --version                   output version information and exit\n"
-msgstr "  --version                   v‰ljasta versiooni info ja lıpeta tˆˆ\n"
+msgstr "  --version                   v√§ljasta versiooni info ja l√µpeta t√∂√∂\n"
 
 #. TRANSLATORS: The first placeholder is the web address of the Savannah
 #. project of this package.  The second placeholder is the bug-reporting
@@ -152,20 +152,18 @@ msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
+"Palun teatage vigadest aadressil <%s>\n"
+"v√µi saatke email aadressil <%s>.\n"
 
 #. TRANSLATORS: The %s placeholder is the web address of the GPL license.
 #: src/iconv.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Litsents GPLv3+: GNU GPL versioon 3 vıi uuem <http://gnu.org/licenses/gpl.html>\n"
+"Litsents GPLv3+: GNU GPL versioon 3 v√µi uuem <%s>\n"
 "See on vaba tarkvara: teil on lubatud seda muuta ja levitada.\n"
 "GARANTII PUDUB, vastavalt seadusega lubatud piiridele.\n"
 
@@ -179,32 +177,29 @@ msgstr "Kirjutanud %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
+msgid "%s argument: A format directive with a variable width is not allowed here."
 msgstr "%s argument: Muutuva pikkusega vorming ei ole siin lubatud."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr "%s argument: Muutuva t‰psusega vorming ei ole siin lubatud."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "%s argument: Muutuva t√§psusega vorming ei ole siin lubatud."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr "%s argument: Suuruse m‰‰ranguga vorming ei ole siin lubatud."
+msgstr "%s argument: Suuruse m√§√§ranguga vorming ei ole siin lubatud."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:375
 #, c-format
 msgid "%s argument: The string ends in the middle of a directive."
-msgstr "%s argument: Sıne lıppeb keset direktiivi."
+msgstr "%s argument: S√µne l√µppeb keset direktiivi."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -212,31 +207,24 @@ msgstr "%s argument: Sıne lıppeb keset direktiivi."
 #: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
-msgstr "%s argument: S¸mbol '%c' ei ole lubatud teisenduses."
+msgstr "%s argument: S√ºmbol '%c' ei ole lubatud teisenduses."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"%s argument: Vormingi direktiivi lıpetav s¸mbol ei ole teisenduses lubatud."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "%s argument: Vormingi direktiivi l√µpetav s√ºmbol ei ole teisenduses lubatud."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"%s argument: Vormingu sıne nıuab enam kui ¸hte argumenti: %u argument."
-msgstr[1] ""
-"%s argument: Vormingu sıne nıuab enam kui ¸hte argumenti: %u argumenti."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "%s argument: Vormingu s√µne n√µuab enam kui √ºhte argumenti: %u argument."
+msgstr[1] "%s argument: Vormingu s√µne n√µuab enam kui √ºhte argumenti: %u argumenti."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -257,14 +245,14 @@ msgstr "unikoodi asendust ei saa sihttabelisse teisendada: %s"
 #: src/iconv.c:543
 #, c-format
 msgid "cannot convert byte substitution to wide string: %s"
-msgstr "baidiasendust ei saa mitmebaidiliste s¸mbolitega sıneks teisendada: %s"
+msgstr "baidiasendust ei saa mitmebaidiliste s√ºmbolitega s√µneks teisendada: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --widechar-subst.
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr "widechar s¸mboleid ei saa sihttabelisse teisendada: %s"
+msgstr "widechar s√ºmboleid ei saa sihttabelisse teisendada: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -287,7 +275,7 @@ msgstr "%s:%u:%u: ei saa teisendada"
 #: src/iconv.c:658
 #, c-format
 msgid "%s:%u:%u: incomplete character or shift sequence"
-msgstr "%s:%u:%u: mittet‰ielik s¸mbol vıi nihkej‰rjend"
+msgstr "%s:%u:%u: mittet√§ielik s√ºmbol v√µi nihkej√§rjend"
 
 #. TRANSLATORS: The first part of an error message.
 #. It is followed by a colon and a detail message.
@@ -330,7 +318,7 @@ msgstr "teisendust tabelist %s tabelisse %s ei toetata"
 #: src/iconv.c:1047
 #, c-format
 msgid "try '%s -l' to get the list of supported encodings"
-msgstr "Toetatud kooditabelite niekirja saate k‰suga '%s -l'"
+msgstr "Toetatud kooditabelite niekirja saate k√§suga '%s -l'"
 
 #. TRANSLATORS: A filename substitute denoting standard input.
 #: src/iconv.c:1104
@@ -350,6 +338,3 @@ msgstr "%s"
 #, c-format
 msgid "I/O error"
 msgstr "S/V viga"
-
-#~ msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
-#~ msgstr "Vigadest teatage palun aadressil <bug-gnu-libiconv@gnu.org>.\n"

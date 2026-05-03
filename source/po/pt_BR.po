@@ -1,25 +1,25 @@
 # Brazilian Portuguese translation for libiconv
-# Copyright (C) 2016 Free Software Foundation, Inc.
+# Copyright (C) 2024 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libiconv package.
 # based on the translation to Galician (gl) by
 # Jacobo Tarrio Barreiro <jtarrio@trasno.net>, 2002.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2002.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2014, 2016.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2014-2024.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: libiconv 1.15-pre1\n"
+"Project-Id-Version: libiconv 1.17-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-libiconv@gnu.org\n"
 "POT-Creation-Date: 2022-02-12 13:29+0100\n"
-"PO-Revision-Date: 2016-12-12 10:58-0200\n"
+"PO-Revision-Date: 2024-09-23 13:08-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Brazilian Portuguese <ldpbr-translation@lists.sourceforge."
-"net>\n"
+"Language-Team: Brazilian Portuguese <ldpbr-translation@lists.sourceforge.net>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 1.0.0-beta1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 46.1\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #. TRANSLATORS: The first line of the short usage message.
@@ -156,22 +156,21 @@ msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
+"Relate erros no rastreador em <%s>\n"
+"ou por e-mail para <%s>.\n"
+"Relate erros de tradução para <https://translationproject.org/team/pt_BR.html>\n"
 
 #. TRANSLATORS: The %s placeholder is the web address of the GPL license.
 #: src/iconv.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Licença GPLv3+: GNU GPL versão 3 ou posterior <http://gnu.org/licenses/gpl.html>\n"
-"Esse é um software livre: você está livre para modificá-lo e redistribuí-lo.\n"
-"NÃO HÁ GARANTIA, não extensão permitida pela lei.\n"
+"Licença GPLv3+: GNU GPL versão 3 ou posterior <%s>\n"
+"Este é um software livre: você é livre para alterá-lo e redistribuí-lo.\n"
+"NÃO HÁ QUALQUER GARANTIA, na máxima extensão permitida em lei.\n"
 
 #. TRANSLATORS: The %s placeholder expands to an author's name.
 #: src/iconv.c:208
@@ -183,30 +182,22 @@ msgstr "Escrito por %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"argumento de %s: Uma diretiva de formato com uma variável de largura não "
-"permitida aqui."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "argumento de %s: Uma diretiva de formato com uma variável de largura não permitida aqui."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"argumento de %s: Uma diretiva de formato com uma variável de precisão não "
-"permitida aqui."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "argumento de %s: Uma diretiva de formato com uma variável de precisão não permitida aqui."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"argumento de %s: Uma diretiva de formato com um tamanho não permitida aqui."
+msgstr "argumento de %s: Uma diretiva de formato com um tamanho não permitida aqui."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -221,36 +212,24 @@ msgstr "argumento de %s: A string termina no meio de uma diretiva."
 #: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
-msgstr ""
-"argumento de %s: O caractere \"%c\" não é uma especificação de conversão "
-"válida."
+msgstr "argumento de %s: O caractere \"%c\" não é uma especificação de conversão válida."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"argumento de %s: O caractere que termina a diretiva de formato não é uma "
-"especificação de conversão válida."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "argumento de %s: O caractere que termina a diretiva de formato não é uma especificação de conversão válida."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"argumento de %s: O texto de formato consume mais do que um argumento: %u "
-"argumento."
-msgstr[1] ""
-"argumento de %s: O texto de formato consume mais do que um argumento: %u "
-"argumentos."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "argumento de %s: O texto de formato consume mais do que um argumento: %u argumento."
+msgstr[1] "argumento de %s: O texto de formato consume mais do que um argumento: %u argumentos."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -285,9 +264,7 @@ msgstr "não foi possível converter widechar para codificação desejada: %s"
 #: src/iconv.c:625
 #, c-format
 msgid "cannot convert byte substitution to target encoding: %s"
-msgstr ""
-"não foi possível converter substituição de bytes para codificação desejada: "
-"%s"
+msgstr "não foi possível converter substituição de bytes para codificação desejada: %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the input file name, a line number, and a column number.
@@ -370,21 +347,15 @@ msgstr "erro de E/S"
 #~ msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
 #~ msgstr "Relate problemas para <bug-gnu-libiconv@gnu.org>.\n"
 
-#~ msgid ""
-#~ "Usage: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-#~ msgstr ""
-#~ "Uso: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [arquivo ...]"
+#~ msgid "Usage: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
+#~ msgstr "Uso: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [arquivo ...]"
 
 #~ msgid ""
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
+#~ "This is free software; see the source for copying conditions.  There is NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 #~ msgstr ""
-#~ "Este é um software livre; veja o código fonte para condições de "
-#~ "copyright. Não\n"
-#~ "existe NENHUMA garantia; nem mesmo a garantia implícita de "
-#~ "COMERCIABILIDADE ou\n"
+#~ "Este é um software livre; veja o código fonte para condições de copyright. Não\n"
+#~ "existe NENHUMA garantia; nem mesmo a garantia implícita de COMERCIABILIDADE ou\n"
 #~ "ADEQUAÇÃO À QUALQUER FINALIDADE PARTICULAR.\n"
 
 #~ msgid "iconv: %s: "

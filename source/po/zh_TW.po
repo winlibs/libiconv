@@ -179,17 +179,14 @@ msgstr "作者 %s。\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
+msgid "%s argument: A format directive with a variable width is not allowed here."
 msgstr "%s 引數：這裡不允許具備可變寬度的格式指令。"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
 msgstr "%s 引數：這裡不允許具備可變精確度的格式指令。"
 
 #. TRANSLATORS: An error message.
@@ -218,9 +215,7 @@ msgstr "%s 引數：字元 %c 並非有效的轉換符號。"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
 msgstr "%s 引數：終止格式指令的字元並非有效的轉換符號。"
 
 #. TRANSLATORS: An error message.
@@ -228,10 +223,8 @@ msgstr "%s 引數：終止格式指令的字元並非有效的轉換符號。"
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
 msgstr[0] "%s 引數：格式字串耗用超過一個引數：%u 個引數。"
 
 #. TRANSLATORS: An error message.

@@ -180,31 +180,22 @@ msgstr "Ditulis oleh %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"%s argumen: Sebuah format direktif dengan sebuah lebar variabel tidak "
-"diijinkan disini."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "%s argumen: Sebuah format direktif dengan sebuah lebar variabel tidak diijinkan disini."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"%s argumen: Sebuah format direktif dengan sebuah variabel presisi tidak "
-"diijinkan disini."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "%s argumen: Sebuah format direktif dengan sebuah variabel presisi tidak diijinkan disini."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"%s argumen: Sebuah format direktif dengan sebuah ukuran tidak diijinkan "
-"disini."
+msgstr "%s argumen: Sebuah format direktif dengan sebuah ukuran tidak diijinkan disini."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -219,31 +210,23 @@ msgstr "%s argumen: String berakhir ditengah dari sebuah direktif."
 #: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
-msgstr ""
-"%s argumen: Karakter '%c' bukan sebuah penspesifikasi konversi yang valid."
+msgstr "%s argumen: Karakter '%c' bukan sebuah penspesifikasi konversi yang valid."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"%s argumen: Karakter yang diselesaikan dengan format direktif bukan sebuah "
-"penspesifikasi konversi yang valid."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "%s argumen: Karakter yang diselesaikan dengan format direktif bukan sebuah penspesifikasi konversi yang valid."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"%s argumen: Format string mengambil lebih dari satu argumen: %u argumen."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "%s argumen: Format string mengambil lebih dari satu argumen: %u argumen."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.

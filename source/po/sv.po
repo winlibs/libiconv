@@ -159,8 +159,7 @@ msgid ""
 msgstr ""
 "Rapportera fel i felrapporteringssystemet på <%s>\n"
 "eller via e-post till <%s>.\n"
-"Rapportera fel eller synpunkter på översättningen till <tp-sv@listor.tp-sv."
-"se>.\n"
+"Rapportera fel eller synpunkter på översättningen till <tp-sv@listor.tp-sv.se>.\n"
 
 #. TRANSLATORS: The %s placeholder is the web address of the GPL license.
 #: src/iconv.c:202
@@ -184,20 +183,15 @@ msgstr "Skrivet av %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"Argument %s: Ett formatdirektiv med en variabel bredd tillåts inte här."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "Argument %s: Ett formatdirektiv med en variabel bredd tillåts inte här."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"Argument %s: Ett formatdirektiv med en variabel precision tillåts inte här."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "Argument %s: Ett formatdirektiv med en variabel precision tillåts inte här."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -225,26 +219,18 @@ msgstr "Argument %s: Tecknet \"%c\" är inte en giltig konverteringsangivare."
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"Argument %s: Tecknet som avslutar formatdirektivet är inte en giltig "
-"konverteringsangivare."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "Argument %s: Tecknet som avslutar formatdirektivet är inte en giltig konverteringsangivare."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"Argument %s: Formatsträngen konsumerar fler än ett argument: %u argument."
-msgstr[1] ""
-"Argument %s: Formatsträngen konsumerar fler än ett argument: %u argument."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "Argument %s: Formatsträngen konsumerar fler än ett argument: %u argument."
+msgstr[1] "Argument %s: Formatsträngen konsumerar fler än ett argument: %u argument."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -365,19 +351,15 @@ msgstr "In-/Ut-fel"
 #~ "Skicka synpunkter på översättningen till <tp-sv@listor.tp-sv.se>.\n"
 
 #~ msgid ""
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
+#~ "This is free software; see the source for copying conditions.  There is NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 #~ msgstr ""
 #~ "Detta är fri programvara; se källkoden för kopieringsvillkor. Det finns\n"
 #~ "INGEN garanti; inte ens för SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT\n"
 #~ "SPECIELLT ÄNDAMÅL.\n"
 
-#~ msgid ""
-#~ "Usage: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-#~ msgstr ""
-#~ "Användning: iconv [--binary] [-c] [-s] [-f frånkod] [-t tillkod] [fil ...]"
+#~ msgid "Usage: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
+#~ msgstr "Användning: iconv [--binary] [-c] [-s] [-f frånkod] [-t tillkod] [fil ...]"
 
 #~ msgid "iconv: %s: "
 #~ msgstr "iconv: %s: "

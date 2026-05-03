@@ -33,6 +33,8 @@ Access to the Git repository is described at
 https://savannah.gnu.org/git/?group=libiconv .
 
 After fetching the sources from the Git repository, peek at the comments in
-autogen.sh, then run "./autogen.sh"; then you can proceed with "./configure"
-as usual.
+autogen.sh, then run
+  ./autopull.sh
+  ./autogen.sh
+Then you can proceed with "./configure" as usual.
 

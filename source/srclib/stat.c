@@ -1,5 +1,5 @@
 /* Work around platform bugs in stat.
-   Copyright (C) 2009-2022 Free Software Foundation, Inc.
+   Copyright (C) 2009-2026 Free Software Foundation, Inc.
 
    This file is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as
@@ -42,24 +42,15 @@ orig_stat (const char *filename, struct stat *buf)
 #endif
 
 /* Specification.  */
-#ifdef __osf__
-/* Write "sys/stat.h" here, not <sys/stat.h>, otherwise OSF/1 5.1 DTK cc
-   eliminates this include because of the preliminary #include <sys/stat.h>
-   above.  */
-# include "sys/stat.h"
-#else
-# include <sys/stat.h>
-#endif
+#include <sys/stat.h>
 
 #include "stat-time.h"
 
 #include <errno.h>
 #include <limits.h>
-#include <stdbool.h>
 #include <string.h>
 #include "filename.h"
 #include "malloca.h"
-#include "verify.h"
 
 #ifdef WINDOWS_NATIVE
 # define WIN32_LEAN_AND_MEAN
@@ -119,6 +110,10 @@ rpl_stat (char const *name, struct stat *buf)
   /* XXX Should we convert to wchar_t* and prepend '\\?\', in order to work
      around length limitations
      <https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file> ?  */
+
+  /* To ease portability.  Like in open.c.  */
+  if (streq (name, "/dev/null"))
+    name = "NUL";
 
   /* POSIX <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_13>
      specifies: "More than two leading <slash> characters shall be treated as
@@ -292,8 +287,7 @@ rpl_stat (char const *name, struct stat *buf)
           if (info.nFileSizeHigh > 0 || info.nFileSizeLow > 0)
             {
               const char *last_dot = NULL;
-              const char *p;
-              for (p = info.cFileName; *p != '\0'; p++)
+              for (const char *p = info.cFileName; *p != '\0'; p++)
                 if (*p == '.')
                   last_dot = p;
               if (last_dot != NULL)

@@ -21,8 +21,7 @@ msgstr ""
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
 msgid "Usage: iconv [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-msgstr ""
-"Употреба: iconv [-c] [-s] [-f от_кодиране] [-t към_кодиране] [файл ...]"
+msgstr "Употреба: iconv [-c] [-s] [-f от_кодиране] [-t към_кодиране] [файл ...]"
 
 #. TRANSLATORS: The second line of the short usage message.
 #. Align it correctly against the first line.
@@ -185,20 +184,15 @@ msgstr "Автори: %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"%s аргумент: не е позволена директива за форматиране с променлива ширина."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "%s аргумент: не е позволена директива за форматиране с променлива ширина."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"%s аргумент: не е позволена директива за форматиране с променлива точност."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "%s аргумент: не е позволена директива за форматиране с променлива точност."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -226,27 +220,18 @@ msgstr "%s аргумент: знакът '%c' не е правилен опре
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"%s аргумент: знакът, завършващ директивата за форматиране, не е правилен "
-"определител за преобразуване."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "%s аргумент: знакът, завършващ директивата за форматиране, не е правилен определител за преобразуване."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"%s аргумент: форматиращият низ използва повече от един аргумент: %u аргумент."
-msgstr[1] ""
-"%s аргумент: форматиращият низ използва повече от един аргумент: %u "
-"аргумента."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "%s аргумент: форматиращият низ използва повече от един аргумент: %u аргумент."
+msgstr[1] "%s аргумент: форматиращият низ използва повече от един аргумент: %u аргумента."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -260,34 +245,28 @@ msgstr "заместителят за байт към Уникод не може
 #: src/iconv.c:502
 #, c-format
 msgid "cannot convert unicode substitution to target encoding: %s"
-msgstr ""
-"заместителят за Уникод не може да се преобразува към резултатното кодиране: "
-"%s"
+msgstr "заместителят за Уникод не може да се преобразува към резултатното кодиране: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
 #: src/iconv.c:543
 #, c-format
 msgid "cannot convert byte substitution to wide string: %s"
-msgstr ""
-"заместителят за байт в Уникод не може да се преобразува в широк знак: %s"
+msgstr "заместителят за байт в Уникод не може да се преобразува в широк знак: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --widechar-subst.
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr ""
-"заместителят за широк знак не може да се преобразува към резултатното "
-"кодиране: %s"
+msgstr "заместителят за широк знак не може да се преобразува към резултатното кодиране: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
 #: src/iconv.c:625
 #, c-format
 msgid "cannot convert byte substitution to target encoding: %s"
-msgstr ""
-"заместителят за байт не може да се преобразува в резултатното кодиране: %s"
+msgstr "заместителят за байт не може да се преобразува в резултатното кодиране: %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the input file name, a line number, and a column number.

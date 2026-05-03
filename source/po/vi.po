@@ -179,19 +179,15 @@ msgstr "Viết bởi %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
+msgid "%s argument: A format directive with a variable width is not allowed here."
 msgstr "Đối số %s: ở đây không cho phép chỉ thị định dạng có độ rộng thay đổi."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"Đối số %s: ở đây không cho phép chỉ thị định dạng có độ chính xác thay đổi."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "Đối số %s: ở đây không cho phép chỉ thị định dạng có độ chính xác thay đổi."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -219,22 +215,16 @@ msgstr "Đối số %s: ký tự “%c” không phải là bộ xác định ch
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"Đối số %s: ký tự kết thúc chỉ thị định dạng không phải là bộ xác định chuyển "
-"đổi hợp lệ."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "Đối số %s: ký tự kết thúc chỉ thị định dạng không phải là bộ xác định chuyển đổi hợp lệ."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
 msgstr[0] "%s đối số : chuỗi định dạng ăn nhiều đối số : %u đối số."
 
 #. TRANSLATORS: An error message.
@@ -358,12 +348,9 @@ msgstr "Lỗi V/R"
 #~ "Thông báo lỗi dịch cho: <http://translationproject.org/team/vi.html>.\n"
 
 #~ msgid ""
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
+#~ "This is free software; see the source for copying conditions.  There is NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 #~ msgstr ""
-#~ "Chương trình này là phần mềm tự do; xem mã nguồn để tìm điều kiện sao "
-#~ "chép.\n"
+#~ "Chương trình này là phần mềm tự do; xem mã nguồn để tìm điều kiện sao chép.\n"
 #~ "KHÔNG CÓ BẢO HÀNH GÌ CẢ, THẬM CHÍ KHÔNG CÓ BẢO ĐẢM ĐƯỢC NGỤ Ý\n"
 #~ "KHẢ NĂNG BÁN HAY KHẢ NĂNG LÀM ĐƯỢC VIỆC DỨT KHOÁT.\n"

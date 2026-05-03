@@ -1,3 +1,27 @@
+2026-03-06  Bruno Haible  <bruno@clisp.org>
+
+	Update translations.
+	Ran  (cd po; ./fetch-po; make update-po)
+	* *.po: Now exact copies of the PO files from the TP.
+	* rm.po: Remove file.
+	* LINGUAS: Automatically generated.
+
+2026-03-06  Bruno Haible  <bruno@clisp.org>
+
+	Use the newest gettext release.
+	* Makefile.in.in: Upgrade to gettext-1.0, keeping the change
+		2019-01-27  Bruno Haible  <bruno@clisp.org>
+		Accommodate a shell that is not in /bin/sh.
+		* Makefile.in.in (SHELL): Use the value found by configure.
+	* Rules-quot: Upgrade to gettext-1.0.
+	* boldquot.sed: Upgrade to gettext-1.0.
+	* en@boldquot.header: Upgrade to gettext-1.0.
+	* en@quot.header: Upgrade to gettext-1.0.
+	* insert-header.sed: Upgrade to gettext-1.0.
+	* quot.sed: Upgrade to gettext-1.0.
+	* Makevars (PO_DEPENDS_ON_POT): Remove variable.
+	* fetch-po: New file.
+
 2022-05-15  Bruno Haible  <bruno@clisp.org>
 
 	Use the newest gettext release.

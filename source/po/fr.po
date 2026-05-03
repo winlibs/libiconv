@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU libiconv 1.15-pre1\n"
+"Project-Id-Version: GNU libiconv 1.17-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-libiconv@gnu.org\n"
 "POT-Creation-Date: 2022-02-12 13:29+0100\n"
-"PO-Revision-Date: 2016-12-23 20:58+0100\n"
+"PO-Revision-Date: 2022-07-05 00:10+0200\n"
 "Last-Translator: Stéphane Aulery <lkppo@free.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -154,22 +154,22 @@ msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
+"Signaler toute erreur à <%s>\n"
+"ou par email à <%s>.\n"
+"Pour les erreurs de traduction,\n"
+"écrire à <traduc@traduc.org>\n"
 
 #. TRANSLATORS: The %s placeholder is the web address of the GPL license.
 #: src/iconv.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Licence GPLv3+: GNU GPL version 4 ou ultérieure <http://gnu.org/licenses/gpl.html>\n"
+"Licence GPLv3+: GNU GPL version 4 ou ultérieure <%s>\n"
 "Ce logiciel est libre: vous pouvez le modifier et le redistribuer.\n"
-"Il n'y a PAS DE GARANTIE, selon les limites permises par la loi..\n"
+"Il n'y a PAS DE GARANTIE, selon les limites permises par la loi.\n"
 
 #. TRANSLATORS: The %s placeholder expands to an author's name.
 #: src/iconv.c:208
@@ -181,31 +181,22 @@ msgstr "Écrit pas %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"argument %s: Une directive de format avec largeur variable n'est pas "
-"autorisée ici."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "argument %s: Une directive de format avec largeur variable n'est pas autorisée ici."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"argument %s: Une directive de format avec précision variable n'est pas "
-"autorisée ici."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "argument %s: Une directive de format avec précision variable n'est pas autorisée ici."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"argument %s: Une directive de format comportant une taille n'est pas "
-"autorisée à cet endroit."
+msgstr "argument %s: Une directive de format comportant une taille n'est pas autorisée à cet endroit."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -220,34 +211,24 @@ msgstr "argument %s: La chaîne se termine au milieu d'une directive."
 #: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
-msgstr ""
-"argument %s: Le caractère « %c » n'est pas un spécificateur de conversion "
-"valide."
+msgstr "argument %s: Le caractère « %c » n'est pas un spécificateur de conversion valide."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"argument %s: Le caractère qui termine le format n'est pas un spécificateur "
-"de conversion valide."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "argument %s: Le caractère qui termine le format n'est pas un spécificateur de conversion valide."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"argument %s: La chaîne de format consomme plus d'un argument: %u argument."
-msgstr[1] ""
-"argument %s: La chaîne de format consomme plus d'un argument: %u arguments."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "argument %s: La chaîne de format consomme plus d'un argument: %u argument."
+msgstr[1] "argument %s: La chaîne de format consomme plus d'un argument: %u arguments."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -275,17 +256,14 @@ msgstr "ne peut convertir les octets de substitution en chaîne large: %s"
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr ""
-"ne peut convertir les caractères larges de substitution dans le codage de "
-"sortie: %s"
+msgstr "ne peut convertir les caractères larges de substitution dans le codage de sortie: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
 #: src/iconv.c:625
 #, c-format
 msgid "cannot convert byte substitution to target encoding: %s"
-msgstr ""
-"ne peut convertir les octets de substitution dans le codage de sortie: %s"
+msgstr "ne peut convertir les octets de substitution dans le codage de sortie: %s"
 
 #. TRANSLATORS: An error message.
 #. The placeholders expand to the input file name, a line number, and a column number.

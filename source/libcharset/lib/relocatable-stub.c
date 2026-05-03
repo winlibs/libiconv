@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2018 Free Software Foundation, Inc.
+   Copyright (C) 2018-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2018.
 
    This program is free software; you can redistribute it and/or modify it
@@ -19,7 +19,7 @@
 
 #include "libcharset.h"
 
-extern LIBCHARSET_DLL_EXPORTED void
+extern LIBCHARSET_SHLIB_EXPORTED void
 libcharset_set_relocation_prefix (const char *orig_prefix, const char *curr_prefix);
 
 /* This is a stub for binary backward-compatibility.  */

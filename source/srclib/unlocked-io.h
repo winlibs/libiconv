@@ -1,6 +1,6 @@
 /* Prefer faster, non-thread-safe stdio functions if available.
 
-   Copyright (C) 2001-2004, 2009-2022 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2009-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,6 +30,11 @@
    Also, some code that is shared with the GNU C library may invoke
    the *_unlocked functions directly.  On hosts that lack those
    functions, invoke the non-thread-safe versions instead.  */
+
+/* This file uses HAVE_DECL_*_UNLOCKED.  */
+# if !_GL_CONFIG_H_INCLUDED
+#  error "Please include config.h first."
+# endif
 
 # include <stdio.h>
 
@@ -68,6 +73,13 @@
 #  define fgets_unlocked(x,y,z) fgets (x,y,z)
 # endif
 
+# if HAVE_DECL_FILENO_UNLOCKED || defined fileno_unlocked
+#  undef fileno
+#  define fileno(x) fileno_unlocked (x)
+# else
+#  define fileno_unlocked(x) fileno (x)
+# endif
+
 # if HAVE_DECL_FPUTC_UNLOCKED || defined fputc_unlocked
 #  undef fputc
 #  define fputc(x,y) fputc_unlocked (x,y)
@@ -96,7 +108,7 @@
 #  define fwrite_unlocked(w,x,y,z) fwrite (w,x,y,z)
 # endif
 
-# if HAVE_DECL_GETC_UNLOCKED || defined get_unlocked
+# if HAVE_DECL_GETC_UNLOCKED || defined getc_unlocked
 #  undef getc
 #  define getc(x) getc_unlocked (x)
 # else

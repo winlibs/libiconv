@@ -1,5 +1,5 @@
 /* Program name management.
-   Copyright (C) 2001-2003, 2005-2022 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -23,8 +23,6 @@
 #include "progname.h"
 
 #include <errno.h> /* get program_invocation_name declaration */
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 
@@ -43,32 +41,15 @@ set_program_name (const char *argv0)
      But the name of the temporary executable is a detail that should not be
      visible to the end user and to the test suite.
      Remove this "<dirname>/.libs/" or "<dirname>/.libs/lt-" prefix here.  */
-  const char *slash;
-  const char *base;
-
-  /* Sanity check.  POSIX requires the invoking process to pass a non-NULL
-     argv[0].  */
-  if (argv0 == NULL)
-    {
-      /* It's a bug in the invoking program.  Help diagnosing it.  */
-      fputs ("A NULL argv[0] was passed through an exec system call.\n",
-             stderr);
-      abort ();
-    }
-
-  slash = strrchr (argv0, '/');
-  base = (slash != NULL ? slash + 1 : argv0);
-  if (base - argv0 >= 7 && strncmp (base - 7, "/.libs/", 7) == 0)
+  char const *slash = strrchr (argv0, '/');
+  char const *base = slash ? slash + 1 : argv0;
+  if (7 <= base - argv0 && memeq (base - 7, "/.libs/", 7))
     {
       argv0 = base;
       if (strncmp (base, "lt-", 3) == 0)
         {
-          argv0 = base + 3;
-          /* On glibc systems, remove the "lt-" prefix from the variable
-             program_invocation_short_name.  */
-#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME
-          program_invocation_short_name = (char *) argv0;
-#endif
+          base += 3;
+          argv0 = base;
         }
     }
 
@@ -88,5 +69,8 @@ set_program_name (const char *argv0)
      as well.  */
 #if HAVE_DECL_PROGRAM_INVOCATION_NAME
   program_invocation_name = (char *) argv0;
+#endif
+#if HAVE_DECL_PROGRAM_INVOCATION_SHORT_NAME
+  program_invocation_short_name = (char *) base;
 #endif
 }

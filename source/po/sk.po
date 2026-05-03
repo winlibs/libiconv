@@ -154,8 +154,7 @@ msgid ""
 msgstr ""
 "Chyby oznamujte pomocou nástroja na sledovanie chýb na adrese <%s>\n"
 "alebo elektronickou poštou na adresu <%s> (iba anglicky).\n"
-"Komentáre k slovenskému prekladu zasielajte na adresu <sk-i18n@lists.linux."
-"sk>.\n"
+"Komentáre k slovenskému prekladu zasielajte na adresu <sk-i18n@lists.linux.sk>.\n"
 
 #. TRANSLATORS: The %s placeholder is the web address of the GPL license.
 #: src/iconv.c:202
@@ -179,30 +178,22 @@ msgstr "Napísal %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"Parameter %s: Formátovacia direktíva s premenlivou šírkou tu nie je "
-"prípustná."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "Parameter %s: Formátovacia direktíva s premenlivou šírkou tu nie je prípustná."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"Parameter %s: Formátovacia direktíva s premenlivou presnosťou tu nie je "
-"prípustná."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "Parameter %s: Formátovacia direktíva s premenlivou presnosťou tu nie je prípustná."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"Parameter %s: Formátovacia direktíva s určením šírky tu nie je prípustná."
+msgstr "Parameter %s: Formátovacia direktíva s určením šírky tu nie je prípustná."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -223,31 +214,19 @@ msgstr "Parameter %s: Znak '%c' nie je platným konverzným špecifikátorom."
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"Parameter %s: Znak, ktorý ukončuje formátovaciu direktívu nie je platným "
-"konverzným špecifikátorom."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "Parameter %s: Znak, ktorý ukončuje formátovaciu direktívu nie je platným konverzným špecifikátorom."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"Parameter %s: Formátovací reťazec pohltí viac ako jeden parameter: %u "
-"parametrov."
-msgstr[1] ""
-"Parameter %s: Formátovací reťazec pohltí viac ako jeden parameter: %u "
-"parameter."
-msgstr[2] ""
-"Parameter %s: Formátovací reťazec pohltí viac ako jeden parameter: %u "
-"parametre."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "Parameter %s: Formátovací reťazec pohltí viac ako jeden parameter: %u parametrov."
+msgstr[1] "Parameter %s: Formátovací reťazec pohltí viac ako jeden parameter: %u parameter."
+msgstr[2] "Parameter %s: Formátovací reťazec pohltí viac ako jeden parameter: %u parametre."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -275,8 +254,7 @@ msgstr "nie je možné konvertovať náhradu bajtov na široký reťazec: %s"
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr ""
-"nie je možné konvertovať náhradu širokého znaku do cieľového kódovania: %s"
+msgstr "nie je možné konvertovať náhradu širokého znaku do cieľového kódovania: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.

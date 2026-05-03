@@ -24,7 +24,7 @@ BEGIN
             VALUE "FileDescription", "LGPLed libiconv for Windows\0"
             VALUE "FileVersion", PACKAGE_VERSION_STRING "\0"
             VALUE "InternalName", "iconv.dll\0"
-            VALUE "LegalCopyright", "Copyright (C) 1999-2022\0"
+            VALUE "LegalCopyright", "Copyright (C) 1999-2026\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "iconv.dll\0"
             VALUE "ProductName", "libiconv: character set conversion library\0"

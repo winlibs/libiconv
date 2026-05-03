@@ -11,6 +11,7 @@ local_prefix = /usr/local
 exec_prefix = @exec_prefix@
 datarootdir = @datarootdir@
 datadir = @datadir@
+bindir = @bindir@
 libdir = @libdir@
 includedir = @includedir@
 mandir = @mandir@
@@ -36,6 +37,7 @@ all : lib/localcharset.h force
 	cd po && $(MAKE) all
 	cd man && $(MAKE) all
 	if test -d tests; then cd tests && $(MAKE) all; fi
+	cd install-tests && $(MAKE) all
 
 lib/localcharset.h :
 	builddir="`pwd`"; cd libcharset && $(MAKE) all && $(MAKE) install-lib libdir="$$builddir/lib" includedir="$$builddir/lib"
@@ -103,6 +105,7 @@ mostlyclean : force
 	cd po && $(MAKE) mostlyclean
 	cd man && $(MAKE) mostlyclean
 	if test -d tests; then cd tests && $(MAKE) mostlyclean; fi
+	cd install-tests && $(MAKE) mostlyclean
 	rm -rf bin
 
 clean : force
@@ -114,6 +117,7 @@ clean : force
 	cd po && $(MAKE) clean
 	cd man && $(MAKE) clean
 	if test -d tests; then cd tests && $(MAKE) clean; fi
+	cd install-tests && $(MAKE) clean
 	rm -rf bin
 
 distclean : force
@@ -125,6 +129,7 @@ distclean : force
 	cd po && if test -f Makefile; then $(MAKE) distclean; fi
 	cd man && if test -f Makefile; then $(MAKE) distclean; fi
 	if test -d tests; then cd tests && if test -f Makefile; then $(MAKE) distclean; fi; fi
+	cd install-tests && if test -f Makefile; then $(MAKE) distclean; fi
 	$(RM) config.status config.log config.cache Makefile libtool
 	$(RM) config.h stamp-h1 lib/stamp-h2
 	$(RM) include/iconv.h include/iconv.h.inst
@@ -139,16 +144,21 @@ maintainer-clean : force
 	cd po && if test -f Makefile; then $(MAKE) maintainer-clean; fi
 	cd man && if test -f Makefile; then $(MAKE) maintainer-clean; fi
 	if test -d tests; then cd tests && if test -f Makefile; then $(MAKE) maintainer-clean; fi; fi
+	cd install-tests && if test -f Makefile; then $(MAKE) maintainer-clean; fi
 	$(RM) config.status config.log config.cache Makefile libtool
 	$(RM) config.h stamp-h1 lib/stamp-h2
 	$(RM) include/iconv.h include/iconv.h.inst
 	rm -rf bin
 
+installcheck : force
+	cd install-tests && $(MAKE) installcheck prefix='$(prefix)' includedir='$(includedir)' exec_prefix='$(exec_prefix)' bindir='$(bindir)' libdir='$(libdir)'
+
 
 # List of source files.
 SOURCE_FILES = \
-  README DEPENDENCIES INSTALL.windows HACKING AUTHORS NEWS DESIGN NOTES THANKS \
-  ChangeLog Makefile.devel configure.ac Makefile.in \
+  README DEPENDENCIES INSTALL.windows HACKING AUTHORS NEWS JOIN-GNU \
+  DESIGN NOTES THANKS \
+  ChangeLog autogen.sh Makefile.devel configure.ac Makefile.in \
   include/export.h include/iconv.h.in \
   gnulib-local/lib/alloca.in.h \
   gnulib-local/lib/error.h.diff \
@@ -171,7 +181,8 @@ SOURCE_FILES = \
   extras/ChangeLog extras/iconv_string.h extras/iconv_string.c \
   tools/Makefile \
   tools/8bit_tab_to_h.c tools/cjk_tab_to_h.c tools/cjk_variants.c \
-  tools/CP50221-0208-EXT.TXT tools/CP50221-0212-EXT.TXT tools/JISX0213.TXT
+  tools/CP50221-0208-EXT.TXT tools/CP50221-0212-EXT.TXT tools/JISX0213.TXT \
+  tools/gen-translit-def-part.lisp
 # List of distributed files imported from other packages.
 LIBTOOL_IMPORTED_FILES = \
   build-aux/ltmain.sh \
@@ -228,6 +239,7 @@ distdir : $(DISTFILES)
 	test -d '$(distdir)'/tests || mkdir '$(distdir)'/tests; cd tests && $(MAKE) distdir distdir='$(distdir)'/tests
 	test -d '$(distdir)'/po || mkdir '$(distdir)'/po; cd po && $(MAKE) distdir distdir='$(distdir)'/po
 	test -d '$(distdir)'/man || mkdir '$(distdir)'/man; cd man && $(MAKE) distdir distdir='$(distdir)'/man
+	test -d '$(distdir)'/install-tests || mkdir '$(distdir)'/install-tests; cd install-tests && $(MAKE) distdir distdir='$(distdir)'/install-tests
 
 
 # Creating a distribution tarball.

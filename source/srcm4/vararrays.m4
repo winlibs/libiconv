@@ -1,13 +1,14 @@
+# vararrays.m4
+# serial 6
+dnl Copyright (C) 2001, 2009-2026 Free Software Foundation, Inc.
+dnl This file is free software; the Free Software Foundation
+dnl gives unlimited permission to copy and/or distribute it,
+dnl with or without modifications, as long as this notice is preserved.
+dnl This file is offered as-is, without any warranty.
+
 # Check for variable-length arrays.
 
-# serial 6
-
 # From Paul Eggert
-
-# Copyright (C) 2001, 2009-2022 Free Software Foundation, Inc.
-# This file is free software; the Free Software Foundation
-# gives unlimited permission to copy and/or distribute it,
-# with or without modifications, as long as this notice is preserved.
 
 m4_version_prereq([2.70], [], [
 

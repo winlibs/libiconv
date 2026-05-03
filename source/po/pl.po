@@ -17,8 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
@@ -179,30 +178,22 @@ msgstr "Napisane przez %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"Argument %s: dyrektywa formatująca o zmiennej szerokości nie jest tutaj "
-"dozwolona."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "Argument %s: dyrektywa formatująca o zmiennej szerokości nie jest tutaj dozwolona."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"Argument %s: dyrektywa formatująca o zmiennej precyzji nie jest tutaj "
-"dozwolona."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "Argument %s: dyrektywa formatująca o zmiennej precyzji nie jest tutaj dozwolona."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"Argument %s: dyrektywa formatująca z rozmiarem nie jest tutaj dozwolona."
+msgstr "Argument %s: dyrektywa formatująca z rozmiarem nie jest tutaj dozwolona."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -223,31 +214,19 @@ msgstr "Argument %s: znak '%c' nie jest poprawnym określeniem konwersji."
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"Argument %s: znak kończący dyrektywę formatującą nie jest poprawnym "
-"określeniem konwersji."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "Argument %s: znak kończący dyrektywę formatującą nie jest poprawnym określeniem konwersji."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"Argument %s: łańcuch formatujący pobiera więcej niż jeden argument: %u "
-"argument."
-msgstr[1] ""
-"Argument %s: łańcuch formatujący pobiera więcej niż jeden argument: %u "
-"argumenty."
-msgstr[2] ""
-"Argument %s: łańcuch formatujący pobiera więcej niż jeden argument: %u "
-"argumentów."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "Argument %s: łańcuch formatujący pobiera więcej niż jeden argument: %u argument."
+msgstr[1] "Argument %s: łańcuch formatujący pobiera więcej niż jeden argument: %u argumenty."
+msgstr[2] "Argument %s: łańcuch formatujący pobiera więcej niż jeden argument: %u argumentów."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -275,9 +254,7 @@ msgstr "nie można przekonwertować zamiennika bajtu na łańcuch szeroki: %s"
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr ""
-"nie można przekonwertować zamiennika znaku szerokiego na kodowanie docelowe: "
-"%s"
+msgstr "nie można przekonwertować zamiennika znaku szerokiego na kodowanie docelowe: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.

@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2022 Free Software Foundation, Inc.
+# Copyright (C) 2002-2026 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,8 @@
 
 
 # Specification in the form of a command-line invocation:
-# gnulib-tool --import --local-dir=gnulib-local \
+# gnulib-tool --import \
+#  --local-dir=gnulib-local \
 #  --lib=libicrt \
 #  --source-base=srclib \
 #  --m4-base=srcm4 \
@@ -40,6 +41,7 @@
 #  --macro-prefix=gl \
 #  --no-vc-files \
 #  binary-io \
+#  bool \
 #  error \
 #  gettext \
 #  gettext-h \
@@ -50,11 +52,10 @@
 #  relocatable-prog \
 #  safe-read \
 #  sigpipe \
-#  stdbool \
-#  stdio \
-#  stdlib \
+#  stdio-h \
+#  stdlib-h \
 #  strerror \
-#  unistd \
+#  unistd-h \
 #  uniwidth/width \
 #  unlocked-io \
 #  xalloc
@@ -63,6 +64,7 @@
 gl_LOCAL_DIR([gnulib-local])
 gl_MODULES([
   binary-io
+  bool
   error
   gettext
   gettext-h
@@ -73,11 +75,10 @@ gl_MODULES([
   relocatable-prog
   safe-read
   sigpipe
-  stdbool
-  stdio
-  stdlib
+  stdio-h
+  stdlib-h
   strerror
-  unistd
+  unistd-h
   uniwidth/width
   unlocked-io
   xalloc

@@ -1,8 +1,10 @@
-#serial 27
-dnl Copyright (C) 2002, 2005, 2007, 2009-2022 Free Software Foundation, Inc.
+# dup2.m4
+# serial 28
+dnl Copyright (C) 2002, 2005, 2007, 2009-2026 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
+dnl This file is offered as-is, without any warranty.
 
 AC_DEFUN([gl_FUNC_DUP2],
 [
@@ -67,7 +69,7 @@ AC_DEFUN([gl_FUNC_DUP2],
       ],
       [gl_cv_func_dup2_works=yes], [gl_cv_func_dup2_works=no],
       [case "$host_os" in
-         mingw*) # on this platform, dup2 always returns 0 for success
+         mingw* | windows*) # on this platform, dup2 always returns 0 for success
            gl_cv_func_dup2_works="guessing no" ;;
          cygwin*) # on cygwin 1.5.x, dup2(1,1) returns 0
            gl_cv_func_dup2_works="guessing no" ;;

@@ -39,7 +39,7 @@ install-lib : all force
 	cd lib && $(MAKE) install-lib libdir='$(libdir)' includedir='$(includedir)'
 	$(mkinstalldirs) $(includedir)
 	$(INSTALL_DATA) include/libcharset.h.inst $(includedir)/libcharset.h
-# Here, use the include file that contains LIBCHARSET_DLL_EXPORTED annotations.
+# Here, use the include file that contains LIBCHARSET_SHLIB_EXPORTED annotations.
 	$(INSTALL_DATA) include/localcharset.h $(includedir)/localcharset.h
 
 install : all force

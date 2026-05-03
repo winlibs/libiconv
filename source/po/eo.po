@@ -1,15 +1,15 @@
 # Mesaĝoj por la biblioteko "libiconv".
-# Copyright © 2002, 2006, 2007, 2017 Free Software Foundation, Inc.
+# Copyright © 2002, 2006, 2007, 2017, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libiconv package.
 # Edmund GRIMLEY EVANS <edmundo@rano.org>, 2002, 2006-2007.
-# Felipe Castro <fefcas@gmail.com>, 2017.
+# Felipe Castro <fefcas@gmail.com>, 2017, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libiconv 1.15-pre1\n"
+"Project-Id-Version: libiconv 1.17-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-libiconv@gnu.org\n"
 "POT-Creation-Date: 2022-02-12 13:29+0100\n"
-"PO-Revision-Date: 2017-01-27 23:17-0300\n"
+"PO-Revision-Date: 2023-01-08 11:58-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
@@ -154,20 +154,18 @@ msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
+"Raportu erarojn en la erar-sekvilo ĉe <%s>\n"
+"aŭ per retpoŝto al <%s>.\n"
 
 #. TRANSLATORS: The %s placeholder is the web address of the GPL license.
 #: src/iconv.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Permeso GPLv3+: GNU-GPL versio 3 aŭ posta <http://gnu.org/licenses/gpl.html>\n"
+"Permeso GPLv3+: GNU-GPL versio 3 aŭ posta <%s>\n"
 "Ĉi tio estas libera programo: vi rajtas ŝanĝi ĝin kaj pludoni kopiojn.\n"
 "Estas NENIA GARANTIO, laŭ la grado leĝe permesata.\n"
 
@@ -181,20 +179,15 @@ msgstr "Verkita de %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"%s argumento: formodirektivo kun variabla larĝo ne estas permesata ĉi tie."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "%s argumento: formodirektivo kun variabla larĝo ne estas permesata ĉi tie."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"%s argumento: formodirektivo kun variabla precizo ne estas permesata ĉi tie."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "%s argumento: formodirektivo kun variabla precizo ne estas permesata ĉi tie."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -222,26 +215,18 @@ msgstr "%s argumento: la signo '%c' ne estas valida konvertospecifo."
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"%s argumento: la signo, kiu finas la formatdirektivon ne estas valida "
-"konvertospecifo."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "%s argumento: la signo, kiu finas la formatdirektivon ne estas valida konvertospecifo."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"%s argumento: la formatoĉeno konsumas pli ol unu argumenton: %u argumento."
-msgstr[1] ""
-"%s argumento: la formatoĉeno konsumas pli ol unu argumenton: %u argumentoj."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "%s argumento: la formatoĉeno konsumas pli ol unu argumenton: %u argumento."
+msgstr[1] "%s argumento: la formatoĉeno konsumas pli ol unu argumenton: %u argumentoj."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -354,7 +339,7 @@ msgstr "%s"
 #: src/iconv.c:1130
 #, c-format
 msgid "I/O error"
-msgstr "leg/skrib-eraro"
+msgstr "Leg/skrib-eraro"
 
 #~ msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
 #~ msgstr "Raportu cimojn al <bug-gnu-libiconv@gnu.org>.\n"

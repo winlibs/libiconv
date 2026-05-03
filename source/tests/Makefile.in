@@ -28,7 +28,7 @@ top_builddir = ..
 
 all :
 
-check : all table-from table-to ../src/iconv_no_i18n is-native test-shiftseq test-to-wchar
+check : all table-from table-to ../src/iconv_no_i18n is-native test-shiftseq test-to-wchar test-bom-state test-discard
 	$(SHELL) $(srcdir)/check-stateless $(srcdir) ASCII
 #	/* General multi-byte encodings */
 	$(CC) $(LDFLAGS) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(srcdir)/genutf8.c ../srclib/libicrt.a -o genutf8 && \
@@ -128,11 +128,15 @@ check : all table-from table-to ../src/iconv_no_i18n is-native test-shiftseq tes
 	$(SHELL) $(srcdir)/check-stateless $(srcdir) GBK
 	$(SHELL) $(srcdir)/check-stateless $(srcdir) CP936
 	$(CC) $(LDFLAGS) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(srcdir)/gengb18030z.c ../srclib/libicrt.a -o gengb18030z && \
-	{ cat $(srcdir)/GB18030-BMP.TXT ; ./gengb18030z ; } | sort > GB18030.TXT && \
-	{ test $(srcdir) = . || cp $(srcdir)/GB18030.IRREVERSIBLE.TXT GB18030.IRREVERSIBLE.TXT; } && \
-	$(SHELL) $(srcdir)/check-stateless . GB18030 && \
-	{ test $(srcdir) = . || $(RM) GB18030.IRREVERSIBLE.TXT; } && \
-	$(RM) -r gengb18030z@EXEEXT@ gengb18030z.dSYM GB18030.TXT
+	{ cat $(srcdir)/GB18030-2005-BMP.TXT ; ./gengb18030z ; } | sort > GB18030-2005.TXT && \
+	{ test $(srcdir) = . || cp $(srcdir)/GB18030-2005.IRREVERSIBLE.TXT GB18030-2005.IRREVERSIBLE.TXT; } && \
+	$(SHELL) $(srcdir)/check-stateless . GB18030:2005 && \
+	{ test $(srcdir) = . || $(RM) GB18030-2005.IRREVERSIBLE.TXT; } && \
+	$(RM) -r gengb18030z@EXEEXT@ gengb18030z.dSYM GB18030-2005.TXT
+	$(CC) $(LDFLAGS) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(srcdir)/gengb18030z.c ../srclib/libicrt.a -o gengb18030z && \
+	{ cat $(srcdir)/GB18030-2022-BMP.TXT ; ./gengb18030z ; } | sort > GB18030-2022.TXT && \
+	$(SHELL) $(srcdir)/check-stateless . GB18030:2022 && \
+	$(RM) -r gengb18030z@EXEEXT@ gengb18030z.dSYM GB18030-2022.TXT
 	$(SHELL) $(srcdir)/check-stateful $(srcdir) ISO-2022-CN
 	$(SHELL) $(srcdir)/check-stateful $(srcdir) ISO-2022-CN-EXT
 	$(SHELL) $(srcdir)/check-stateful $(srcdir) HZ
@@ -160,10 +164,18 @@ check : all table-from table-to ../src/iconv_no_i18n is-native test-shiftseq tes
 	$(SHELL) $(srcdir)/check-translitfailure $(srcdir) TranslitFail1 ISO-8859-1 ASCII
 #	/* substitution */
 	$(SHELL) $(srcdir)/check-subst
+#	/* EBCDIC specific functionality */
+	$(SHELL) $(srcdir)/check-ebcdic '@host_os@'
+#	/* test z/OS file tagging */
+	$(SHELL) $(srcdir)/check-tag '@host_os@'
 #	/* shift sequence before invalid multibyte character */
 	./test-shiftseq
 #	/* conversion to wchar_t */
 	./test-to-wchar
+#	/* byte-order state */
+	./test-bom-state
+#	/* discard options */
+	./test-discard
 
 check-extra: check-extra-@USE_EXTRA_ENCODINGS@
 check-extra-no:
@@ -290,6 +302,18 @@ test-to-wchar : test-to-wchar.@OBJEXT@ ../lib/libiconv.la
 test-to-wchar.@OBJEXT@ : $(srcdir)/test-to-wchar.c
 	$(CC) -c $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(srcdir)/test-to-wchar.c
 
+test-bom-state : test-bom-state.@OBJEXT@ ../lib/libiconv.la
+	$(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) test-bom-state.@OBJEXT@ ../srclib/libicrt.a ../lib/libiconv.la -o $@
+
+test-bom-state.@OBJEXT@ : $(srcdir)/test-bom-state.c
+	$(CC) -c $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(srcdir)/test-bom-state.c
+
+test-discard :test-discard.@OBJEXT@ ../lib/libiconv.la
+	$(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) test-discard.@OBJEXT@ ../srclib/libicrt.a ../lib/libiconv.la -o $@
+
+test-discard.@OBJEXT@ : $(srcdir)/test-discard.c
+	$(CC) -c $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(srcdir)/test-discard.c
+
 # The following rule is necessary to avoid a toplevel "make -n check" failure.
 ../lib/libiconv.la :
 	cd ../lib && $(MAKE) libiconv.la
@@ -297,7 +321,7 @@ test-to-wchar.@OBJEXT@ : $(srcdir)/test-to-wchar.c
 mostlyclean : clean
 
 clean : force
-	$(RM) *.@OBJEXT@ *.lo table-from table-from@EXEEXT@ table-to table-to@EXEEXT@ is-native is-native@EXEEXT@ test-shiftseq test-shiftseq@EXEEXT@ test-to-wchar test-to-wchar@EXEEXT@ tmp-* genutf8 genutf8@EXEEXT@ UTF-8.TXT gengb18030z gengb18030z@EXEEXT@ GB18030.TXT core *.stackdump
+	$(RM) *.@OBJEXT@ *.lo table-from table-from@EXEEXT@ table-to table-to@EXEEXT@ is-native is-native@EXEEXT@ test-shiftseq test-shiftseq@EXEEXT@ test-to-wchar test-to-wchar@EXEEXT@ test-bom-state test-bom-state@EXEEXT@ test-discard test-discard@EXEEXT@ tmp-* genutf8 genutf8@EXEEXT@ UTF-8.TXT gengb18030z gengb18030z@EXEEXT@ GB18030-2005.TXT GB18030-2022.TXT core *.stackdump
 	$(RM) -r .libs _libs
 
 distclean : clean
@@ -400,7 +424,9 @@ SOURCE_FILES = \
   EUC-CN.TXT \
   GBK.TXT \
   CP936.TXT \
-  gengb18030z.c GB18030-BMP.TXT GB18030.IRREVERSIBLE.TXT \
+  gengb18030z.c \
+  GB18030-2005-BMP.TXT GB18030-2005.IRREVERSIBLE.TXT \
+  GB18030-2022-BMP.TXT \
   ISO-2022-CN-snippet ISO-2022-CN-snippet.UTF-8 \
   ISO-2022-CN-EXT-snippet ISO-2022-CN-EXT-snippet.UTF-8 \
   HZ-snippet HZ-snippet.UTF-8 \
@@ -425,8 +451,12 @@ SOURCE_FILES = \
   TranslitFail1.ISO-8859-1 \
   is-native.c \
   check-subst \
+  check-ebcdic \
+  check-tag \
   test-shiftseq.c \
   test-to-wchar.c \
+  test-bom-state.c \
+  test-discard.c \
   CP856.TXT \
   CP922.TXT \
   CP1046.TXT \

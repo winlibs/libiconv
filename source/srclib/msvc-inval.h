@@ -1,5 +1,5 @@
 /* Invalid parameter handler for MSVC runtime libraries.
-   Copyright (C) 2011-2022 Free Software Foundation, Inc.
+   Copyright (C) 2011-2026 Free Software Foundation, Inc.
 
    This file is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as
@@ -51,6 +51,11 @@
      * The way for libraries that make no "hairy" calls:
        AC_DEFINE([MSVC_INVALID_PARAMETER_HANDLING], [SANE_LIBRARY_HANDLING])
  */
+
+/* This file uses HAVE_MSVC_INVALID_PARAMETER_HANDLER.  */
+#if !_GL_CONFIG_H_INCLUDED
+ #error "Please include config.h first."
+#endif
 
 #define DEFAULT_HANDLING       0
 #define HAIRY_LIBRARY_HANDLING 1
@@ -174,9 +179,9 @@ extern struct gl_msvc_inval_per_thread *gl_msvc_inval_current (void);
 #   define TRY_MSVC_INVAL \
       do                                                                       \
         {                                                                      \
-          struct gl_msvc_inval_per_thread *msvc_inval_current;                 \
           gl_msvc_inval_ensure_handler ();                                     \
-          msvc_inval_current = gl_msvc_inval_current ();                       \
+          struct gl_msvc_inval_per_thread *msvc_inval_current =                \
+            gl_msvc_inval_current ();                                          \
           /* First, initialize gl_msvc_inval_restart.  */                      \
           if (setjmp (msvc_inval_current->restart) == 0)                       \
             {                                                                  \

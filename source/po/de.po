@@ -24,8 +24,7 @@ msgstr ""
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
 msgid "Usage: iconv [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-msgstr ""
-"Aufruf: iconv [-c] [-s] [-f AUSGANGS-KODIERUNG] [-t ZIEL-KODIERUNG] [DATEI …]"
+msgstr "Aufruf: iconv [-c] [-s] [-f AUSGANGS-KODIERUNG] [-t ZIEL-KODIERUNG] [DATEI …]"
 
 #. TRANSLATORS: The second line of the short usage message.
 #. Align it correctly against the first line.
@@ -190,31 +189,22 @@ msgstr "Geschrieben von %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"»%s«-Argument: Eine Formatierungsanweisung mit variabler Breite ist hier "
-"nicht erlaubt."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "»%s«-Argument: Eine Formatierungsanweisung mit variabler Breite ist hier nicht erlaubt."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"»%s«-Argument: Eine Formatierungsanweisung mit variabler Genauigkeit ist "
-"hier nicht erlaubt."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "»%s«-Argument: Eine Formatierungsanweisung mit variabler Genauigkeit ist hier nicht erlaubt."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"»%s«-Argument: Eine Formatierungsanweisung mit Größenangabe ist hier nicht "
-"erlaubt."
+msgstr "»%s«-Argument: Eine Formatierungsanweisung mit Größenangabe ist hier nicht erlaubt."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -235,28 +225,18 @@ msgstr "»%s«-Argument: Das Zeichen »%c« bezeichnet keine gültige Umwandlung
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"»%s«-Argument: Das Zeichen am Ende der Formatierungsanweisung bezeichnet "
-"keine gültige Umwandlung."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "»%s«-Argument: Das Zeichen am Ende der Formatierungsanweisung bezeichnet keine gültige Umwandlung."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"»%s«-Argument: Die Formatzeichenkette verbraucht mehr als ein Argument: %u "
-"Argument."
-msgstr[1] ""
-"»%s«-Argument: Die Formatzeichenkette verbraucht mehr als ein Argument: %u "
-"Argumente."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "»%s«-Argument: Die Formatzeichenkette verbraucht mehr als ein Argument: %u Argument."
+msgstr[1] "»%s«-Argument: Die Formatzeichenkette verbraucht mehr als ein Argument: %u Argumente."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -270,24 +250,21 @@ msgstr "Byte-Ersatz kann nicht in Unicode umgewandelt werden: %s"
 #: src/iconv.c:502
 #, c-format
 msgid "cannot convert unicode substitution to target encoding: %s"
-msgstr ""
-"Unicode-Zeichen-Ersatz kann nicht in die Zielkodierung umgewandelt werden: %s"
+msgstr "Unicode-Zeichen-Ersatz kann nicht in die Zielkodierung umgewandelt werden: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
 #: src/iconv.c:543
 #, c-format
 msgid "cannot convert byte substitution to wide string: %s"
-msgstr ""
-"Byte-Ersatz kann nicht in eine »wide«-Zeichenkette umgewandelt werden: %s"
+msgstr "Byte-Ersatz kann nicht in eine »wide«-Zeichenkette umgewandelt werden: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --widechar-subst.
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr ""
-"»wide«-Zeichen-Ersatz kann nicht in die Zielkodierung umgewandelt werden: %s"
+msgstr "»wide«-Zeichen-Ersatz kann nicht in die Zielkodierung umgewandelt werden: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -353,9 +330,7 @@ msgstr "Umwandlung von %s nach %s ist nicht unterstützt."
 #: src/iconv.c:1047
 #, c-format
 msgid "try '%s -l' to get the list of supported encodings"
-msgstr ""
-"Versuchen Sie »%s -l«, um eine Liste aller unterstützten Kodierungen zu "
-"erhalten."
+msgstr "Versuchen Sie »%s -l«, um eine Liste aller unterstützten Kodierungen zu erhalten."
 
 #. TRANSLATORS: A filename substitute denoting standard input.
 #: src/iconv.c:1104

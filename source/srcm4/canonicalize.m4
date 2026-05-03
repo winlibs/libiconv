@@ -1,10 +1,12 @@
-# canonicalize.m4 serial 37
+# canonicalize.m4
+# serial 40
 
-dnl Copyright (C) 2003-2007, 2009-2022 Free Software Foundation, Inc.
+dnl Copyright (C) 2003-2007, 2009-2026 Free Software Foundation, Inc.
 
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
+dnl This file is offered as-is, without any warranty.
 
 # Provides canonicalize_file_name and canonicalize_filename_mode, but does
 # not provide or fix realpath.
@@ -12,7 +14,8 @@ AC_DEFUN([gl_FUNC_CANONICALIZE_FILENAME_MODE],
 [
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   AC_REQUIRE([gl_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK])
-  AC_CHECK_FUNCS_ONCE([canonicalize_file_name faccessat])
+  AC_CHECK_FUNCS_ONCE([canonicalize_file_name])
+  gl_CHECK_FUNCS_ANDROID([faccessat], [[#include <unistd.h>]])
   AC_REQUIRE([gl_DOUBLE_SLASH_ROOT])
   AC_REQUIRE([gl_FUNC_REALPATH_WORKS])
   if test $ac_cv_func_canonicalize_file_name = no; then
@@ -58,14 +61,15 @@ AC_DEFUN([gl_CANONICALIZE_LGPL_SEPARATE],
 [
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   AC_REQUIRE([gl_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK])
-  AC_CHECK_FUNCS_ONCE([canonicalize_file_name faccessat])
+  AC_CHECK_FUNCS_ONCE([canonicalize_file_name])
+  gl_CHECK_FUNCS_ANDROID([faccessat], [[#include <unistd.h>]])
 
   dnl On native Windows, we use _getcwd(), regardless whether getcwd() is
   dnl available through the linker option '-loldnames'.
   AC_REQUIRE([AC_CANONICAL_HOST])
   case "$host_os" in
-    mingw*) ;;
-    *)      AC_CHECK_FUNCS([getcwd]) ;;
+    mingw* | windows*) ;;
+    *) AC_CHECK_FUNCS([getcwd]) ;;
   esac
 
   AC_REQUIRE([gl_DOUBLE_SLASH_ROOT])
@@ -110,7 +114,7 @@ AC_DEFUN([gl_FUNC_REALPATH_WORKS],
             result |= 2;
           free (name);
         }
-        /* This test fails on Cygwin 2.9.  */
+        /* This test fails on macOS 14, Cygwin 2.9.  */
         #if HAVE_LSTAT
         {
           char *name = realpath ("conftest.l/../conftest.a", NULL);
@@ -119,7 +123,7 @@ AC_DEFUN([gl_FUNC_REALPATH_WORKS],
           free (name);
         }
         #endif
-        /* This test fails on Mac OS X 10.13, OpenBSD 6.0.  */
+        /* This test fails on macOS 14, OpenBSD 6.0.  */
         {
           char *name = realpath ("conftest.a/", NULL);
           if (name != NULL)
@@ -156,16 +160,18 @@ AC_DEFUN([gl_FUNC_REALPATH_WORKS],
       esac
      ],
      [case "$host_os" in
-                       # Guess yes on glibc systems.
-        *-gnu* | gnu*) gl_cv_func_realpath_works="guessing yes" ;;
-                       # Guess 'nearly' on musl systems.
-        *-musl*)       gl_cv_func_realpath_works="guessing nearly" ;;
-                       # Guess no on Cygwin.
-        cygwin*)       gl_cv_func_realpath_works="guessing no" ;;
-                       # Guess no on native Windows.
-        mingw*)        gl_cv_func_realpath_works="guessing no" ;;
-                       # If we don't know, obey --enable-cross-guesses.
-        *)             gl_cv_func_realpath_works="$gl_cross_guess_normal" ;;
+                           # Guess yes on glibc systems.
+        *-gnu* | gnu*)     gl_cv_func_realpath_works="guessing yes" ;;
+                           # Guess 'nearly' on musl systems.
+        *-musl*)           gl_cv_func_realpath_works="guessing nearly" ;;
+                           # Guess no on macOS.
+        darwin*)           gl_cv_func_realpath_works="guessing no" ;;
+                           # Guess no on Cygwin.
+        cygwin*)           gl_cv_func_realpath_works="guessing no" ;;
+                           # Guess no on native Windows.
+        mingw* | windows*) gl_cv_func_realpath_works="guessing no" ;;
+                           # If we don't know, obey --enable-cross-guesses.
+        *)                 gl_cv_func_realpath_works="$gl_cross_guess_normal" ;;
       esac
      ])
     rm -rf conftest.a conftest.l conftest.d

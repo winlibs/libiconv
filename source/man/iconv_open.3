@@ -9,7 +9,7 @@
 .\"   GNU glibc-2 source code and manual
 .\"   OpenGroup's Single Unix specification http://www.UNIX-systems.org/online.html
 .\"
-.TH ICONV_OPEN 3  "January 23, 2022" "GNU" "Linux Programmer's Manual"
+.TH ICONV_OPEN 3  "December 15, 2024" "GNU"
 .SH NAME
 iconv_open \- allocate descriptor for character set conversion
 .SH SYNOPSIS
@@ -51,9 +51,9 @@ ISO-2022\-JP\-MS
 Chinese
 .nf
 .fi
-EUC\-CN, HZ, GBK, CP936, GB18030, EUC\-TW, BIG5, CP950, BIG5\-HKSCS,
-BIG5\-HKSCS:2004, BIG5\-HKSCS:2001, BIG5\-HKSCS:1999, ISO\-2022\-CN,
-ISO\-2022\-CN\-EXT
+EUC\-CN, HZ, GBK, CP936, GB18030, GB18030:2022, EUC\-TW, BIG5, CP950,
+BIG5\-HKSCS, BIG5\-HKSCS:2004, BIG5\-HKSCS:2001, BIG5\-HKSCS:1999,
+ISO\-2022\-CN, ISO\-2022\-CN\-EXT
 .TP
 Korean
 .nf
@@ -225,8 +225,14 @@ is activated. This means that when a character cannot be represented in the
 target character set, it can be approximated through one or several characters
 that look similar to the original character.
 .PP
-When the string "//IGNORE" is appended to \fItocode\fP, characters that
-cannot be represented in the target character set will be silently discarded.
+When the string "//IGNORE" is appended to \fItocode\fP,
+invalid multibyte sequences in the input and
+characters that cannot be represented in the target character set
+will be silently discarded.
+.PP
+When the string "//NON_IDENTICAL_DISCARD" is appended to \fItocode\fP,
+characters that cannot be represented in the target character set
+will be silently discarded.
 .PP
 The resulting conversion descriptor can be used with \fBiconv\fP any number
 of times. It remains valid until deallocated using \fBiconv_close\fP.
@@ -247,7 +253,7 @@ The following error can occur, among others:
 The conversion from \fIfromcode\fP to \fItocode\fP is not supported by the
 implementation.
 .SH "CONFORMING TO"
-POSIX:2001
+POSIX:2024
 .SH "SEE ALSO"
 .BR iconv (3)
 .BR iconvctl (3)

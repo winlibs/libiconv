@@ -50,12 +50,12 @@ https://savannah.gnu.org/git/?group=libiconv .
 
 After fetching the sources from the Git repository, peek at the comments in
 autogen.sh, then run
-  ./gitsub.sh pull
+  ./autopull.sh
   ./autogen.sh
 Then you can proceed with "./configure" as usual.
 
 Each time you want to update the source, do not only "git pull".  Instead do
-  git pull && ./gitsub.sh pull
+  git pull && ./autopull.sh
   ./autogen.sh
 
 

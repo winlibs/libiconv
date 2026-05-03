@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003-2006, 2008-2022 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006, 2008-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This file is free software: you can redistribute it and/or modify
@@ -55,6 +55,10 @@
 # define strncmp strnicmp
 #endif
 
+#if HAVE_DLADDR_IN_LIBC
+# include <dlfcn.h>
+#endif
+
 #if DEPENDS_ON_LIBCHARSET
 # include <libcharset.h>
 #endif
@@ -101,9 +105,8 @@
 
 /* Whether to enable the more costly support for relocatable libraries.
    It allows libraries to be have been installed with a different original
-   prefix than the program.  But it is quite costly, especially on Cygwin
-   platforms, see below.  Therefore we enable it by default only on native
-   Windows platforms.  */
+   prefix than the program.  But it is quite costly, see below.  Therefore
+   we enable it by default only on native Windows platforms.  */
 #ifndef ENABLE_COSTLY_RELOCATABLE
 # if defined _WIN32 && !defined __CYGWIN__
 #  define ENABLE_COSTLY_RELOCATABLE 1
@@ -136,11 +139,9 @@ set_this_relocation_prefix (const char *orig_prefix_arg,
       && strcmp (orig_prefix_arg, curr_prefix_arg) != 0)
     {
       /* Duplicate the argument strings.  */
-      char *memory;
-
       orig_prefix_len = strlen (orig_prefix_arg);
       curr_prefix_len = strlen (curr_prefix_arg);
-      memory = (char *) xmalloc (orig_prefix_len + 1 + curr_prefix_len + 1);
+      char *memory = (char *) xmalloc (orig_prefix_len + 1 + curr_prefix_len + 1);
 #ifdef NO_XMALLOC
       if (memory != NULL)
 #endif
@@ -197,9 +198,6 @@ compute_curr_prefix (const char *orig_installprefix,
                      const char *orig_installdir,
                      const char *curr_pathname)
 {
-  char *curr_installdir;
-  const char *rel_installdir;
-
   if (curr_pathname == NULL)
     return NULL;
 
@@ -210,9 +208,10 @@ compute_curr_prefix (const char *orig_installprefix,
       != 0)
     /* Shouldn't happen - nothing should be installed outside $(prefix).  */
     return NULL;
-  rel_installdir = orig_installdir + strlen (orig_installprefix);
+  const char *rel_installdir = orig_installdir + strlen (orig_installprefix);
 
   /* Determine the current installation directory.  */
+  char *curr_installdir;
   {
     const char *p_base = curr_pathname + FILE_SYSTEM_PREFIX_LEN (curr_pathname);
     const char *p = curr_pathname + strlen (curr_pathname);
@@ -318,9 +317,9 @@ static char *shared_library_fullname;
 
 #if defined _WIN32 && !defined __CYGWIN__
 /* Native Windows only.
-   On Cygwin, it is better to use the Cygwin provided /proc interface, than
-   to use native Windows API and cygwin_conv_to_posix_path, because it
-   supports longer file names
+   On Cygwin, it is better to use either dladdr() or the Cygwin provided /proc
+   interface, than to use native Windows API and cygwin_conv_to_posix_path,
+   because it supports longer file names
    (see <https://cygwin.com/ml/cygwin/2011-01/msg00410.html>).  */
 
 /* Determine the full pathname of the shared library when it is loaded.
@@ -402,39 +401,44 @@ _DLL_InitTerm (unsigned long hModule, unsigned long ulFlag)
 static void
 find_shared_library_fullname ()
 {
-#if (defined __linux__ && (__GLIBC__ >= 2 || defined __UCLIBC__)) || defined __CYGWIN__
+#if HAVE_DLADDR_IN_LIBC
+  /* glibc >= 2.34, musl, macOS, FreeBSD, NetBSD, OpenBSD, Solaris, Cygwin, Minix */
+  /* We can use dladdr() without introducing extra link dependencies.  */
+  Dl_info info;
+  /* It is OK to use a 'static' function — that does not appear in the
+     dynamic symbol table of any ELF object — as argument of dladdr() here,
+     because we don't access the fields info.dli_sname and info.dli_saddr.  */
+  int ret = dladdr (find_shared_library_fullname, &info);
+  if (ret != 0 && info.dli_fname != NULL)
+    shared_library_fullname = strdup (info.dli_fname);
+#elif (defined __linux__ && (__GLIBC__ >= 2 || defined __UCLIBC__)) || defined __CYGWIN__
   /* Linux has /proc/self/maps. glibc 2 and uClibc have the getline()
      function.
-     Cygwin >= 1.5 has /proc/self/maps and the getline() function too.
-     But it is costly: ca. 0.3 ms on Linux, 3 ms on Cygwin 1.5, and 5 ms on
-     Cygwin 1.7.  */
-  FILE *fp;
+     But it is costly: ca. 0.3 ms.  */
 
   /* Open the current process' maps file.  It describes one VMA per line.  */
-  fp = fopen ("/proc/self/maps", "r");
+  FILE *fp = fopen ("/proc/self/maps", "r");
   if (fp)
     {
       unsigned long address = (unsigned long) &find_shared_library_fullname;
       for (;;)
         {
           unsigned long start, end;
-          int c;
 
           if (fscanf (fp, "%lx-%lx", &start, &end) != 2)
             break;
           if (address >= start && address <= end - 1)
             {
               /* Found it.  Now see if this line contains a filename.  */
+              int c;
               while (c = getc (fp), c != EOF && c != '\n' && c != '/')
                 continue;
               if (c == '/')
                 {
-                  size_t size;
-                  int len;
-
                   ungetc (c, fp);
-                  shared_library_fullname = NULL; size = 0;
-                  len = getline (&shared_library_fullname, &size, fp);
+                  shared_library_fullname = NULL;
+                  size_t size = 0;
+                  int len = getline (&shared_library_fullname, &size, fp);
                   if (len >= 0)
                     {
                       /* Success: filled shared_library_fullname.  */
@@ -444,6 +448,7 @@ find_shared_library_fullname ()
                 }
               break;
             }
+          int c;
           while (c = getc (fp), c != EOF && c != '\n')
             continue;
         }
@@ -452,15 +457,19 @@ find_shared_library_fullname ()
 #endif
 }
 
+# define find_shared_library_fullname find_shared_library_fullname
+
 #endif /* Native Windows / EMX / Unix */
 
 /* Return the full pathname of the current shared library.
    Return NULL if unknown.
-   Guaranteed to work only on Linux, EMX, Cygwin, and native Windows.  */
+   Guaranteed to work only on
+     glibc >= 2.34, Linux, macOS, FreeBSD, NetBSD, OpenBSD, Solaris, Cygwin,
+     Minix, native Windows, EMX. */
 static char *
 get_shared_library_fullname ()
 {
-#if !(defined _WIN32 && !defined __CYGWIN__) && !defined __EMX__
+#if defined find_shared_library_fullname
   static bool tried_find_shared_library_fullname;
   if (!tried_find_shared_library_fullname)
     {
@@ -496,9 +505,7 @@ relocate (const char *pathname)
          orig_prefix.  */
       const char *orig_installprefix = INSTALLPREFIX;
       const char *orig_installdir = INSTALLDIR;
-      char *curr_prefix_better;
-
-      curr_prefix_better =
+      char *curr_prefix_better =
         compute_curr_prefix (orig_installprefix, orig_installdir,
                              get_shared_library_fullname ());
 

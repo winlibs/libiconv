@@ -1,6 +1,6 @@
 /* Reading symbolic links without size limitation.
 
-   Copyright (C) 2001, 2003-2004, 2007, 2009-2022 Free Software Foundation,
+   Copyright (C) 2001, 2003-2004, 2007, 2009-2026 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,17 @@
 
 /* Written by Jim Meyering <jim@meyering.net>  */
 
+/* This file uses _GL_ATTRIBUTE_MALLOC.  */
+#if !_GL_CONFIG_H_INCLUDED
+ #error "Please include config.h first."
+#endif
+
 #include <stdlib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 extern char *xreadlink (char const *filename)
   _GL_ATTRIBUTE_MALLOC _GL_ATTRIBUTE_DEALLOC_FREE;
@@ -26,4 +36,9 @@ extern char *xreadlink (char const *filename)
 #if GNULIB_XREADLINKAT
 extern char *xreadlinkat (int fd, char const *filename)
   _GL_ATTRIBUTE_MALLOC _GL_ATTRIBUTE_DEALLOC_FREE;
+#endif
+
+
+#ifdef __cplusplus
+}
 #endif

@@ -184,31 +184,22 @@ msgstr "Geschreven door %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"%s argument: Een formatteringscommando met variabele breedte is hier niet "
-"toegestaan."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "%s argument: Een formatteringscommando met variabele breedte is hier niet toegestaan."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"%s argument: Een formatteringscommando met variabele precisie is hier niet "
-"toegestaan."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "%s argument: Een formatteringscommando met variabele precisie is hier niet toegestaan."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:333
 #, c-format
 msgid "%s argument: A format directive with a size is not allowed here."
-msgstr ""
-"%s argument: Een formatteringscommando met een grootte is hier niet "
-"toegestaan."
+msgstr "%s argument: Een formatteringscommando met een grootte is hier niet toegestaan."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -229,12 +220,8 @@ msgstr "%s argument: Het teken '%c' is geen geldige omzettingsspecificatie."
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"%s argument: Het teken dat het formatteringscommando afsluit is geen geldige "
-"omzettingsspecificatie."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "%s argument: Het teken dat het formatteringscommando afsluit is geen geldige omzettingsspecificatie."
 
 # "meer dan één argument (%u argumenten om precies te zijn)." leest beter, maar
 # dan wordt de boodschap jammer genoeg te lang voor een typische regel van 80
@@ -244,13 +231,10 @@ msgstr ""
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
 msgstr[0] "%s argument: De tekst verbruikt meer dan één argument: %u argument."
-msgstr[1] ""
-"%s argument: De tekst verbruikt meer dan één argument: %u argumenten."
+msgstr[1] "%s argument: De tekst verbruikt meer dan één argument: %u argumenten."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.

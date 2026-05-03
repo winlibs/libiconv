@@ -1,4 +1,4 @@
-/* ANSI-C code produced by gperf version 3.2 */
+/* ANSI-C code produced by gperf version 3.3 */
 /* Command-line: gperf -m 10 lib/aliases.gperf  */
 /* Computed positions: -k'1,3-11,$' */
 
@@ -40,7 +40,7 @@
 #line 1 "lib/aliases.gperf"
 struct alias { int name; unsigned int encoding_index; };
 
-#define TOTAL_KEYWORDS 349
+#define TOTAL_KEYWORDS 351
 #define MIN_WORD_LENGTH 2
 #define MAX_WORD_LENGTH 45
 #define MIN_HASH_VALUE 15
@@ -79,73 +79,73 @@ aliases_hash (register const char *str, register size_t len)
     {
       default:
         hval += asso_values[(unsigned char)str[10]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 10:
         hval += asso_values[(unsigned char)str[9]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 9:
         hval += asso_values[(unsigned char)str[8]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 8:
         hval += asso_values[(unsigned char)str[7]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 7:
         hval += asso_values[(unsigned char)str[6]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 6:
         hval += asso_values[(unsigned char)str[5]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 5:
         hval += asso_values[(unsigned char)str[4]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 4:
         hval += asso_values[(unsigned char)str[3]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
       case 3:
         hval += asso_values[(unsigned char)str[2]];
-#if defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang_major__ && defined __clang_minor__ && __clang_major__ + (__clang_minor__ >= 9) > 3))
+#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
       [[fallthrough]];
-#elif defined __GNUC__ && __GNUC__ >= 7
+#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
       __attribute__ ((__fallthrough__));
 #endif
       /*FALLTHROUGH*/
@@ -494,11 +494,13 @@ struct stringpool_t
     char stringpool_str710[sizeof("BIG5-HKSCS:1999")];
     char stringpool_str725[sizeof("MS-TURK")];
     char stringpool_str732[sizeof("UCS-4-SWAPPED")];
+    char stringpool_str740[sizeof("GB18030:2022")];
     char stringpool_str749[sizeof("MACUKRAINE")];
     char stringpool_str750[sizeof("UCS-2-SWAPPED")];
     char stringpool_str752[sizeof("TCVN5712-1:1993")];
     char stringpool_str774[sizeof("JIS_X0208-1990")];
     char stringpool_str779[sizeof("JIS_X0208-1983")];
+    char stringpool_str788[sizeof("GB18030:2005")];
     char stringpool_str796[sizeof("MACHEBREW")];
     char stringpool_str803[sizeof("MS-ARAB")];
     char stringpool_str811[sizeof("JAVA")];
@@ -846,11 +848,13 @@ static const struct stringpool_t stringpool_contents =
     "BIG5-HKSCS:1999",
     "MS-TURK",
     "UCS-4-SWAPPED",
+    "GB18030:2022",
     "MACUKRAINE",
     "UCS-2-SWAPPED",
     "TCVN5712-1:1993",
     "JIS_X0208-1990",
     "JIS_X0208-1983",
+    "GB18030:2005",
     "MACHEBREW",
     "MS-ARAB",
     "JAVA",
@@ -863,6 +867,10 @@ static const struct stringpool_t stringpool_contents =
   };
 #define stringpool ((const char *) &stringpool_contents)
 
+#if (defined __GNUC__ && __GNUC__ + (__GNUC_MINOR__ >= 6) > 4) || (defined __clang__ && __clang_major__ >= 3)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#endif
 static const struct alias aliases[] =
   {
     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
@@ -924,7 +932,7 @@ static const struct alias aliases[] =
 #line 286 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str76, ei_iso646_cn},
     {-1},
-#line 332 "lib/aliases.gperf"
+#line 334 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str78, ei_hz},
 #line 264 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str79, ei_iso646_jp},
@@ -957,7 +965,7 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str104, ei_cp1254},
 #line 291 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str105, ei_gb2312},
-#line 353 "lib/aliases.gperf"
+#line 355 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str106, ei_cp949},
     {-1},
 #line 186 "lib/aliases.gperf"
@@ -1024,7 +1032,7 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str143, ei_iso8859_11},
 #line 86 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str144, ei_iso8859_4},
-#line 356 "lib/aliases.gperf"
+#line 358 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str145, ei_johab},
 #line 162 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str146, ei_iso8859_16},
@@ -1102,7 +1110,7 @@ static const struct alias aliases[] =
 #line 282 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str190, ei_jisx0212},
     {-1}, {-1},
-#line 359 "lib/aliases.gperf"
+#line 361 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str193, ei_local_char},
     {-1}, {-1},
 #line 235 "lib/aliases.gperf"
@@ -1111,7 +1119,7 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str197, ei_iso8859_3},
 #line 117 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str198, ei_iso8859_8},
-#line 354 "lib/aliases.gperf"
+#line 356 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str199, ei_cp949},
     {-1}, {-1},
 #line 13 "lib/aliases.gperf"
@@ -1126,14 +1134,14 @@ static const struct alias aliases[] =
     {-1}, {-1},
 #line 311 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str209, ei_cp932},
-#line 337 "lib/aliases.gperf"
+#line 339 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str210, ei_ces_big5},
 #line 258 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str211, ei_tcvn},
 #line 318 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str212, ei_iso2022_jpms},
     {-1}, {-1}, {-1},
-#line 338 "lib/aliases.gperf"
+#line 340 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str216, ei_ces_big5},
 #line 173 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str217, ei_cp1250},
@@ -1154,14 +1162,14 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str227, ei_euc_cn},
 #line 269 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str228, ei_jisx0201},
-#line 342 "lib/aliases.gperf"
+#line 344 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str229, ei_ces_big5},
     {-1}, {-1}, {-1}, {-1}, {-1},
-#line 341 "lib/aliases.gperf"
+#line 343 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str235, ei_ces_big5},
 #line 167 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str236, ei_koi8_r},
-#line 351 "lib/aliases.gperf"
+#line 353 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str237, ei_euc_kr},
 #line 202 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str238, ei_cp862},
@@ -1173,7 +1181,7 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str241, ei_ascii},
 #line 253 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str242, ei_cp874},
-#line 350 "lib/aliases.gperf"
+#line 352 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str243, ei_euc_kr},
 #line 256 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str244, ei_viscii},
@@ -1189,10 +1197,10 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str250, ei_cp850},
 #line 82 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str251, ei_iso8859_4},
-#line 343 "lib/aliases.gperf"
+#line 345 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str252, ei_cp950},
     {-1},
-#line 329 "lib/aliases.gperf"
+#line 331 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str254, ei_iso2022_cn},
 #line 295 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str255, ei_isoir165},
@@ -1208,7 +1216,7 @@ static const struct alias aliases[] =
 #line 75 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str261, ei_iso8859_3},
     {-1},
-#line 330 "lib/aliases.gperf"
+#line 332 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str263, ei_iso2022_cn},
 #line 131 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str264, ei_iso8859_10},
@@ -1233,7 +1241,7 @@ static const struct alias aliases[] =
 #line 180 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str278, ei_cp1253},
     {-1}, {-1},
-#line 331 "lib/aliases.gperf"
+#line 333 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str281, ei_iso2022_cn_ext},
 #line 246 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str282, ei_tis620},
@@ -1412,9 +1420,9 @@ static const struct alias aliases[] =
 #line 18 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str421, ei_ascii},
     {-1}, {-1},
-#line 352 "lib/aliases.gperf"
+#line 354 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str424, ei_euc_kr},
-#line 357 "lib/aliases.gperf"
+#line 359 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str425, ei_iso2022_kr},
 #line 290 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str426, ei_gb2312},
@@ -1423,17 +1431,17 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str429, ei_iso8859_6},
 #line 224 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str430, ei_mac_thai},
-#line 335 "lib/aliases.gperf"
+#line 337 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str431, ei_euc_tw},
     {-1},
 #line 304 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str433, ei_euc_jp},
-#line 358 "lib/aliases.gperf"
+#line 360 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str434, ei_iso2022_kr},
     {-1},
 #line 27 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str436, ei_ucs2be},
-#line 334 "lib/aliases.gperf"
+#line 336 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str437, ei_euc_tw},
     {-1},
 #line 17 "lib/aliases.gperf"
@@ -1444,7 +1452,7 @@ static const struct alias aliases[] =
 #line 215 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str442, ei_mac_iceland},
 #line 328 "lib/aliases.gperf"
-    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030},
+    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030_2005},
 #line 73 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str444, ei_iso8859_3},
 #line 101 "lib/aliases.gperf"
@@ -1482,7 +1490,7 @@ static const struct alias aliases[] =
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str468, ei_utf7},
 #line 19 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str469, ei_ascii},
-#line 333 "lib/aliases.gperf"
+#line 335 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str470, ei_hz},
     {-1}, {-1},
 #line 303 "lib/aliases.gperf"
@@ -1501,7 +1509,7 @@ static const struct alias aliases[] =
 #line 263 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str483, ei_iso646_jp},
     {-1}, {-1}, {-1}, {-1}, {-1},
-#line 348 "lib/aliases.gperf"
+#line 350 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str489, ei_big5hkscs2008},
 #line 292 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str490, ei_gb2312},
@@ -1511,9 +1519,9 @@ static const struct alias aliases[] =
     {-1},
 #line 175 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str494, ei_cp1251},
-#line 347 "lib/aliases.gperf"
+#line 349 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str495, ei_big5hkscs2008},
-#line 360 "lib/aliases.gperf"
+#line 362 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str496, ei_local_wchar_t},
 #line 96 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str497, ei_iso8859_6},
@@ -1578,7 +1586,7 @@ static const struct alias aliases[] =
 #line 204 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str555, ei_cp862},
     {-1},
-#line 340 "lib/aliases.gperf"
+#line 342 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str557, ei_ces_big5},
     {-1}, {-1},
 #line 300 "lib/aliases.gperf"
@@ -1586,7 +1594,7 @@ static const struct alias aliases[] =
     {-1},
 #line 216 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str562, ei_mac_croatian},
-#line 339 "lib/aliases.gperf"
+#line 341 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str563, ei_ces_big5},
     {-1}, {-1},
 #line 327 "lib/aliases.gperf"
@@ -1631,7 +1639,7 @@ static const struct alias aliases[] =
 #line 279 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str613, ei_jisx0212},
     {-1}, {-1}, {-1}, {-1},
-#line 336 "lib/aliases.gperf"
+#line 338 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str618, ei_euc_tw},
     {-1}, {-1}, {-1}, {-1}, {-1},
 #line 310 "lib/aliases.gperf"
@@ -1679,7 +1687,7 @@ static const struct alias aliases[] =
 #line 42 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str690, ei_utf32be},
     {-1},
-#line 345 "lib/aliases.gperf"
+#line 347 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str692, ei_big5hkscs2001},
     {-1},
 #line 281 "lib/aliases.gperf"
@@ -1688,16 +1696,16 @@ static const struct alias aliases[] =
 #line 280 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str697, ei_jisx0212},
     {-1}, {-1},
-#line 346 "lib/aliases.gperf"
+#line 348 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str700, ei_big5hkscs2004},
     {-1},
 #line 221 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str702, ei_mac_turkish},
     {-1}, {-1}, {-1}, {-1}, {-1},
-#line 349 "lib/aliases.gperf"
+#line 351 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str708, ei_big5hkscs2008},
     {-1},
-#line 344 "lib/aliases.gperf"
+#line 346 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str710, ei_big5hkscs1999},
     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
     {-1}, {-1}, {-1}, {-1}, {-1},
@@ -1706,8 +1714,10 @@ static const struct alias aliases[] =
     {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 #line 50 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str732, ei_ucs4swapped},
-    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
+#line 330 "lib/aliases.gperf"
+    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str740, ei_gb18030_2022},
+    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 #line 219 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str749, ei_mac_ukraine},
 #line 48 "lib/aliases.gperf"
@@ -1723,7 +1733,9 @@ static const struct alias aliases[] =
     {-1}, {-1}, {-1}, {-1},
 #line 272 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str779, ei_jisx0208},
-    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
+    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
+#line 329 "lib/aliases.gperf"
+    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str788, ei_gb18030_2005},
     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 #line 222 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str796, ei_mac_hebrew},
@@ -1750,7 +1762,7 @@ static const struct alias aliases[] =
 #line 305 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str866, ei_euc_jp},
     {-1}, {-1},
-#line 355 "lib/aliases.gperf"
+#line 357 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str869, ei_johab},
     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
@@ -1761,6 +1773,9 @@ static const struct alias aliases[] =
 #line 270 "lib/aliases.gperf"
     {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str921, ei_jisx0201}
   };
+#if (defined __GNUC__ && __GNUC__ + (__GNUC_MINOR__ >= 6) > 4) || (defined __clang__ && __clang_major__ >= 3)
+#pragma GCC diagnostic pop
+#endif
 
 static const struct alias *
 aliases_lookup (register const char *str, register size_t len)
@@ -1781,5 +1796,5 @@ aliases_lookup (register const char *str, register size_t len)
             }
         }
     }
-  return 0;
+  return (struct alias *) 0;
 }

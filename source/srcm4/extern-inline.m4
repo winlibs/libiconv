@@ -1,9 +1,12 @@
-dnl 'extern inline' a la ISO C99.
-
-dnl Copyright 2012-2022 Free Software Foundation, Inc.
+# extern-inline.m4
+# serial 2
+dnl Copyright 2012-2026 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
+dnl This file is offered as-is, without any warranty.
+
+dnl 'extern inline' a la ISO C99.
 
 AC_DEFUN([gl_EXTERN_INLINE],
 [
@@ -40,9 +43,11 @@ AC_DEFUN([gl_EXTERN_INLINE],
    functions or macros in standard C headers like <ctype.h>.  For example,
    if isdigit is mistakenly implemented via a static inline function,
    a program containing an extern inline function that calls isdigit
-   may not work since the C standard prohibits extern inline functions
-   from calling static functions (ISO C 99 section 6.7.4.(3).
-   This bug is known to occur on:
+   may not work since C99 through C23 prohibit extern inline functions
+   from calling static functions (ISO C 23 § 6.7.5 ¶ 3)).
+   Although a future C standard will likely relax this restriction
+   <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3622.txt>,
+   respect it for now.  This bug is known to occur on:
 
      OS X 10.8 and earlier; see:
      https://lists.gnu.org/r/bug-gnulib/2012-12/msg00023.html
@@ -79,7 +84,8 @@ AC_DEFUN([gl_EXTERN_INLINE],
 # define _GL_EXTERN_INLINE_STDHEADER_BUG
 #endif
 #if ((__GNUC__ \
-      ? defined __GNUC_STDC_INLINE__ && __GNUC_STDC_INLINE__ \
+      ? (defined __GNUC_STDC_INLINE__ && __GNUC_STDC_INLINE__ \
+         && !defined __PCC__) \
       : (199901L <= __STDC_VERSION__ \
          && !defined __HP_cc \
          && !defined __PGI \
@@ -89,6 +95,7 @@ AC_DEFUN([gl_EXTERN_INLINE],
 # define _GL_EXTERN_INLINE extern inline
 # define _GL_EXTERN_INLINE_IN_USE
 #elif (2 < __GNUC__ + (7 <= __GNUC_MINOR__) && !defined __STRICT_ANSI__ \
+       && !defined __PCC__ \
        && !defined _GL_EXTERN_INLINE_STDHEADER_BUG)
 # if defined __GNUC_GNU_INLINE__ && __GNUC_GNU_INLINE__
    /* __gnu_inline__ suppresses a GCC 4.2 diagnostic.  */
@@ -107,8 +114,8 @@ AC_DEFUN([gl_EXTERN_INLINE],
    suppress bogus "no previous prototype for 'FOO'"
    and "no previous declaration for 'FOO'" diagnostics,
    when FOO is an inline function in the header; see
-   <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=54113> and
-   <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63877>.  */
+   <https://gcc.gnu.org/PR54113> and
+   <https://gcc.gnu.org/PR63877>.  */
 #if __GNUC__ == 4 && 6 <= __GNUC_MINOR__
 # if defined __GNUC_STDC_INLINE__ && __GNUC_STDC_INLINE__
 #  define _GL_INLINE_HEADER_CONST_PRAGMA

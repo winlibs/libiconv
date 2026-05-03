@@ -17,15 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 20.12.0\n"
 
 #. TRANSLATORS: The first line of the short usage message.
 #: src/iconv.c:104
 msgid "Usage: iconv [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-msgstr ""
-"Использование: iconv [-c] [-s] [-f вх_кодировка] [-t вых_кодировка] [файл …]"
+msgstr "Использование: iconv [-c] [-s] [-f вх_кодировка] [-t вых_кодировка] [файл …]"
 
 #. TRANSLATORS: The second line of the short usage message.
 #. Align it correctly against the first line.
@@ -183,21 +181,15 @@ msgstr "Авторы: %s.\n"
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:302
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable width is not allowed here."
-msgstr ""
-"аргумент %s: Здесь не допускается директива форматирования переменной ширины."
+msgid "%s argument: A format directive with a variable width is not allowed here."
+msgstr "аргумент %s: Здесь не допускается директива форматирования переменной ширины."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:317
 #, c-format
-msgid ""
-"%s argument: A format directive with a variable precision is not allowed "
-"here."
-msgstr ""
-"аргумент %s: Здесь не допускается директива форматирования переменной "
-"точности."
+msgid "%s argument: A format directive with a variable precision is not allowed here."
+msgstr "аргумент %s: Здесь не допускается директива форматирования переменной точности."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
@@ -219,36 +211,25 @@ msgstr "аргумент %s: Строка заканчивается на сер
 #: src/iconv.c:382
 #, c-format
 msgid "%s argument: The character '%c' is not a valid conversion specifier."
-msgstr ""
-"аргумент %s: Символ «%c» не является верным спецификатором преобразования."
+msgstr "аргумент %s: Символ «%c» не является верным спецификатором преобразования."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #: src/iconv.c:388
 #, c-format
-msgid ""
-"%s argument: The character that terminates the format directive is not a "
-"valid conversion specifier."
-msgstr ""
-"аргумент %s: Символ, завершающий директиву форматирования, не является "
-"верным спецификатором преобразования."
+msgid "%s argument: The character that terminates the format directive is not a valid conversion specifier."
+msgstr "аргумент %s: Символ, завершающий директиву форматирования, не является верным спецификатором преобразования."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a command-line option.
 #. The %u placeholder expands to the number of arguments consumed by the format string.
 #: src/iconv.c:404
 #, c-format
-msgid ""
-"%s argument: The format string consumes more than one argument: %u argument."
-msgid_plural ""
-"%s argument: The format string consumes more than one argument: %u arguments."
-msgstr[0] ""
-"аргумент %s: Строка формата задействует более одного аргумента: %u аргумент."
-msgstr[1] ""
-"аргумент %s: Строка формата задействует более одного аргумента: %u аргумента."
-msgstr[2] ""
-"аргумент %s: Строка формата задействует более одного аргумента: %u "
-"аргументов."
+msgid "%s argument: The format string consumes more than one argument: %u argument."
+msgid_plural "%s argument: The format string consumes more than one argument: %u arguments."
+msgstr[0] "аргумент %s: Строка формата задействует более одного аргумента: %u аргумент."
+msgstr[1] "аргумент %s: Строка формата задействует более одного аргумента: %u аргумента."
+msgstr[2] "аргумент %s: Строка формата задействует более одного аргумента: %u аргументов."
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -276,8 +257,7 @@ msgstr "невозможно преобразовать байтовую под�
 #: src/iconv.c:584
 #, c-format
 msgid "cannot convert widechar substitution to target encoding: %s"
-msgstr ""
-"невозможно преобразовать широкосимвольную подстановку в целевую кодировку: %s"
+msgstr "невозможно преобразовать широкосимвольную подстановку в целевую кодировку: %s"
 
 #. TRANSLATORS: An error message.
 #. The %s placeholder expands to a piece of text, specified through --byte-subst.
@@ -367,21 +347,15 @@ msgstr "ошибка ввода-вывода"
 #~ msgid "Report bugs to <bug-gnu-libiconv@gnu.org>.\n"
 #~ msgstr "Об ошибках сообщайте по адресу <bug-gnu-libiconv@gnu.org>.\n"
 
-#~ msgid ""
-#~ "Usage: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
-#~ msgstr ""
-#~ "Использование: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] "
-#~ "[файл ...]"
+#~ msgid "Usage: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [file ...]"
+#~ msgstr "Использование: iconv [--binary] [-c] [-s] [-f fromcode] [-t tocode] [файл ...]"
 
 #~ msgid ""
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
+#~ "This is free software; see the source for copying conditions.  There is NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 #~ msgstr ""
 #~ "Это свободное программное обеспечение; условия копирования приведены в\n"
-#~ "исходных текстах программы.  Нет НИКАКИХ гарантий; даже гарантии "
-#~ "КОММЕРЧЕСКОЙ\n"
+#~ "исходных текстах программы.  Нет НИКАКИХ гарантий; даже гарантии КОММЕРЧЕСКОЙ\n"
 #~ "ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ.\n"
 
 #~ msgid "iconv: %s: "

@@ -1,9 +1,11 @@
-# iconv.m4 serial 24
-dnl Copyright (C) 2000-2002, 2007-2014, 2016-2022 Free Software Foundation,
+# iconv.m4
+# serial 32
+dnl Copyright (C) 2000-2002, 2007-2014, 2016-2026 Free Software Foundation,
 dnl Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
+dnl This file is offered as-is, without any warranty.
 
 dnl From Bruno Haible.
 
@@ -26,8 +28,8 @@ AC_DEFUN([AM_ICONV_LINKFLAGS_BODY],
 
 AC_DEFUN([AM_ICONV_LINK],
 [
-  dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
-  dnl those with the standalone portable GNU libiconv installed).
+  dnl Some systems have iconv in libc, some have it in libiconv (those
+  dnl with the standalone portable GNU libiconv installed).
   AC_REQUIRE([AC_CANONICAL_HOST]) dnl for cross-compiles
 
   dnl Search for libiconv and define LIBICONV, LTLIBICONV and INCICONV
@@ -38,7 +40,7 @@ AC_DEFUN([AM_ICONV_LINK],
   dnl because if the user has installed libiconv and not disabled its use
   dnl via --without-libiconv-prefix, he wants to use it. The first
   dnl AC_LINK_IFELSE will then fail, the second AC_LINK_IFELSE will succeed.
-  am_save_CPPFLAGS="$CPPFLAGS"
+  gl_saved_CPPFLAGS="$CPPFLAGS"
   AC_LIB_APPENDTOVAR([CPPFLAGS], [$INCICONV])
 
   AC_CACHE_CHECK([for iconv], [am_cv_func_iconv], [
@@ -55,7 +57,7 @@ AC_DEFUN([AM_ICONV_LINK],
            iconv_close(cd);]])],
       [am_cv_func_iconv=yes])
     if test "$am_cv_func_iconv" != yes; then
-      am_save_LIBS="$LIBS"
+      gl_saved_LIBS="$LIBS"
       LIBS="$LIBS $LIBICONV"
       AC_LINK_IFELSE(
         [AC_LANG_PROGRAM(
@@ -68,14 +70,14 @@ AC_DEFUN([AM_ICONV_LINK],
              iconv_close(cd);]])],
         [am_cv_lib_iconv=yes]
         [am_cv_func_iconv=yes])
-      LIBS="$am_save_LIBS"
+      LIBS="$gl_saved_LIBS"
     fi
   ])
   if test "$am_cv_func_iconv" = yes; then
     AC_CACHE_CHECK([for working iconv], [am_cv_func_iconv_works], [
       dnl This tests against bugs in AIX 5.1, AIX 6.1..7.1, HP-UX 11.11,
-      dnl Solaris 10.
-      am_save_LIBS="$LIBS"
+      dnl Solaris 10, macOS 14.4.
+      gl_saved_LIBS="$LIBS"
       if test $am_cv_lib_iconv = yes; then
         LIBS="$LIBS $LIBICONV"
       fi
@@ -113,6 +115,35 @@ AC_DEFUN([AM_ICONV_LINK],
         iconv_close (cd_utf8_to_88591);
       }
   }
+  /* Test against macOS 14.4 bug: Failures are not distinguishable from
+     successful returns.
+     POSIX:2018 says: "The iconv() function shall ... return the number of
+     non-identical conversions performed."
+     But here, the conversion always does transliteration (the suffixes
+     "//TRANSLIT" and "//IGNORE" have no effect, nor does iconvctl()) and
+     does not report when it does a non-identical conversion.  */
+  {
+    iconv_t cd_utf8_to_88591 = iconv_open ("ISO-8859-1", "UTF-8");
+    if (cd_utf8_to_88591 != (iconv_t)(-1))
+      {
+        static ICONV_CONST char input[] = "\305\202"; /* LATIN SMALL LETTER L WITH STROKE */
+        char buf[10];
+        ICONV_CONST char *inptr = input;
+        size_t inbytesleft = strlen (input);
+        char *outptr = buf;
+        size_t outbytesleft = sizeof (buf);
+        size_t res = iconv (cd_utf8_to_88591,
+                            &inptr, &inbytesleft,
+                            &outptr, &outbytesleft);
+        /* Here:
+           With glibc, GNU libiconv (including macOS up to 13): res == (size_t)-1, errno == EILSEQ.
+           With musl libc, NetBSD 10, Solaris 11: res == 1.
+           With macOS 14.4: res == 0, output is "l".  */
+        if (res == 0)
+          result |= 2;
+        iconv_close (cd_utf8_to_88591);
+      }
+  }
   /* Test against Solaris 10 bug: Failures are not distinguishable from
      successful returns.  */
   {
@@ -129,7 +160,7 @@ AC_DEFUN([AM_ICONV_LINK],
                             &inptr, &inbytesleft,
                             &outptr, &outbytesleft);
         if (res == 0)
-          result |= 2;
+          result |= 4;
         iconv_close (cd_ascii_to_88591);
       }
   }
@@ -148,7 +179,7 @@ AC_DEFUN([AM_ICONV_LINK],
                             &inptr, &inbytesleft,
                             &outptr, &outbytesleft);
         if (res != (size_t)(-1) || outptr - buf > 1 || buf[1] != (char)0xAD)
-          result |= 4;
+          result |= 8;
         iconv_close (cd_88591_to_utf8);
       }
   }
@@ -168,7 +199,7 @@ AC_DEFUN([AM_ICONV_LINK],
                             &inptr, &inbytesleft,
                             &outptr, &outbytesleft);
         if ((int)res > 0)
-          result |= 8;
+          result |= 16;
         iconv_close (cd_88591_to_utf8);
       }
   }
@@ -178,7 +209,7 @@ AC_DEFUN([AM_ICONV_LINK],
   {
     /* Try standardized names.  */
     iconv_t cd1 = iconv_open ("UTF-8", "EUC-JP");
-    /* Try IRIX, OSF/1 names.  */
+    /* Try possible *BSD names.  */
     iconv_t cd2 = iconv_open ("UTF-8", "eucJP");
     /* Try AIX names.  */
     iconv_t cd3 = iconv_open ("UTF-8", "IBM-eucJP");
@@ -186,7 +217,7 @@ AC_DEFUN([AM_ICONV_LINK],
     iconv_t cd4 = iconv_open ("utf8", "eucJP");
     if (cd1 == (iconv_t)(-1) && cd2 == (iconv_t)(-1)
         && cd3 == (iconv_t)(-1) && cd4 == (iconv_t)(-1))
-      result |= 16;
+      result |= 32;
     if (cd1 != (iconv_t)(-1))
       iconv_close (cd1);
     if (cd2 != (iconv_t)(-1))
@@ -205,7 +236,7 @@ AC_DEFUN([AM_ICONV_LINK],
            esac])
         test "$am_cv_func_iconv_works" = no || break
       done
-      LIBS="$am_save_LIBS"
+      LIBS="$gl_saved_LIBS"
     ])
     case "$am_cv_func_iconv_works" in
       *no) am_func_iconv=no am_cv_lib_iconv=no ;;
@@ -224,7 +255,7 @@ AC_DEFUN([AM_ICONV_LINK],
   else
     dnl If $LIBICONV didn't lead to a usable library, we don't need $INCICONV
     dnl either.
-    CPPFLAGS="$am_save_CPPFLAGS"
+    CPPFLAGS="$gl_saved_CPPFLAGS"
     LIBICONV=
     LTLIBICONV=
   fi
@@ -234,12 +265,6 @@ AC_DEFUN([AM_ICONV_LINK],
 
 dnl Define AM_ICONV using AC_DEFUN_ONCE, in order to avoid warnings like
 dnl "warning: AC_REQUIRE: `AM_ICONV' was expanded before it was required".
-dnl This is tricky because of the way 'aclocal' is implemented:
-dnl - It requires defining an auxiliary macro whose name ends in AC_DEFUN.
-dnl   Otherwise aclocal's initial scan pass would miss the macro definition.
-dnl - It requires a line break inside the AC_DEFUN_ONCE and AC_DEFUN expansions.
-dnl   Otherwise aclocal would emit many "Use of uninitialized value $1"
-dnl   warnings.
 AC_DEFUN_ONCE([AM_ICONV],
 [
   AM_ICONV_LINK
@@ -280,4 +305,20 @@ size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, si
        ICONV_CONST="const"
      fi
     ])
+
+  dnl A summary result, for those packages which want to print a summary at the
+  dnl end of the configuration.
+  if test "$am_func_iconv" = yes; then
+    if test -n "$LIBICONV"; then
+      am_cv_func_iconv_summary='yes, in libiconv'
+    else
+      am_cv_func_iconv_summary='yes, in libc'
+    fi
+  else
+    if test "$am_cv_func_iconv" = yes; then
+      am_cv_func_iconv_summary='not working, consider installing GNU libiconv'
+    else
+      am_cv_func_iconv_summary='no, consider installing GNU libiconv'
+    fi
+  fi
 ])

@@ -1,19 +1,17 @@
  source/config.h              |  404 ++++++++++
- source/include/iconv.h       |  248 ++++++
- source/lib/aliases.h         |  706 ++++++++---------
- source/lib/aliases.h.orig    | 1732 ++++++++++++++++++++++++++++++++++++++++++
- source/lib/canonical.h       |  222 +++---
+ source/include/iconv.h       |  250 ++++++
+ source/lib/aliases.h         |  710 ++++++++---------
+ source/lib/aliases.h.orig    | 1792 ++++++++++++++++++++++++++++++++++++++++++
+ source/lib/canonical.h       |  224 +++---
  source/lib/canonical_dos.h   |   30 +-
  source/lib/canonical_local.h |    4 +-
  source/lib/iconv.c           |    5 +-
- source/lib/localcharset.h    |   48 ++
- source/lib/loop_wchar.h      |    2 +
- source/lib/relocatable.c     |    4 +-
- 11 files changed, 2925 insertions(+), 480 deletions(-)
+ source/lib/localcharset.h    |  135 ++++
+ 9 files changed, 3073 insertions(+), 481 deletions(-)
 
 diff --git a/source/config.h b/source/config.h
 new file mode 100644
-index 0000000..b83a2c5
+index 0000000..7393d96
 --- /dev/null
 +++ b/source/config.h
 @@ -0,0 +1,404 @@
@@ -294,16 +292,16 @@ index 0000000..b83a2c5
 +#define PACKAGE_BUGREPORT ""
 +
 +/* Define to the full name of this package. */
-+#define PACKAGE_NAME ""
++#define PACKAGE_NAME "libiconv"
 +
 +/* Define to the full name and version of this package. */
-+#define PACKAGE_STRING ""
++#define PACKAGE_STRING "libiconv 1.19"
 +
 +/* Define to the one symbol short name of this package. */
-+#define PACKAGE_TARNAME ""
++#define PACKAGE_TARNAME "libiconv"
 +
 +/* Define to the version of this package. */
-+#define PACKAGE_VERSION ""
++#define PACKAGE_VERSION "1.19"
 +
 +/* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
 +   'ptrdiff_t'. */
@@ -340,7 +338,7 @@ index 0000000..b83a2c5
 +#define USE_UNLOCKED_IO 0
 +
 +/* Version number of package */
-+#define VERSION "1.12"
++#define VERSION "1.19"
 +
 +/* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
 +   'wchar_t'. */
@@ -423,34 +421,37 @@ index 0000000..b83a2c5
 +
 diff --git a/source/include/iconv.h b/source/include/iconv.h
 new file mode 100644
-index 0000000..8818404
+index 0000000..1f1fc7a
 --- /dev/null
 +++ b/source/include/iconv.h
-@@ -0,0 +1,248 @@
-+/* Copyright (C) 1999-2003, 2005-2006, 2008-2011 Free Software Foundation, Inc.
+@@ -0,0 +1,250 @@
++/* Copyright (C) 1999-2026 Free Software Foundation, Inc.
 +   This file is part of the GNU LIBICONV Library.
 +
 +   The GNU LIBICONV Library is free software; you can redistribute it
-+   and/or modify it under the terms of the GNU Library General Public
-+   License as published by the Free Software Foundation; either version 2
++   and/or modify it under the terms of the GNU Lesser General Public
++   License as published by the Free Software Foundation; either version 2.1
 +   of the License, or (at your option) any later version.
 +
 +   The GNU LIBICONV Library is distributed in the hope that it will be
 +   useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 +   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+   Library General Public License for more details.
++   Lesser General Public License for more details.
 +
-+   You should have received a copy of the GNU Library General Public
++   You should have received a copy of the GNU Lesser General Public
 +   License along with the GNU LIBICONV Library; see the file COPYING.LIB.
-+   If not, see <http://www.gnu.org/licenses/>.  */
++   If not, see <https://www.gnu.org/licenses/>.  */
 +
 +/* When installed, this file is called "iconv.h". */
 +
 +#ifndef _LIBICONV_H
 +#define _LIBICONV_H
 +
-+#define _LIBICONV_VERSION 0x010F    /* version number: (major<<8) + minor */
++#ifdef __cplusplus
++extern "C" {
++#endif
 +
++#define _LIBICONV_VERSION 0x0113    /* version number: (major<<8) + minor */
 +#ifdef BUILDING_LIBICONV
 +#define LIBICONV_DLL_EXPORTED __declspec(dllexport)
 +#elif LIBICONV_DLL
@@ -458,24 +459,23 @@ index 0000000..8818404
 +#else
 +#define LIBICONV_DLL_EXPORTED
 +#endif
-+extern LIBICONV_DLL_EXPORTED int _libiconv_version;
++extern LIBICONV_DLL_EXPORTED int _libiconv_version; /* Likewise */
++
++#ifdef __cplusplus
++}
++#endif
 +
 +/* We would like to #include any system header file which could define
-+   iconv_t, 1. in order to eliminate the risk that the user gets compilation
++   iconv_t, in order to eliminate the risk that the user gets compilation
 +   errors because some other system header file includes /usr/include/iconv.h
-+   which defines iconv_t or declares iconv after this file, 2. when compiling
-+   for LIBICONV_PLUG, we need the proper iconv_t type in order to produce
-+   binary compatible code.
++   which defines iconv_t or declares iconv after this file.
 +   But gcc's #include_next is not portable. Thus, once libiconv's iconv.h
 +   has been installed in /usr/local/include, there is no way any more to
 +   include the original /usr/include/iconv.h. We simply have to get away
 +   without it.
-+   Ad 1. The risk that a system header file does
++   The risk that a system header file does
 +   #include "iconv.h"  or  #include_next "iconv.h"
-+   is small. They all do #include <iconv.h>.
-+   Ad 2. The iconv_t type is a pointer type in all cases I have seen. (It
-+   has to be a scalar type because (iconv_t)(-1) is a possible return value
-+   from iconv_open().) */
++   is small. They all do #include <iconv.h>. */
 +
 +/* Define iconv_t ourselves. */
 +#undef iconv_t
@@ -501,34 +501,28 @@ index 0000000..8818404
 +#endif
 +
 +
-+/* Allocates descriptor for code conversion from encoding `fromcode' to
-+   encoding `tocode'. */
-+#ifndef LIBICONV_PLUG
++/* Allocates descriptor for code conversion from encoding ‘fromcode’ to
++   encoding ‘tocode’. */
 +#define iconv_open libiconv_open
-+#endif
 +extern LIBICONV_DLL_EXPORTED iconv_t iconv_open (const char* tocode, const char* fromcode);
 +
-+/* Converts, using conversion descriptor `cd', at most `*inbytesleft' bytes
-+   starting at `*inbuf', writing at most `*outbytesleft' bytes starting at
-+   `*outbuf'.
-+   Decrements `*inbytesleft' and increments `*inbuf' by the same amount.
-+   Decrements `*outbytesleft' and increments `*outbuf' by the same amount. */
-+#ifndef LIBICONV_PLUG
++/* Converts, using conversion descriptor ‘cd’, at most ‘*inbytesleft’ bytes
++   starting at ‘*inbuf’, writing at most ‘*outbytesleft’ bytes starting at
++   ‘*outbuf’.
++   Decrements ‘*inbytesleft’ and increments ‘*inbuf’ by the same amount.
++   Decrements ‘*outbytesleft’ and increments ‘*outbuf’ by the same amount. */
 +#define iconv libiconv
-+#endif
 +extern LIBICONV_DLL_EXPORTED size_t iconv (iconv_t cd,  char* * inbuf, size_t *inbytesleft, char* * outbuf, size_t *outbytesleft);
 +
-+/* Frees resources allocated for conversion descriptor `cd'. */
-+#ifndef LIBICONV_PLUG
++/* Frees resources allocated for conversion descriptor ‘cd’. */
 +#define iconv_close libiconv_close
-+#endif
 +extern LIBICONV_DLL_EXPORTED int iconv_close (iconv_t cd);
++
 +
 +#ifdef __cplusplus
 +}
 +#endif
 +
-+#ifndef LIBICONV_PLUG
 +
 +/* Nonstandard extensions. */
 +
@@ -562,7 +556,7 @@ index 0000000..8818404
 +   encoding ‘tocode’ into preallocated memory. Returns an error indicator
 +   (0 or -1 with errno set). */
 +#define iconv_open_into libiconv_open_into
-+extern int iconv_open_into (const char* tocode, const char* fromcode,
++extern LIBICONV_DLL_EXPORTED int iconv_open_into (const char* tocode, const char* fromcode,
 +                            iconv_allocation_t* resultp);
 +
 +/* Control of attributes. */
@@ -600,7 +594,6 @@ index 0000000..8818404
 +                                         void* callback_arg),
 +              void* callback_arg,
 +              void* data);
-+#if 0
 +/* Fallback function.  Invoked when a number of bytes could not be converted to
 +   a wide character.  This function should process all bytes from inbuf and may
 +   produce replacement wide characters by calling the write_replacement
@@ -621,12 +614,6 @@ index 0000000..8818404
 +                                         void* callback_arg),
 +              void* callback_arg,
 +              void* data);
-+#else
-+/* If the wchar_t type does not exist, these two fallback functions are never
-+   invoked.  Their argument list therefore does not matter.  */
-+typedef void (*iconv_wchar_mb_to_wc_fallback) ();
-+typedef void (*iconv_wchar_wc_to_mb_fallback) ();
-+#endif
 +/* Set of fallbacks. */
 +struct iconv_fallbacks {
 +  iconv_unicode_mb_to_uc_fallback mb_to_uc_fallback;
@@ -636,14 +623,30 @@ index 0000000..8818404
 +  void* data;
 +};
 +
++/* Surfaces.
++   The concept of surfaces is described in the 'recode' manual.  */
++#define ICONV_SURFACE_NONE             0
++/* In EBCDIC encodings, 0x15 (which encodes the "newline function", see the
++   Unicode standard, chapter 5) maps to U+000A instead of U+0085.  This is
++   for interoperability with C programs and Unix environments on z/OS.  */
++#define ICONV_SURFACE_EBCDIC_ZOS_UNIX  1
++
 +/* Requests for iconvctl. */
-+#define ICONV_TRIVIALP            0  /* int *argument */
-+#define ICONV_GET_TRANSLITERATE   1  /* int *argument */
-+#define ICONV_SET_TRANSLITERATE   2  /* const int *argument */
-+#define ICONV_GET_DISCARD_ILSEQ   3  /* int *argument */
-+#define ICONV_SET_DISCARD_ILSEQ   4  /* const int *argument */
-+#define ICONV_SET_HOOKS           5  /* const struct iconv_hooks *argument */
-+#define ICONV_SET_FALLBACKS       6  /* const struct iconv_fallbacks *argument */
++#define ICONV_TRIVIALP                    0  /* int *argument */
++#define ICONV_GET_TRANSLITERATE           1  /* int *argument */
++#define ICONV_SET_TRANSLITERATE           2  /* const int *argument */
++#define ICONV_GET_DISCARD_ILSEQ           3  /* int *argument */
++#define ICONV_SET_DISCARD_ILSEQ           4  /* const int *argument */
++#define ICONV_SET_HOOKS                   5  /* const struct iconv_hooks *argument */
++#define ICONV_SET_FALLBACKS               6  /* const struct iconv_fallbacks *argument */
++#define ICONV_GET_FROM_SURFACE            7  /* unsigned int *argument */
++#define ICONV_SET_FROM_SURFACE            8  /* const unsigned int *argument */
++#define ICONV_GET_TO_SURFACE              9  /* unsigned int *argument */
++#define ICONV_SET_TO_SURFACE             10  /* const unsigned int *argument */
++#define ICONV_GET_DISCARD_INVALID        11  /* int *argument */
++#define ICONV_SET_DISCARD_INVALID        12  /* const int *argument */
++#define ICONV_GET_DISCARD_NON_IDENTICAL  13  /* int *argument */
++#define ICONV_SET_DISCARD_NON_IDENTICAL  14  /* const int *argument */
 +
 +/* Listing of locale independent encodings. */
 +#define iconvlist libiconvlist
@@ -664,19 +667,16 @@ index 0000000..8818404
 +   prefixes should be directory names without trailing slash (i.e. use ""
 +   instead of "/").  */
 +extern LIBICONV_DLL_EXPORTED void libiconv_set_relocation_prefix (const char *orig_prefix,
-+					    const char *curr_prefix);
-+
++                                            const char *curr_prefix);
 +
 +#ifdef __cplusplus
 +}
 +#endif
 +
-+#endif
-+
 +
 +#endif /* _LIBICONV_H */
 diff --git a/source/lib/aliases.h b/source/lib/aliases.h
-index 6d3039c..fbeab50 100644
+index f3e2912..dd9f1f4 100644
 --- a/source/lib/aliases.h
 +++ b/source/lib/aliases.h
 @@ -2,6 +2,14 @@
@@ -694,7 +694,7 @@ index 6d3039c..fbeab50 100644
  #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
        && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
        && (')' == 41) && ('*' == 42) && ('+' == 43) && (',' == 44) \
-@@ -860,890 +868,890 @@ static const struct alias aliases[] =
+@@ -868,894 +876,894 @@ static const struct alias aliases[] =
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
  #line 134 "lib/aliases.gperf"
@@ -775,7 +775,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str76, ei_iso646_cn},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str76, ei_iso646_cn},
      {-1},
- #line 332 "lib/aliases.gperf"
+ #line 334 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str78, ei_hz},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str78, ei_hz},
  #line 264 "lib/aliases.gperf"
@@ -822,7 +822,7 @@ index 6d3039c..fbeab50 100644
  #line 291 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str105, ei_gb2312},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str105, ei_gb2312},
- #line 353 "lib/aliases.gperf"
+ #line 355 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str106, ei_cp949},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str106, ei_cp949},
      {-1},
@@ -918,7 +918,7 @@ index 6d3039c..fbeab50 100644
  #line 86 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str144, ei_iso8859_4},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str144, ei_iso8859_4},
- #line 356 "lib/aliases.gperf"
+ #line 358 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str145, ei_johab},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str145, ei_johab},
  #line 162 "lib/aliases.gperf"
@@ -1030,7 +1030,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str190, ei_jisx0212},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str190, ei_jisx0212},
      {-1}, {-1},
- #line 359 "lib/aliases.gperf"
+ #line 361 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str193, ei_local_char},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str193, ei_local_char},
      {-1}, {-1},
@@ -1043,7 +1043,7 @@ index 6d3039c..fbeab50 100644
  #line 117 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str198, ei_iso8859_8},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str198, ei_iso8859_8},
- #line 354 "lib/aliases.gperf"
+ #line 356 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str199, ei_cp949},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str199, ei_cp949},
      {-1}, {-1},
@@ -1064,7 +1064,7 @@ index 6d3039c..fbeab50 100644
  #line 311 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str209, ei_cp932},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str209, ei_cp932},
- #line 337 "lib/aliases.gperf"
+ #line 339 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str210, ei_ces_big5},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str210, ei_ces_big5},
  #line 258 "lib/aliases.gperf"
@@ -1074,7 +1074,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str212, ei_iso2022_jpms},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str212, ei_iso2022_jpms},
      {-1}, {-1}, {-1},
- #line 338 "lib/aliases.gperf"
+ #line 340 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str216, ei_ces_big5},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str216, ei_ces_big5},
  #line 173 "lib/aliases.gperf"
@@ -1104,17 +1104,17 @@ index 6d3039c..fbeab50 100644
  #line 269 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str228, ei_jisx0201},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str228, ei_jisx0201},
- #line 342 "lib/aliases.gperf"
+ #line 344 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str229, ei_ces_big5},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str229, ei_ces_big5},
      {-1}, {-1}, {-1}, {-1}, {-1},
- #line 341 "lib/aliases.gperf"
+ #line 343 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str235, ei_ces_big5},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str235, ei_ces_big5},
  #line 167 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str236, ei_koi8_r},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str236, ei_koi8_r},
- #line 351 "lib/aliases.gperf"
+ #line 353 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str237, ei_euc_kr},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str237, ei_euc_kr},
  #line 202 "lib/aliases.gperf"
@@ -1132,7 +1132,7 @@ index 6d3039c..fbeab50 100644
  #line 253 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str242, ei_cp874},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str242, ei_cp874},
- #line 350 "lib/aliases.gperf"
+ #line 352 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str243, ei_euc_kr},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str243, ei_euc_kr},
  #line 256 "lib/aliases.gperf"
@@ -1155,11 +1155,11 @@ index 6d3039c..fbeab50 100644
  #line 82 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str251, ei_iso8859_4},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str251, ei_iso8859_4},
- #line 343 "lib/aliases.gperf"
+ #line 345 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str252, ei_cp950},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str252, ei_cp950},
      {-1},
- #line 329 "lib/aliases.gperf"
+ #line 331 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str254, ei_iso2022_cn},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str254, ei_iso2022_cn},
  #line 295 "lib/aliases.gperf"
@@ -1182,7 +1182,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str261, ei_iso8859_3},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str261, ei_iso8859_3},
      {-1},
- #line 330 "lib/aliases.gperf"
+ #line 332 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str263, ei_iso2022_cn},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str263, ei_iso2022_cn},
  #line 131 "lib/aliases.gperf"
@@ -1217,7 +1217,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str278, ei_cp1253},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str278, ei_cp1253},
      {-1}, {-1},
- #line 331 "lib/aliases.gperf"
+ #line 333 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str281, ei_iso2022_cn_ext},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str281, ei_iso2022_cn_ext},
  #line 246 "lib/aliases.gperf"
@@ -1465,10 +1465,10 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str421, ei_ascii},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str421, ei_ascii},
      {-1}, {-1},
- #line 352 "lib/aliases.gperf"
+ #line 354 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str424, ei_euc_kr},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str424, ei_euc_kr},
- #line 357 "lib/aliases.gperf"
+ #line 359 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str425, ei_iso2022_kr},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str425, ei_iso2022_kr},
  #line 290 "lib/aliases.gperf"
@@ -1481,21 +1481,21 @@ index 6d3039c..fbeab50 100644
  #line 224 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str430, ei_mac_thai},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str430, ei_mac_thai},
- #line 335 "lib/aliases.gperf"
+ #line 337 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str431, ei_euc_tw},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str431, ei_euc_tw},
      {-1},
  #line 304 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str433, ei_euc_jp},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str433, ei_euc_jp},
- #line 358 "lib/aliases.gperf"
+ #line 360 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str434, ei_iso2022_kr},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str434, ei_iso2022_kr},
      {-1},
  #line 27 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str436, ei_ucs2be},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str436, ei_ucs2be},
- #line 334 "lib/aliases.gperf"
+ #line 336 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str437, ei_euc_tw},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str437, ei_euc_tw},
      {-1},
@@ -1510,8 +1510,8 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str442, ei_mac_iceland},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str442, ei_mac_iceland},
  #line 328 "lib/aliases.gperf"
--    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030},
-+    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030},
+-    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030_2005},
++    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030_2005},
  #line 73 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str444, ei_iso8859_3},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str444, ei_iso8859_3},
@@ -1565,7 +1565,7 @@ index 6d3039c..fbeab50 100644
  #line 19 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str469, ei_ascii},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str469, ei_ascii},
- #line 333 "lib/aliases.gperf"
+ #line 335 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str470, ei_hz},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str470, ei_hz},
      {-1}, {-1},
@@ -1591,7 +1591,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str483, ei_iso646_jp},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str483, ei_iso646_jp},
      {-1}, {-1}, {-1}, {-1}, {-1},
- #line 348 "lib/aliases.gperf"
+ #line 350 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str489, ei_big5hkscs2008},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str489, ei_big5hkscs2008},
  #line 292 "lib/aliases.gperf"
@@ -1605,10 +1605,10 @@ index 6d3039c..fbeab50 100644
  #line 175 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str494, ei_cp1251},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str494, ei_cp1251},
- #line 347 "lib/aliases.gperf"
+ #line 349 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str495, ei_big5hkscs2008},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str495, ei_big5hkscs2008},
- #line 360 "lib/aliases.gperf"
+ #line 362 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str496, ei_local_wchar_t},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str496, ei_local_wchar_t},
  #line 96 "lib/aliases.gperf"
@@ -1697,7 +1697,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str555, ei_cp862},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str555, ei_cp862},
      {-1},
- #line 340 "lib/aliases.gperf"
+ #line 342 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str557, ei_ces_big5},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str557, ei_ces_big5},
      {-1}, {-1},
@@ -1708,7 +1708,7 @@ index 6d3039c..fbeab50 100644
  #line 216 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str562, ei_mac_croatian},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str562, ei_mac_croatian},
- #line 339 "lib/aliases.gperf"
+ #line 341 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str563, ei_ces_big5},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str563, ei_ces_big5},
      {-1}, {-1},
@@ -1769,7 +1769,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str613, ei_jisx0212},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str613, ei_jisx0212},
      {-1}, {-1}, {-1}, {-1},
- #line 336 "lib/aliases.gperf"
+ #line 338 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str618, ei_euc_tw},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str618, ei_euc_tw},
      {-1}, {-1}, {-1}, {-1}, {-1},
@@ -1835,7 +1835,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str690, ei_utf32be},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str690, ei_utf32be},
      {-1},
- #line 345 "lib/aliases.gperf"
+ #line 347 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str692, ei_big5hkscs2001},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str692, ei_big5hkscs2001},
      {-1},
@@ -1847,7 +1847,7 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str697, ei_jisx0212},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str697, ei_jisx0212},
      {-1}, {-1},
- #line 346 "lib/aliases.gperf"
+ #line 348 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str700, ei_big5hkscs2004},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str700, ei_big5hkscs2004},
      {-1},
@@ -1855,11 +1855,11 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str702, ei_mac_turkish},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str702, ei_mac_turkish},
      {-1}, {-1}, {-1}, {-1}, {-1},
- #line 349 "lib/aliases.gperf"
+ #line 351 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str708, ei_big5hkscs2008},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str708, ei_big5hkscs2008},
      {-1},
- #line 344 "lib/aliases.gperf"
+ #line 346 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str710, ei_big5hkscs1999},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str710, ei_big5hkscs1999},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
@@ -1871,8 +1871,11 @@ index 6d3039c..fbeab50 100644
  #line 50 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str732, ei_ucs4swapped},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str732, ei_ucs4swapped},
-     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
+ #line 330 "lib/aliases.gperf"
+-    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str740, ei_gb18030_2022},
++    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str740, ei_gb18030_2022},
+     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
  #line 219 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str749, ei_mac_ukraine},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str749, ei_mac_ukraine},
@@ -1893,7 +1896,10 @@ index 6d3039c..fbeab50 100644
  #line 272 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str779, ei_jisx0208},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str779, ei_jisx0208},
-     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
+     {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
+ #line 329 "lib/aliases.gperf"
+-    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str788, ei_gb18030_2005},
++    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str788, ei_gb18030_2005},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
  #line 222 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str796, ei_mac_hebrew},
@@ -1927,29 +1933,28 @@ index 6d3039c..fbeab50 100644
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str866, ei_euc_jp},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str866, ei_euc_jp},
      {-1}, {-1},
- #line 355 "lib/aliases.gperf"
+ #line 357 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str869, ei_johab},
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str869, ei_johab},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
-@@ -1751,7 +1759,7 @@ static const struct alias aliases[] =
+@@ -1763,7 +1771,7 @@ static const struct alias aliases[] =
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
      {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
  #line 270 "lib/aliases.gperf"
 -    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str921, ei_jisx0201}
 +    {(int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str921, ei_jisx0201}
    };
- 
- static const struct alias *
-
+ #if (defined __GNUC__ && __GNUC__ + (__GNUC_MINOR__ >= 6) > 4) || (defined __clang__ && __clang_major__ >= 3)
+ #pragma GCC diagnostic pop
 diff --git a/source/lib/aliases.h.orig b/source/lib/aliases.h.orig
 new file mode 100644
-index 0000000..ee7adf6
+index 0000000..f3e2912
 --- /dev/null
 +++ b/source/lib/aliases.h.orig
-@@ -0,0 +1,1732 @@
-+/* ANSI-C code produced by gperf version 3.1 */
+@@ -0,0 +1,1792 @@
++/* ANSI-C code produced by gperf version 3.3 */
 +/* Command-line: gperf -m 10 lib/aliases.gperf  */
 +/* Computed positions: -k'1,3-11,$' */
 +
@@ -1983,7 +1988,7 @@ index 0000000..ee7adf6
 +#line 1 "lib/aliases.gperf"
 +struct alias { int name; unsigned int encoding_index; };
 +
-+#define TOTAL_KEYWORDS 349
++#define TOTAL_KEYWORDS 351
 +#define MIN_WORD_LENGTH 2
 +#define MAX_WORD_LENGTH 45
 +#define MIN_HASH_VALUE 15
@@ -2022,30 +2027,75 @@ index 0000000..ee7adf6
 +    {
 +      default:
 +        hval += asso_values[(unsigned char)str[10]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 10:
 +        hval += asso_values[(unsigned char)str[9]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 9:
 +        hval += asso_values[(unsigned char)str[8]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 8:
 +        hval += asso_values[(unsigned char)str[7]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 7:
 +        hval += asso_values[(unsigned char)str[6]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 6:
 +        hval += asso_values[(unsigned char)str[5]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 5:
 +        hval += asso_values[(unsigned char)str[4]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 4:
 +        hval += asso_values[(unsigned char)str[3]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 3:
 +        hval += asso_values[(unsigned char)str[2]];
++#if (defined __cplusplus && (__cplusplus >= 201703L || (__cplusplus >= 201103L && defined __clang__ && __clang_major__ + (__clang_minor__ >= 9) > 3))) || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 202000L && ((defined __GNUC__ && __GNUC__ >= 10) || (defined __clang__ && __clang_major__ >= 9)))
++      [[fallthrough]];
++#elif (defined __GNUC__ && __GNUC__ >= 7) || (defined __clang__ && __clang_major__ >= 10)
++      __attribute__ ((__fallthrough__));
++#endif
 +      /*FALLTHROUGH*/
 +      case 2:
 +      case 1:
@@ -2392,11 +2442,13 @@ index 0000000..ee7adf6
 +    char stringpool_str710[sizeof("BIG5-HKSCS:1999")];
 +    char stringpool_str725[sizeof("MS-TURK")];
 +    char stringpool_str732[sizeof("UCS-4-SWAPPED")];
++    char stringpool_str740[sizeof("GB18030:2022")];
 +    char stringpool_str749[sizeof("MACUKRAINE")];
 +    char stringpool_str750[sizeof("UCS-2-SWAPPED")];
 +    char stringpool_str752[sizeof("TCVN5712-1:1993")];
 +    char stringpool_str774[sizeof("JIS_X0208-1990")];
 +    char stringpool_str779[sizeof("JIS_X0208-1983")];
++    char stringpool_str788[sizeof("GB18030:2005")];
 +    char stringpool_str796[sizeof("MACHEBREW")];
 +    char stringpool_str803[sizeof("MS-ARAB")];
 +    char stringpool_str811[sizeof("JAVA")];
@@ -2744,11 +2796,13 @@ index 0000000..ee7adf6
 +    "BIG5-HKSCS:1999",
 +    "MS-TURK",
 +    "UCS-4-SWAPPED",
++    "GB18030:2022",
 +    "MACUKRAINE",
 +    "UCS-2-SWAPPED",
 +    "TCVN5712-1:1993",
 +    "JIS_X0208-1990",
 +    "JIS_X0208-1983",
++    "GB18030:2005",
 +    "MACHEBREW",
 +    "MS-ARAB",
 +    "JAVA",
@@ -2761,6 +2815,10 @@ index 0000000..ee7adf6
 +  };
 +#define stringpool ((const char *) &stringpool_contents)
 +
++#if (defined __GNUC__ && __GNUC__ + (__GNUC_MINOR__ >= 6) > 4) || (defined __clang__ && __clang_major__ >= 3)
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
++#endif
 +static const struct alias aliases[] =
 +  {
 +    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
@@ -2822,7 +2880,7 @@ index 0000000..ee7adf6
 +#line 286 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str76, ei_iso646_cn},
 +    {-1},
-+#line 332 "lib/aliases.gperf"
++#line 334 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str78, ei_hz},
 +#line 264 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str79, ei_iso646_jp},
@@ -2855,7 +2913,7 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str104, ei_cp1254},
 +#line 291 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str105, ei_gb2312},
-+#line 353 "lib/aliases.gperf"
++#line 355 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str106, ei_cp949},
 +    {-1},
 +#line 186 "lib/aliases.gperf"
@@ -2922,7 +2980,7 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str143, ei_iso8859_11},
 +#line 86 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str144, ei_iso8859_4},
-+#line 356 "lib/aliases.gperf"
++#line 358 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str145, ei_johab},
 +#line 162 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str146, ei_iso8859_16},
@@ -3000,7 +3058,7 @@ index 0000000..ee7adf6
 +#line 282 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str190, ei_jisx0212},
 +    {-1}, {-1},
-+#line 359 "lib/aliases.gperf"
++#line 361 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str193, ei_local_char},
 +    {-1}, {-1},
 +#line 235 "lib/aliases.gperf"
@@ -3009,7 +3067,7 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str197, ei_iso8859_3},
 +#line 117 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str198, ei_iso8859_8},
-+#line 354 "lib/aliases.gperf"
++#line 356 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str199, ei_cp949},
 +    {-1}, {-1},
 +#line 13 "lib/aliases.gperf"
@@ -3024,14 +3082,14 @@ index 0000000..ee7adf6
 +    {-1}, {-1},
 +#line 311 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str209, ei_cp932},
-+#line 337 "lib/aliases.gperf"
++#line 339 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str210, ei_ces_big5},
 +#line 258 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str211, ei_tcvn},
 +#line 318 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str212, ei_iso2022_jpms},
 +    {-1}, {-1}, {-1},
-+#line 338 "lib/aliases.gperf"
++#line 340 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str216, ei_ces_big5},
 +#line 173 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str217, ei_cp1250},
@@ -3052,14 +3110,14 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str227, ei_euc_cn},
 +#line 269 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str228, ei_jisx0201},
-+#line 342 "lib/aliases.gperf"
++#line 344 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str229, ei_ces_big5},
 +    {-1}, {-1}, {-1}, {-1}, {-1},
-+#line 341 "lib/aliases.gperf"
++#line 343 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str235, ei_ces_big5},
 +#line 167 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str236, ei_koi8_r},
-+#line 351 "lib/aliases.gperf"
++#line 353 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str237, ei_euc_kr},
 +#line 202 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str238, ei_cp862},
@@ -3071,7 +3129,7 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str241, ei_ascii},
 +#line 253 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str242, ei_cp874},
-+#line 350 "lib/aliases.gperf"
++#line 352 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str243, ei_euc_kr},
 +#line 256 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str244, ei_viscii},
@@ -3087,10 +3145,10 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str250, ei_cp850},
 +#line 82 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str251, ei_iso8859_4},
-+#line 343 "lib/aliases.gperf"
++#line 345 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str252, ei_cp950},
 +    {-1},
-+#line 329 "lib/aliases.gperf"
++#line 331 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str254, ei_iso2022_cn},
 +#line 295 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str255, ei_isoir165},
@@ -3106,7 +3164,7 @@ index 0000000..ee7adf6
 +#line 75 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str261, ei_iso8859_3},
 +    {-1},
-+#line 330 "lib/aliases.gperf"
++#line 332 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str263, ei_iso2022_cn},
 +#line 131 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str264, ei_iso8859_10},
@@ -3131,7 +3189,7 @@ index 0000000..ee7adf6
 +#line 180 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str278, ei_cp1253},
 +    {-1}, {-1},
-+#line 331 "lib/aliases.gperf"
++#line 333 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str281, ei_iso2022_cn_ext},
 +#line 246 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str282, ei_tis620},
@@ -3310,9 +3368,9 @@ index 0000000..ee7adf6
 +#line 18 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str421, ei_ascii},
 +    {-1}, {-1},
-+#line 352 "lib/aliases.gperf"
++#line 354 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str424, ei_euc_kr},
-+#line 357 "lib/aliases.gperf"
++#line 359 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str425, ei_iso2022_kr},
 +#line 290 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str426, ei_gb2312},
@@ -3321,17 +3379,17 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str429, ei_iso8859_6},
 +#line 224 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str430, ei_mac_thai},
-+#line 335 "lib/aliases.gperf"
++#line 337 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str431, ei_euc_tw},
 +    {-1},
 +#line 304 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str433, ei_euc_jp},
-+#line 358 "lib/aliases.gperf"
++#line 360 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str434, ei_iso2022_kr},
 +    {-1},
 +#line 27 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str436, ei_ucs2be},
-+#line 334 "lib/aliases.gperf"
++#line 336 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str437, ei_euc_tw},
 +    {-1},
 +#line 17 "lib/aliases.gperf"
@@ -3342,7 +3400,7 @@ index 0000000..ee7adf6
 +#line 215 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str442, ei_mac_iceland},
 +#line 328 "lib/aliases.gperf"
-+    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030},
++    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str443, ei_gb18030_2005},
 +#line 73 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str444, ei_iso8859_3},
 +#line 101 "lib/aliases.gperf"
@@ -3380,7 +3438,7 @@ index 0000000..ee7adf6
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str468, ei_utf7},
 +#line 19 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str469, ei_ascii},
-+#line 333 "lib/aliases.gperf"
++#line 335 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str470, ei_hz},
 +    {-1}, {-1},
 +#line 303 "lib/aliases.gperf"
@@ -3399,7 +3457,7 @@ index 0000000..ee7adf6
 +#line 263 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str483, ei_iso646_jp},
 +    {-1}, {-1}, {-1}, {-1}, {-1},
-+#line 348 "lib/aliases.gperf"
++#line 350 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str489, ei_big5hkscs2008},
 +#line 292 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str490, ei_gb2312},
@@ -3409,9 +3467,9 @@ index 0000000..ee7adf6
 +    {-1},
 +#line 175 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str494, ei_cp1251},
-+#line 347 "lib/aliases.gperf"
++#line 349 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str495, ei_big5hkscs2008},
-+#line 360 "lib/aliases.gperf"
++#line 362 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str496, ei_local_wchar_t},
 +#line 96 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str497, ei_iso8859_6},
@@ -3476,7 +3534,7 @@ index 0000000..ee7adf6
 +#line 204 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str555, ei_cp862},
 +    {-1},
-+#line 340 "lib/aliases.gperf"
++#line 342 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str557, ei_ces_big5},
 +    {-1}, {-1},
 +#line 300 "lib/aliases.gperf"
@@ -3484,7 +3542,7 @@ index 0000000..ee7adf6
 +    {-1},
 +#line 216 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str562, ei_mac_croatian},
-+#line 339 "lib/aliases.gperf"
++#line 341 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str563, ei_ces_big5},
 +    {-1}, {-1},
 +#line 327 "lib/aliases.gperf"
@@ -3529,7 +3587,7 @@ index 0000000..ee7adf6
 +#line 279 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str613, ei_jisx0212},
 +    {-1}, {-1}, {-1}, {-1},
-+#line 336 "lib/aliases.gperf"
++#line 338 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str618, ei_euc_tw},
 +    {-1}, {-1}, {-1}, {-1}, {-1},
 +#line 310 "lib/aliases.gperf"
@@ -3577,7 +3635,7 @@ index 0000000..ee7adf6
 +#line 42 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str690, ei_utf32be},
 +    {-1},
-+#line 345 "lib/aliases.gperf"
++#line 347 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str692, ei_big5hkscs2001},
 +    {-1},
 +#line 281 "lib/aliases.gperf"
@@ -3586,16 +3644,16 @@ index 0000000..ee7adf6
 +#line 280 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str697, ei_jisx0212},
 +    {-1}, {-1},
-+#line 346 "lib/aliases.gperf"
++#line 348 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str700, ei_big5hkscs2004},
 +    {-1},
 +#line 221 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str702, ei_mac_turkish},
 +    {-1}, {-1}, {-1}, {-1}, {-1},
-+#line 349 "lib/aliases.gperf"
++#line 351 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str708, ei_big5hkscs2008},
 +    {-1},
-+#line 344 "lib/aliases.gperf"
++#line 346 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str710, ei_big5hkscs1999},
 +    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 +    {-1}, {-1}, {-1}, {-1}, {-1},
@@ -3604,8 +3662,10 @@ index 0000000..ee7adf6
 +    {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 +#line 50 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str732, ei_ucs4swapped},
-+    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 +    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
++#line 330 "lib/aliases.gperf"
++    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str740, ei_gb18030_2022},
++    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 +#line 219 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str749, ei_mac_ukraine},
 +#line 48 "lib/aliases.gperf"
@@ -3621,7 +3681,9 @@ index 0000000..ee7adf6
 +    {-1}, {-1}, {-1}, {-1},
 +#line 272 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str779, ei_jisx0208},
-+    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
++    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
++#line 329 "lib/aliases.gperf"
++    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str788, ei_gb18030_2005},
 +    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 +#line 222 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str796, ei_mac_hebrew},
@@ -3648,7 +3710,7 @@ index 0000000..ee7adf6
 +#line 305 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str866, ei_euc_jp},
 +    {-1}, {-1},
-+#line 355 "lib/aliases.gperf"
++#line 357 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str869, ei_johab},
 +    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
 +    {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1},
@@ -3659,8 +3721,11 @@ index 0000000..ee7adf6
 +#line 270 "lib/aliases.gperf"
 +    {(int)(size_t)&((struct stringpool_t *)0)->stringpool_str921, ei_jisx0201}
 +  };
++#if (defined __GNUC__ && __GNUC__ + (__GNUC_MINOR__ >= 6) > 4) || (defined __clang__ && __clang_major__ >= 3)
++#pragma GCC diagnostic pop
++#endif
 +
-+const struct alias *
++static const struct alias *
 +aliases_lookup (register const char *str, register size_t len)
 +{
 +  if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
@@ -3679,13 +3744,13 @@ index 0000000..ee7adf6
 +            }
 +        }
 +    }
-+  return 0;
++  return (struct alias *) 0;
 +}
 diff --git a/source/lib/canonical.h b/source/lib/canonical.h
-index fe7b18e..c621936 100644
+index 012634d..64e03f6 100644
 --- a/source/lib/canonical.h
 +++ b/source/lib/canonical.h
-@@ -1,111 +1,111 @@
+@@ -1,112 +1,112 @@
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str392,
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str389,
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str258,
@@ -3783,6 +3848,7 @@ index fe7b18e..c621936 100644
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str388,
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str153,
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str443,
+-  (int)(long)&((struct stringpool_t *)0)->stringpool_str740,
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str254,
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str281,
 -  (int)(long)&((struct stringpool_t *)0)->stringpool_str78,
@@ -3894,6 +3960,7 @@ index fe7b18e..c621936 100644
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str388,
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str153,
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str443,
++  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str740,
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str254,
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str281,
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str78,
@@ -3953,7 +4020,7 @@ index 7018202..f0dec91 100644
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str193,
 +  (int)(INT_PTR)&((struct stringpool_t *)0)->stringpool_str496,
 diff --git a/source/lib/iconv.c b/source/lib/iconv.c
-index b7a04f8..b920820 100644
+index ec704cf..988d5d1 100644
 --- a/source/lib/iconv.c
 +++ b/source/lib/iconv.c
 @@ -18,6 +18,9 @@
@@ -3966,7 +4033,7 @@ index b7a04f8..b920820 100644
  
  #include <limits.h>
  #include <stdlib.h>
-@@ -172,7 +175,7 @@ static const struct stringpool2_t stringpool2_contents = {
+@@ -190,7 +193,7 @@ static const struct stringpool2_t stringpool2_contents = {
  };
  #define stringpool2 ((const char *) &stringpool2_contents)
  static const struct alias sysdep_aliases[] = {
@@ -3977,37 +4044,29 @@ index b7a04f8..b920820 100644
  };
 diff --git a/source/lib/localcharset.h b/source/lib/localcharset.h
 new file mode 100644
-index 0000000..06e7bc0
+index 0000000..59f748d
 --- /dev/null
 +++ b/source/lib/localcharset.h
-@@ -0,0 +1,48 @@
+@@ -0,0 +1,135 @@
 +/* Determine a canonical name for the current locale's character encoding.
-+   Copyright (C) 2000-2003 Free Software Foundation, Inc.
++   Copyright (C) 2000-2003, 2009-2026 Free Software Foundation, Inc.
 +   This file is part of the GNU CHARSET Library.
 +
-+   This program is free software; you can redistribute it and/or modify it
-+   under the terms of the GNU Library General Public License as published
-+   by the Free Software Foundation; either version 2, or (at your option)
-+   any later version.
++   This file is free software: you can redistribute it and/or modify
++   it under the terms of the GNU Lesser General Public License as
++   published by the Free Software Foundation; either version 2.1 of the
++   License, or (at your option) any later version.
 +
-+   This program is distributed in the hope that it will be useful,
++   This file is distributed in the hope that it will be useful,
 +   but WITHOUT ANY WARRANTY; without even the implied warranty of
-+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+   Library General Public License for more details.
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++   GNU Lesser General Public License for more details.
 +
-+   You should have received a copy of the GNU Library General Public
-+   License along with this program; if not, write to the Free Software
-+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
-+   USA.  */
++   You should have received a copy of the GNU Lesser General Public License
++   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 +
 +#ifndef _LOCALCHARSET_H
 +#define _LOCALCHARSET_H
-+
-+#if 0 && BUILDING_LIBCHARSET
-+#define LIBCHARSET_DLL_EXPORTED __attribute__((__visibility__("default")))
-+#else
-+#define LIBCHARSET_DLL_EXPORTED
-+#endif
 +
 +
 +#ifdef __cplusplus
@@ -4016,11 +4075,106 @@ index 0000000..06e7bc0
 +
 +
 +/* Determine the current locale's character encoding, and canonicalize it
-+   into one of the canonical names listed in config.charset.
-+   The result must not be freed; it is statically allocated.
++   into one of the canonical names listed below.
++   The result must not be freed; it is statically allocated.  The result
++   becomes invalid when setlocale() is used to change the global locale, or
++   when the value of one of the environment variables LC_ALL, LC_CTYPE, LANG
++   is changed; threads in multithreaded programs should not do this.
 +   If the canonical name cannot be determined, the result is a non-canonical
 +   name.  */
-+extern LIBCHARSET_DLL_EXPORTED const char * locale_charset (void);
++extern const char * locale_charset (void);
++
++/* About GNU canonical names for character encodings:
++
++   Every canonical name must be supported by GNU libiconv.  Support by GNU libc
++   is also desirable.
++
++   The name is case insensitive.  Usually an upper case MIME charset name is
++   preferred.
++
++   The current list of these GNU canonical names is:
++
++       name              MIME?             used by which systems
++                                    (darwin = Mac OS X, windows = native Windows)
++
++   ASCII, ANSI_X3.4-1968       glibc solaris freebsd netbsd darwin minix cygwin
++   ISO-8859-1              Y   glibc aix hpux solaris freebsd netbsd openbsd darwin cygwin zos
++   ISO-8859-2              Y   glibc aix hpux solaris freebsd netbsd openbsd darwin cygwin zos
++   ISO-8859-3              Y   glibc solaris cygwin
++   ISO-8859-4              Y   hpux solaris freebsd netbsd openbsd darwin
++   ISO-8859-5              Y   glibc aix hpux solaris freebsd netbsd openbsd darwin cygwin zos
++   ISO-8859-6              Y   glibc aix hpux solaris cygwin
++   ISO-8859-7              Y   glibc aix hpux solaris freebsd netbsd openbsd darwin cygwin zos
++   ISO-8859-8              Y   glibc aix hpux solaris cygwin zos
++   ISO-8859-9              Y   glibc aix hpux solaris freebsd darwin cygwin zos
++   ISO-8859-13                 glibc hpux solaris freebsd netbsd openbsd darwin cygwin
++   ISO-8859-14                 glibc cygwin
++   ISO-8859-15                 glibc aix solaris freebsd netbsd openbsd darwin cygwin
++   KOI8-R                  Y   glibc hpux solaris freebsd netbsd openbsd darwin
++   KOI8-U                  Y   glibc freebsd netbsd openbsd darwin cygwin
++   KOI8-T                      glibc
++   CP437                       dos
++   CP775                       dos
++   CP850                       aix dos
++   CP852                       dos
++   CP855                       dos
++   CP856                       aix
++   CP857                       dos
++   CP861                       dos
++   CP862                       dos
++   CP864                       dos
++   CP865                       dos
++   CP866                       freebsd netbsd openbsd darwin dos
++   CP869                       dos
++   CP874                       windows dos
++   CP922                       aix
++   CP932                       aix cygwin windows dos
++   CP943                       aix zos
++   CP949                       darwin windows dos
++   CP950                       windows dos
++   CP1046                      aix
++   CP1124                      aix
++   CP1125                      dos
++   CP1129                      aix
++   CP1131                      freebsd darwin
++   CP1250                      windows
++   CP1251                      glibc hpux solaris freebsd netbsd openbsd darwin cygwin windows
++   CP1252                      aix windows
++   CP1253                      windows
++   CP1254                      windows
++   CP1255                      glibc windows
++   CP1256                      windows
++   CP1257                      windows
++   GB2312                  Y   glibc aix hpux solaris freebsd netbsd darwin cygwin zos
++   EUC-JP                  Y   glibc aix hpux solaris freebsd netbsd darwin cygwin
++   EUC-KR                  Y   glibc aix hpux solaris freebsd netbsd darwin cygwin zos
++   EUC-TW                      glibc aix hpux solaris netbsd
++   BIG5                    Y   glibc aix hpux solaris freebsd netbsd darwin cygwin zos
++   BIG5-HKSCS                  glibc hpux solaris netbsd darwin
++   GBK                         glibc aix solaris freebsd darwin cygwin windows dos
++   GB18030                     glibc hpux solaris freebsd netbsd darwin
++   SHIFT_JIS               Y   hpux solaris freebsd netbsd darwin
++   JOHAB                       solaris windows
++   TIS-620                     glibc aix hpux solaris cygwin zos
++   ARMSCII-8                   glibc freebsd netbsd darwin
++   GEORGIAN-PS                 glibc cygwin
++   PT154                       glibc netbsd cygwin
++   HP-ROMAN8                   hpux
++   HP-ARABIC8                  hpux
++   HP-GREEK8                   hpux
++   HP-HEBREW8                  hpux
++   HP-TURKISH8                 hpux
++   HP-KANA8                    hpux
++   DEC-KANJI                   vms
++   DEC-HANYU                   vms
++   UTF-8                   Y   glibc aix hpux solaris netbsd darwin cygwin zos
++
++   Note: Names which are not marked as being a MIME name should not be used in
++   Internet protocols for information interchange (mail, news, etc.).
++
++   Note: ASCII and ANSI_X3.4-1968 are synonymous canonical names.  Applications
++   must understand both names and treat them as equivalent.
++ */
 +
 +
 +#ifdef __cplusplus
@@ -4029,40 +4183,3 @@ index 0000000..06e7bc0
 +
 +
 +#endif /* _LOCALCHARSET_H */
-diff --git a/source/lib/loop_wchar.h b/source/lib/loop_wchar.h
-index cc19d83..d5c8f01 100644
---- a/source/lib/loop_wchar.h
-+++ b/source/lib/loop_wchar.h
-@@ -35,8 +35,10 @@
- # include <time.h>
- # include <wchar.h>
- # define BUF_SIZE 64  /* assume MB_LEN_MAX <= 64 */
-+#ifndef _WIN32
-   /* Some systems, like BeOS, have multibyte encodings but lack mbstate_t.  */
-   extern size_t mbrtowc ();
-+#endif
- # ifdef mbstate_t
- #  define mbrtowc(pwc, s, n, ps) (mbrtowc)(pwc, s, n, 0)
- #  define mbsinit(ps) 1
-diff --git a/source/lib/relocatable.c b/source/lib/relocatable.c
-index 89b6c27..60612c8 100644
---- a/source/lib/relocatable.c
-+++ b/source/lib/relocatable.c
-@@ -329,7 +329,7 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
-       /* The DLL is being loaded into an application's address range.  */
-       static char location[MAX_PATH];
- 
--      if (!GetModuleFileName (module_handle, location, sizeof (location)))
-+      if (!GetModuleFileNameA (module_handle, location, sizeof (location)))
-         /* Shouldn't happen.  */
-         return FALSE;
- 
-@@ -337,7 +337,7 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
-         /* Shouldn't happen.  */
-         return FALSE;
- 
--      shared_library_fullname = strdup (location);
-+      shared_library_fullname = _strdup (location);
-     }
- 
-   return TRUE;

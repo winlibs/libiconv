@@ -1,6 +1,6 @@
 /* Read symbolic links into a buffer without size limitation, relative to fd.
 
-   Copyright (C) 2001, 2003-2004, 2007, 2009-2022 Free Software Foundation,
+   Copyright (C) 2001, 2003-2004, 2007, 2009-2026 Free Software Foundation,
    Inc.
 
    This file is free software: you can redistribute it and/or modify
@@ -35,10 +35,6 @@
 # define SIZE_MAX ((size_t) -1)
 #endif
 
-#ifndef SSIZE_MAX
-# define SSIZE_MAX ((ssize_t) (SIZE_MAX / 2))
-#endif
-
 #include "allocator.h"
 
 enum { STACK_BUF_SIZE = 1024 };
@@ -49,13 +45,15 @@ enum { STACK_BUF_SIZE = 1024 };
    If GCC_LINT is defined, do not inline this function with GCC 10.1
    and later, to avoid creating a pointer to the stack that GCC
    -Wreturn-local-addr incorrectly complains about.  See:
-   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93644
+   https://gcc.gnu.org/PR93644
    Although the noinline attribute can hurt performance a bit, no better way
    to pacify GCC is known; even an explicit #pragma does not pacify GCC.
    When the GCC bug is fixed this workaround should be limited to the
    broken GCC versions.  */
 #if _GL_GNUC_PREREQ (10, 1)
-# if defined GCC_LINT || defined lint
+# if _GL_GNUC_PREREQ (12, 1)
+#  pragma GCC diagnostic ignored "-Wreturn-local-addr"
+# elif defined GCC_LINT || defined lint
 __attribute__ ((__noinline__))
 # elif __OPTIMIZE__ && !__NO_INLINE__
 #  define GCC_BOGUS_WRETURN_LOCAL_ADDR
@@ -176,7 +174,7 @@ careadlinkat (int fd, char const *filename,
      shrinking realloc.  */
   #ifdef GCC_BOGUS_WRETURN_LOCAL_ADDR
    #warning "GCC might issue a bogus -Wreturn-local-addr warning here."
-   #warning "See <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93644>."
+   #warning "See <https://gcc.gnu.org/PR93644>."
   #endif
   char stack_buf[STACK_BUF_SIZE];
   return readlink_stk (fd, filename, buffer, buffer_size, alloc,

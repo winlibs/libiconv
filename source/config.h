@@ -275,16 +275,16 @@
 #define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME ""
+#define PACKAGE_NAME "libiconv"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING ""
+#define PACKAGE_STRING "libiconv 1.19"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME ""
+#define PACKAGE_TARNAME "libiconv"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION ""
+#define PACKAGE_VERSION "1.19"
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'ptrdiff_t'. */
@@ -321,7 +321,7 @@
 #define USE_UNLOCKED_IO 0
 
 /* Version number of package */
-#define VERSION "1.12"
+#define VERSION "1.19"
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wchar_t'. */
