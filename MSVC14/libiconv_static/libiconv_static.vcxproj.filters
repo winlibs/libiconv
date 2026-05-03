@@ -21,7 +21,7 @@
     <ClCompile Include="..\..\source\libcharset\lib\localcharset.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\lib\relocatable.c">
+    <ClCompile Include="..\..\source\lib\compat.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

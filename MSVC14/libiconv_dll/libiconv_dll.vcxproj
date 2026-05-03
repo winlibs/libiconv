@@ -204,7 +204,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\source\lib\iconv.c" />
     <ClCompile Include="..\..\source\libcharset\lib\localcharset.c" />
-    <ClCompile Include="..\..\source\lib\relocatable.c" />
+    <ClCompile Include="..\..\source\lib\compat.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\config.h" />
