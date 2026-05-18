@@ -83,8 +83,9 @@ int main (int argc, char *argv[])
   if (argc > 3) {
     filename = argv[3];
   } else {
-    char* s = (char*) malloc(strlen(c_charsetname)+strlen(".h")+1);
-    strcpy(s,c_charsetname); strcat(s,".h");
+    size_t s_len = strlen(c_charsetname)+strlen(".h")+1;
+    char* s = (char*) malloc(s_len);
+    snprintf(s, s_len, "%s.h", c_charsetname);
     filename = s;
   }
   directory = (argc > 4 ? argv[4] : "");
@@ -110,25 +111,25 @@ int main (int argc, char *argv[])
           continue;
         }
         ungetc(c,stdin);
-        if (scanf("0x%x", &i) != 1 || !(i >= 0 && i < 0x100))
+        if (fscanf(stdin, "0x%x", &i) != 1 || !(i >= 0 && i < 0x100))
           exit(1);
         do { c = getc(stdin); } while (c == ' ' || c == '\t');
         if (c != EOF)
           ungetc(c,stdin);
         if (c == '\n' || c == '#')
           continue;
-        if (scanf("0x%x", &charset2uni[i]) != 1)
+        if (fscanf(stdin, "0x%x", &charset2uni[i]) != 1)
           exit(1);
       }
     } else {
       /* Read a table of hexadecimal Unicode values. */
       for (i = 0; i < 0x100; i++) {
-        if (scanf("%x", &charset2uni[i]) != 1)
+        if (fscanf(stdin, "%x", &charset2uni[i]) != 1)
           exit(1);
         if (charset2uni[i] < 0 || charset2uni[i] == 0xffff)
           charset2uni[i] = 0xfffd;
       }
-      if (scanf("%x", &i) != EOF)
+      if (fscanf(stdin, "%x", &i) != EOF)
         exit(1);
     }
   }
@@ -138,8 +139,9 @@ int main (int argc, char *argv[])
     FILE* f;
 
     {
-      char* fname = malloc(strlen(directory)+strlen(filename)+1);
-      strcpy(fname,directory); strcat(fname,filename);
+      size_t fname_len = strlen(directory)+strlen(filename)+1;
+      char* fname = malloc(fname_len);
+      snprintf(fname, fname_len, "%s%s", directory, filename);
       f = fopen(fname,"w");
       if (f == NULL)
         exit(1);
@@ -398,11 +400,11 @@ int main (int argc, char *argv[])
           char* s;
           if (p == tables[t].minline >> 5) {
             s = (char*) malloc(5+1);
-            sprintf(s, "%02x_%d", p, ++i);
+            snprintf(s, 5+1, "%02x_%d", p, ++i);
           } else {
             p = tables[t].minline >> 5;
             s = (char*) malloc(2+1);
-            sprintf(s, "%02x", p);
+            snprintf(s, 2+1, "%02x", p);
           }
           tables[t].suffix = s;
         } else
